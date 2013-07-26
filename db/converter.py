@@ -46,16 +46,16 @@ class Item:
 				elif value[:4] in ['girl', 'gerl']: gender = u'Female'
 
 				elif value in ['j', 'g']: type = u'Джинсы'
-				elif value[:4] == 'batn': type = u'Батник'
-				elif value[:4] in ['blyz', 'bluz']: type = u'Батник'
+				elif value[:4] == 'batn' or value == 'batik': type = u'Батник'
+				elif value[:4] in ['blyz', 'bluz', 'blaz']: type = u'Блуза'
 				elif value[:4] in ['bruk', 'bryk']: type = u'Брюки'
 				elif value[:5] == 'bryuk': type = u'Брюки'
 				elif value == 'gilet': type = u'Жилет'
 				elif value == 'jaket': type = u'Жакет'
 				elif value == 'kapri': type = u'Капри'
 				elif value in ['kardigan', 'kerdigan']: type = u'Кардиган'
-				elif value == 'kostym': type = u'Костюм'
-				elif value in ['kurtka', 'kyrtka']: type = u'Куртка'
+				elif value in ['kostym', 'kostjm']: type = u'Костюм'
+				elif value in ['kurtka', 'kyrtka', 'kertka', 'rurtka']: type = u'Куртка'
 				elif value == 'legensy': type = u'Легенсы'
 				elif value == 'losiny': type = u'Лосины'
 				elif value[:4] == 'maik': type = u'Майка'
@@ -72,15 +72,16 @@ class Item:
 				elif value[:5] == 'shtan': type = u'Штаны'
 				elif value[:5] == 'triko': type = u'Трико'
 				elif value[:5] == 'sumka': type = u'Сумка'
+				elif value[:3] == 'rub': type = u'Рубашка'
 				elif value[:6] == 'futbol': type = u'Футболка'
-				elif value[:4] in ['pidg', 'pidj']: type = u'Пиджак'
+				elif value[:4] in ['pidg', 'pidj', 'pidz']: type = u'Пиджак'
 				elif value[:5] in ['tunik', 'tynik']: type = u'Туника'
 				elif value == 'plash': type = u'Плащ'
 				elif value == 'polo': type = u'Поло'
 				elif value == 'poluver': type = u'Полувер'
 				elif value == 'sarafan': type = u'Сарафан'
 				elif value == 'sharf': type = u'Шарф'
-				elif value == 'tolstovka': type = u'Толстовка'
+				elif value[:8] == 'tolstovk': type = u'Толстовка'
 				elif value == 'topik': type = u'Топик'
 
 
@@ -91,7 +92,8 @@ class Item:
 		return (type, gender, comment)
 
 class Converter:
-	def __init__(self, pathToDb):
+	def __init__(self, oldDirectory, pathToDb):
+		self.oldDir = oldDirectory
 		self.db = Database(pathToDb)
 
 	def _loadItemsFromFile(self, filePath):
@@ -112,17 +114,20 @@ class Converter:
 		query = "INSERT INTO Type (Name) VALUES (?)"
 		self.db.cursor.executemany(query, list(types))
 
+	def _getTypeIdByName(self, name):
+		query = "SELECT Id FROM Type WHERE Name = ?"
+		self.db.cursor.execute(query, [name])
+		typeID = self.db.cursor.fetchall()[0][0]
+		return typeID
+
 	def _insertItems(self, items):
 		db = self.db
 
 		for item in items:
 			#Получаем typeID по его имени
 			typeID = None
-			if item.type:
-				query = "SELECT Id FROM Type WHERE Name = ?"
-				db.cursor.execute(query, [item.type])
-				typeID = db.cursor.fetchall()[0][0]
-			print typeID
+			if item.type: typeID = self._getTypeIdByName(item.type)
+			#print typeID
 
 			#Вставляем item в Consignment
 			query = """
@@ -132,29 +137,70 @@ class Converter:
 			db.cursor.execute(query, [item.name, item.model, typeID, item.gender, item.comment, item.cost])
 
 			#Получаем ID вставленной записи
-			query = "SELECT last_insert_rowid()"
-			db.cursor.execute(query)
-			ConsignmentID = db.cursor.fetchall()[0][0]
-			print ConsignmentID
+			ConsignmentID = db.cursor.lastrowid
+			#print ConsignmentID
 
 			for size in item.sizes:
 				#Вставляем размеры в Products
 				query = "INSERT INTO Product (ConsignmentID, Size, IsSold, DeliveryDate) VALUES (?, ?, ?, ?)"
 				db.cursor.execute(query, [ConsignmentID, size, False, item.date])
 
-	def convertBaseDB(self, pathToTxtFile):
-		items = self._loadItemsFromFile(pathToTxtFile)
+	def convertBaseDB(self):
+		items = self._loadItemsFromFile(os.path.join(self.oldDir, "base.dat"))
 		self._insertTypesToDB(items)
 		self._insertItems(items)
 		self.db.connection.commit()
 
+	def _insertSoldItems(self, items, saleDate):
+		db = self.db
+
+		for item in items:
+			#Ищем ConsignmentID по имени и модели
+			ConsignmentID = None
+
+			query = "SELECT ID FROM Consignment WHERE Name = ? AND Model = ? AND Cost = ?"
+			db.cursor.execute(query, [item.name, item.model, item.cost])
+			rows = db.cursor.fetchall()
+			if len(rows) > 0:
+				ConsignmentID = rows[0][0]
+			else: 
+				#Иначе, нужно добавить новую запись
+				#Получаем typeID по его имени
+				typeID = None
+				if item.type: typeID = self._getTypeIdByName(item.type)
+
+				query = """
+						INSERT INTO Consignment (Name, Model, TypeID, Gender, Comment, Cost) 
+						VALUES (?, ?, ?, ?, ?, ?)
+					"""	
+				db.cursor.execute(query, [item.name, item.model, typeID, item.gender, item.comment, item.cost])
+				ConsignmentID = db.cursor.lastrowid
+
+			#Вставляем размеры
+			for size in item.sizes:
+				#Вставляем размеры в Products
+				query = "INSERT INTO Product (ConsignmentID, Size, IsSold, DeliveryDate, SaleDate) VALUES (?, ?, ?, ?, ?)"
+				db.cursor.execute(query, [ConsignmentID, size, True, item.date, saleDate])
+
+	def convertSaleDB(self):
+		tree = os.walk(os.path.join(self.oldDir, "sales"))
+		for d in tree:
+			if d[2] == ["today.dat"]:
+				filename = d[2][0]
+				path = d[0]
+				date = '.'.join(path.split('/')[-3:])
+				saleDate = datetime.datetime.strptime(date, "%Y.%m.%d") 
+
+				items = self._loadItemsFromFile(os.path.join(path, filename))
+				self._insertSoldItems(items, saleDate)
+				
+		self.db.connection.commit()
+
 
 def main():
-	oldDbDir = sys.argv[1]
-	pathToDb = sys.argv[2]
-
-	converter = Converter(pathToDb)
-	converter.convertBaseDB(os.path.join(oldDbDir, 'base.dat'))
+	converter = Converter(sys.argv[1], sys.argv[2])
+	converter.convertBaseDB()
+	converter.convertSaleDB()
 
 if __name__ == "__main__":
 	main()
