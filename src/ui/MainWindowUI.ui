@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>691</width>
+    <height>540</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <layout class="QVBoxLayout" name="ltMainLayout">
+      <item>
+       <widget class="QTableView" name="tvTodaySale"/>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="gbCurrentFilter">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="title">
+         <string>Текущий фильтр</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout"/>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableView" name="tableView"/>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="mbMainMenu">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>691</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="mnDatabase">
+    <property name="title">
+     <string>База данных</string>
+    </property>
+    <addaction name="actSales"/>
+    <addaction name="actClients"/>
+   </widget>
+   <addaction name="mnDatabase"/>
+  </widget>
+  <widget class="QStatusBar" name="sbMainStatusBar"/>
+  <action name="actSales">
+   <property name="text">
+    <string>Продажи</string>
+   </property>
+  </action>
+  <action name="actClients">
+   <property name="text">
+    <string>Клиенты</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

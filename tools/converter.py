@@ -30,20 +30,20 @@ class Item:
 		#Эвристики
 		if expression == 'jgirl': 
 			type = u'Джинсы'
-			gender = u'Female'
+			gender = u'Жен.'
 		elif expression == 'man_shtany':
 			type = u'Штаны'
-			gender = u'Male'
+			gender = u'Муж.'
 		elif expression == 'rub_mab':
 			type = u'Рубашка'
-			gender = u'Male'
+			gender = u'Муж.'
 		elif expression == 'share_ware': 
 			type = u'Шары вары'
 		else:
 		#Правила
 			for value in expression.split("_"):
-				if value[:3] == 'man': gender = u'Male'
-				elif value[:4] in ['girl', 'gerl']: gender = u'Female'
+				if value[:3] == 'man': gender = u'Муж.'
+				elif value[:4] in ['girl', 'gerl']: gender = u'Жен.'
 
 				elif value in ['j', 'g']: type = u'Джинсы'
 				elif value[:4] == 'batn' or value == 'batik': type = u'Батник'
@@ -193,7 +193,7 @@ class Converter:
 
 				items = self._loadItemsFromFile(os.path.join(path, filename))
 				self._insertSoldItems(items, saleDate)
-				
+
 		self.db.connection.commit()
 
 
