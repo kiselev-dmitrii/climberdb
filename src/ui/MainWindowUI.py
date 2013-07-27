@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'MainWindowUI.ui'
 #
-# Created: Sat Jul 27 17:30:26 2013
+# Created: Sat Jul 27 22:09:46 2013
 #      by: pyside-uic 0.2.13 running on PySide 1.1.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,29 +12,35 @@ from PySide import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(691, 540)
+        MainWindow.resize(900, 600)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.centralwidget)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.ltMainLayout = QtGui.QVBoxLayout()
         self.ltMainLayout.setObjectName("ltMainLayout")
-        self.tvTodaySale = QtGui.QTableView(self.centralwidget)
-        self.tvTodaySale.setObjectName("tvTodaySale")
-        self.ltMainLayout.addWidget(self.tvTodaySale)
+        self.tvProducts = QtGui.QTableView(self.centralwidget)
+        self.tvProducts.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
+        self.tvProducts.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
+        self.tvProducts.setObjectName("tvProducts")
+        self.tvProducts.horizontalHeader().setCascadingSectionResizes(False)
+        self.tvProducts.verticalHeader().setCascadingSectionResizes(False)
+        self.tvProducts.verticalHeader().setDefaultSectionSize(20)
+        self.tvProducts.verticalHeader().setStretchLastSection(False)
+        self.ltMainLayout.addWidget(self.tvProducts)
         self.gbCurrentFilter = QtGui.QGroupBox(self.centralwidget)
         self.gbCurrentFilter.setEnabled(True)
         self.gbCurrentFilter.setObjectName("gbCurrentFilter")
         self.horizontalLayout = QtGui.QHBoxLayout(self.gbCurrentFilter)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.ltMainLayout.addWidget(self.gbCurrentFilter)
-        self.tableView = QtGui.QTableView(self.centralwidget)
-        self.tableView.setObjectName("tableView")
-        self.ltMainLayout.addWidget(self.tableView)
+        self.tvTodaySales = QtGui.QTableView(self.centralwidget)
+        self.tvTodaySales.setObjectName("tvTodaySales")
+        self.ltMainLayout.addWidget(self.tvTodaySales)
         self.verticalLayout_2.addLayout(self.ltMainLayout)
         MainWindow.setCentralWidget(self.centralwidget)
         self.mbMainMenu = QtGui.QMenuBar(MainWindow)
-        self.mbMainMenu.setGeometry(QtCore.QRect(0, 0, 691, 19))
+        self.mbMainMenu.setGeometry(QtCore.QRect(0, 0, 900, 19))
         self.mbMainMenu.setObjectName("mbMainMenu")
         self.mnDatabase = QtGui.QMenu(self.mbMainMenu)
         self.mnDatabase.setObjectName("mnDatabase")

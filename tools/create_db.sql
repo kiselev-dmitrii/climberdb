@@ -56,6 +56,11 @@ CREATE TABLE Consignment (
 	CONSTRAINT	"Fk_CountryID"		FOREIGN KEY ("CountryID") REFERENCES Country("ID")
 );
 
+CREATE TABLE Settings (
+	"Key"		Varchar(50)		PRIMARY KEY,
+	"Value"		Varchar(50)
+);
+
 CREATE INDEX "idx1" ON Consignment("Name");
 CREATE INDEX "idx2" ON Consignment("Model");
 CREATE INDEX "idx3" ON Product("Barcode");
