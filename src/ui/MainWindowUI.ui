@@ -18,28 +18,6 @@
     <item>
      <layout class="QVBoxLayout" name="ltMainLayout">
       <item>
-       <widget class="QTableView" name="tvProducts">
-        <property name="selectionMode">
-         <enum>QAbstractItemView::SingleSelection</enum>
-        </property>
-        <property name="selectionBehavior">
-         <enum>QAbstractItemView::SelectRows</enum>
-        </property>
-        <attribute name="horizontalHeaderCascadingSectionResizes">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="verticalHeaderCascadingSectionResizes">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="verticalHeaderDefaultSectionSize">
-         <number>20</number>
-        </attribute>
-        <attribute name="verticalHeaderStretchLastSection">
-         <bool>false</bool>
-        </attribute>
-       </widget>
-      </item>
-      <item>
        <widget class="QGroupBox" name="gbCurrentFilter">
         <property name="enabled">
          <bool>true</bool>
@@ -63,7 +41,7 @@
      <x>0</x>
      <y>0</y>
      <width>900</width>
-     <height>19</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="mnDatabase">

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'MainWindowUI.ui'
 #
-# Created: Sat Jul 27 22:09:46 2013
+# Created: Sun Jul 28 17:14:18 2013
 #      by: pyside-uic 0.2.13 running on PySide 1.1.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -19,15 +19,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.ltMainLayout = QtGui.QVBoxLayout()
         self.ltMainLayout.setObjectName("ltMainLayout")
-        self.tvProducts = QtGui.QTableView(self.centralwidget)
-        self.tvProducts.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
-        self.tvProducts.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
-        self.tvProducts.setObjectName("tvProducts")
-        self.tvProducts.horizontalHeader().setCascadingSectionResizes(False)
-        self.tvProducts.verticalHeader().setCascadingSectionResizes(False)
-        self.tvProducts.verticalHeader().setDefaultSectionSize(20)
-        self.tvProducts.verticalHeader().setStretchLastSection(False)
-        self.ltMainLayout.addWidget(self.tvProducts)
         self.gbCurrentFilter = QtGui.QGroupBox(self.centralwidget)
         self.gbCurrentFilter.setEnabled(True)
         self.gbCurrentFilter.setObjectName("gbCurrentFilter")
@@ -40,7 +31,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addLayout(self.ltMainLayout)
         MainWindow.setCentralWidget(self.centralwidget)
         self.mbMainMenu = QtGui.QMenuBar(MainWindow)
-        self.mbMainMenu.setGeometry(QtCore.QRect(0, 0, 900, 19))
+        self.mbMainMenu.setGeometry(QtCore.QRect(0, 0, 900, 25))
         self.mbMainMenu.setObjectName("mbMainMenu")
         self.mnDatabase = QtGui.QMenu(self.mbMainMenu)
         self.mnDatabase.setObjectName("mnDatabase")
