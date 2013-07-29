@@ -1,6 +1,0 @@
-[Main]
-DatabaseName = shop.db
-ViewFontSize = 8
-ViewCellHeight = 20
-[ProductsView]
-ColumnsWidth = 100, 100, 100, 50, 100, 50, 100, 100, 100
