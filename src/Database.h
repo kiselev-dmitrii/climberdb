@@ -11,8 +11,9 @@ public:
         static Database*        instance();
 
         /// Возвращает модель для основной таблицы продуктов
-        QSqlQueryModel* getProductsViewModel();
-
+        QSqlQueryModel* getAllProductsModel(const QString& name, const QString& model, const QString& size,
+                                            const QString& cost, const QString& type, const QString& gender,
+                                            const QString& comment, const QString& color, const QString& country);
 
 private:
         /// Закрытые конструкторы и оператор присваивания

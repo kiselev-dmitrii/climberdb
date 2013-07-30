@@ -20,7 +20,9 @@ ProductsView::~ProductsView() {
 }
 
 void ProductsView::loadModel() {
-        m_model = Database::instance()->getProductsViewModel();
+        m_model = Database::instance()->getAllProductsModel("","","",
+                                                            "","","",
+                                                            "","","");
         this->setModel(m_model);
 }
 
@@ -89,7 +91,6 @@ void ProductsView::createContextMenu() {
 
 void ProductsView::contextMenuEvent(QContextMenuEvent *ev) {
         m_contextMenu->exec(ev->globalPos());
-        this->setModel(Database::instance()->getProductsViewModel());
 }
 
 QVector<int> ProductsView::columnsWidth() {
