@@ -3,7 +3,6 @@
 
 #include <QTableView>
 #include <QSettings>
-#include <qDebug>
 #include <QSqlQueryModel>
 
 
@@ -24,19 +23,20 @@ public:
 
 private:
         /// Загружает таблицу данными из БД
-        void            loadView();
-
-        /// Создает контекстное меню
-        void            createContextMenu();
+        void            loadModel();
 
         /// Инициализируют настройки виджета
         void            applyUiSettings();
+        void            applyCommonSettings();
         void            applyCellSettings();
         void            applyHeaderSettings();
         void            applyFontSettings();
 
         /// Сохранение настроек виджета
         void            saveUiSettings();
+
+        /// Создает контекстное меню
+        void            createContextMenu();
 
 private:
         /// События

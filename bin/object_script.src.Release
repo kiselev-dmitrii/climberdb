@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\MainWindow.o
+./release\ProductsView.o
+./release\Database.o
+./release\MainProductList.o
+./release\ProductsFilter.o
+./release\moc_MainWindow.o
+./release\moc_ProductsView.o
+./release\moc_MainProductList.o
+./release\moc_ProductsFilter.o
+);

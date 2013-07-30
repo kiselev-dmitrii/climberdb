@@ -17,11 +17,13 @@ SOURCES += main.cpp\
         MainWindow.cpp \
     ProductsView.cpp \
     Database.cpp \
-    ProductFilter.cpp
+    MainProductList.cpp \
+    ProductsFilter.cpp
 
 HEADERS  += MainWindow.h \
     ProductsView.h \
     Database.h \
-    ProductFilter.h
+    MainProductList.h \
+    ProductsFilter.h
 
 FORMS    += MainWindow.ui

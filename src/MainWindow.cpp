@@ -4,16 +4,19 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_ui(new Ui::MainWindow) {
         m_ui->setupUi(this);
 
-        // Создаем таблицу
-        m_productsView = new ProductsView();
-        m_ui->ltMainLayout->insertWidget(0, m_productsView);
+        m_mainProductList = new MainProductList();
+        m_ui->ltMainLayout->insertLayout(0, m_mainProductList);
 
-        // Создаем фильтр
-        QVector<int> fieldsWidth = m_productsView->columnsWidth();
-        fieldsWidth[0] += m_productsView->verticalHeader()->size().width();
-        m_productsFilter = new ProductFilter(fieldsWidth);
-        m_ui->ltMainLayout->insertWidget(1, m_productsFilter);
-        QObject::connect(m_productsView->horizontalHeader(), SIGNAL(sectionResized(int,int,int)), m_productsFilter, SLOT(columnResize(int,int,int)));
+        /*
+        // Установка hotkeys
+        for (int i = 0; i < 9; ++i) {
+                QShortcut* shortcut = new QShortcut(QKeySequence(QString("Alt+%1").arg(i+1)), this);
+                qDebug() << shortcut->key().toString();
+                auto slot = std::bind(&ProductsFilter::setFocusOnField, m_productsFilter, i);
+                QObject::connect(shortcut, &QShortcut::activated , slot);
+        }
+        */
+
 }
 
 MainWindow::~MainWindow() {

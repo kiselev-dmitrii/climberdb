@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\MainWindow.o
+./debug\ProductsView.o
+./debug\Database.o
+./debug\MainProductList.o
+./debug\ProductsFilter.o
+./debug\moc_MainWindow.o
+./debug\moc_ProductsView.o
+./debug\moc_MainProductList.o
+./debug\moc_ProductsFilter.o
+);

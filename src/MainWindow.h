@@ -2,8 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "ProductsView.h"
-#include "ProductFilter.h"
+#include "MainProductList.h"
 
 namespace Ui {
         class MainWindow;
@@ -15,11 +14,10 @@ public:
         explicit        MainWindow(QWidget *parent = 0);
         /// Виртуальный деструктор
                         ~MainWindow();
-private:
-        Ui::MainWindow* m_ui;
-        ProductsView*   m_productsView;         //Qt автоматические чистит память обходя дерево виджетов
-        ProductFilter*  m_productsFilter;
 
+private:
+        Ui::MainWindow*         m_ui;
+        MainProductList*        m_mainProductList;
 
         Q_OBJECT
 };

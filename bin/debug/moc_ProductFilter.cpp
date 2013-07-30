@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ProductFilter_t {
-    QByteArrayData data[6];
-    char stringdata[53];
+    QByteArrayData data[7];
+    char stringdata[69];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,14 +30,15 @@ struct qt_meta_stringdata_ProductFilter_t {
 static const qt_meta_stringdata_ProductFilter_t qt_meta_stringdata_ProductFilter = {
     {
 QT_MOC_LITERAL(0, 0, 13),
-QT_MOC_LITERAL(1, 14, 12),
-QT_MOC_LITERAL(2, 27, 0),
-QT_MOC_LITERAL(3, 28, 5),
-QT_MOC_LITERAL(4, 34, 8),
-QT_MOC_LITERAL(5, 43, 8)
+QT_MOC_LITERAL(1, 14, 15),
+QT_MOC_LITERAL(2, 30, 0),
+QT_MOC_LITERAL(3, 31, 5),
+QT_MOC_LITERAL(4, 37, 12),
+QT_MOC_LITERAL(5, 50, 8),
+QT_MOC_LITERAL(6, 59, 8)
     },
-    "ProductFilter\0columnResize\0\0index\0"
-    "oldWidth\0newWidth\0"
+    "ProductFilter\0setFocusOnField\0\0index\0"
+    "columnResize\0oldWidth\0newWidth\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -47,7 +48,7 @@ static const uint qt_meta_data_ProductFilter[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -55,10 +56,12 @@ static const uint qt_meta_data_ProductFilter[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    3,   19,    2, 0x0a,
+       1,    1,   24,    2, 0x0a,
+       4,    3,   27,    2, 0x0a,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int,    3,    4,    5,
+    QMetaType::Void, QMetaType::Int,    3,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int,    3,    5,    6,
 
        0        // eod
 };
@@ -68,7 +71,8 @@ void ProductFilter::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
     if (_c == QMetaObject::InvokeMetaMethod) {
         ProductFilter *_t = static_cast<ProductFilter *>(_o);
         switch (_id) {
-        case 0: _t->columnResize((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
+        case 0: _t->setFocusOnField((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 1: _t->columnResize((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
         default: ;
         }
     }
@@ -99,13 +103,13 @@ int ProductFilter::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
+        if (_id < 2)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 1;
+        _id -= 2;
     }
     return _id;
 }
