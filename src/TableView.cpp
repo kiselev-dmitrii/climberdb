@@ -40,8 +40,7 @@ void TableView::applyHeaderSettings() {
         QList<QVariant> columnsWidth = m_settings.value("/"+m_settingsName+"/ColumnsWidth", defaultWidth).toList();
 
         for (int i = 0; i < columnsWidth.size(); ++i) {
-                if (columnsWidth[i] == 0) header->hideSection(i);
-                else header->resizeSection(i, columnsWidth[i].toInt());
+                header->resizeSection(i, columnsWidth[i].toInt());
         }
 }
 
@@ -72,10 +71,7 @@ void TableView::saveUiSettings() {
 QVector<int> TableView::columnsWidth() {
         QHeaderView* header = this->horizontalHeader();
         QVector<int> columnsWidth;
-        for (int i = 0; i < columnCount(); ++i) {
-                auto size = header->sectionSize(i);
-                if (size != 0) columnsWidth.append(header->sectionSize(i));
-        }
+        for (int i = 0; i < columnCount(); ++i) columnsWidth.append(header->sectionSize(i));
         return columnsWidth;
 }
 

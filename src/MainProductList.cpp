@@ -20,6 +20,10 @@ void MainProductList::createWidgets() {
         m_productsFilter = new ProductsFilter(m_productsView->columnsWidth());
         m_productsFilter->setColumnOffset(0, m_productsView->verticalHeader()->width());        //учитываем верт. шапку
         this->addWidget(m_productsFilter);
+
+        // Скрываем последние колонки в таблице
+        m_productsView->hideColumn(m_productsView->columnCount()-1);
+        m_productsFilter->hideColumn(m_productsFilter->columnCount()-1);
 }
 
 

@@ -36,7 +36,8 @@ void Database::getAllProductsModel(QSqlQueryModel* sqlModel, const QString& name
                         C.Gender as 'Пол',
                         C.Comment as 'Комментарии',
                         Color.Name as 'Цвет',
-                        Country.Name as 'Производитель'
+                        Country.Name as 'Производитель',
+                        C.ID as 'ID'
                 FROM
                         Consignment as C
                         JOIN 		Product as P 	        ON     C.ID = P.ConsignmentID
