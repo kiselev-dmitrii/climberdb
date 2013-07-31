@@ -5,8 +5,13 @@ INPUT(
 ./release\Database.o
 ./release\MainProductList.o
 ./release\ProductsFilter.o
+./release\MainSoldList.o
+./release\SoldProductsView.o
+./release\TableView.o
 ./release\moc_MainWindow.o
 ./release\moc_ProductsView.o
 ./release\moc_MainProductList.o
 ./release\moc_ProductsFilter.o
+./release\moc_MainSoldList.o
+./release\moc_TableView.o
 );

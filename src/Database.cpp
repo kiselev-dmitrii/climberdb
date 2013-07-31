@@ -23,9 +23,9 @@ bool Database::createConnction() {
         return true;
 }
 
-QSqlQueryModel* Database::getAllProductsModel(const QString& name, const QString& model, const QString& size,
-                                              const QString& cost, const QString& type, const QString& gender,
-                                              const QString& comment, const QString& color, const QString& country) {
+void Database::getAllProductsModel(QSqlQueryModel* sqlModel, const QString& name, const QString& model, const QString& size,
+                                   const QString& cost, const QString& type, const QString& gender,
+                                   const QString& comment, const QString& color, const QString& country) {
         QString queryString = R"(
                 SELECT
                         C.Name as 'Наименование',
@@ -72,8 +72,37 @@ QSqlQueryModel* Database::getAllProductsModel(const QString& name, const QString
         query.bindValue(":country", country);
         query.exec();
 
+        sqlModel->setQuery(query);
+}
 
+void Database::getSoldProductsOnDate(QSqlQueryModel* sqlModel, const QDate& soldDate) {
+        QString queryString = R"(
+                        SELECT
+                                C.Name as 'Наименование',
+                                C.Model as 'Модель',
+                                P.Size as 'Размер',
+                                C.Cost as 'Цена',
+                                IFNULL(Type.Name, "")  || " " || LOWER(IFNULL(C.Gender, "")) || " " || LOWER(IFNULL(C.Comment, "")) || LOWER(IFNULL(Color.Name, "")) as 'Тип',
+                                Country.Name as 'Производитель',
+                                (P.SaleDate) as 'Время продажи',
+                                IFNULL(Client.Name, "") || " " || IFNULL(Client.Surname, "") as 'Покупатель'
+                        FROM
+                                Consignment as C
+                                JOIN 		Product as P 	        ON     C.ID = P.ConsignmentID
+                                LEFT JOIN 	Type      		ON     C.TypeID = Type.ID
+                                LEFT JOIN 	Color 			ON     C.ColorID = Color.ID
+                                LEFT JOIN 	Country 		ON     C.CountryID = Country.ID
+                                LEFT JOIN       Client                  ON     P.ClientID = Client.ID
+                        WHERE
+                                P.IsSold = 1   AND
+                                date(P.SaleDate) = :soldDate
+                        ORDER BY
+                                P.SaleDate
+                               )";
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":soldDate", soldDate);
+        query.exec();
 
-        m_allProductsModel.setQuery(query);
-        return &m_allProductsModel;
+        sqlModel->setQuery(query);
 }

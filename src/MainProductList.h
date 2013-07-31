@@ -18,10 +18,12 @@ private:
 
 private slots:
         void            applyFilter();
+        void            revertTable();
 
 private:
         ProductsView*   m_productsView;
         ProductsFilter* m_productsFilter;
+        QSqlQueryModel  m_currentModel;
         Q_OBJECT
 };
 

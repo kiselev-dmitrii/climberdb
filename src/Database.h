@@ -11,9 +11,12 @@ public:
         static Database*        instance();
 
         /// Возвращает модель для основной таблицы продуктов
-        QSqlQueryModel* getAllProductsModel(const QString& name, const QString& model, const QString& size,
-                                            const QString& cost, const QString& type, const QString& gender,
-                                            const QString& comment, const QString& color, const QString& country);
+        void                    getAllProductsModel(QSqlQueryModel* sqlModel, const QString& name, const QString& model, const QString& size,
+                                                    const QString& cost, const QString& type, const QString& gender,
+                                                    const QString& comment, const QString& color, const QString& country);
+
+        /// Возвращает список проданного товара за конкретный день
+        void                    getSoldProductsOnDate(QSqlQueryModel* sqlModel, const QDate& soldDate);
 
 private:
         /// Закрытые конструкторы и оператор присваивания
@@ -29,7 +32,6 @@ private:
 private:
         QSqlDatabase            m_db;
         QString                 m_dbName;
-        QSqlQueryModel          m_allProductsModel;
 };
 
 #endif // DATABASE_H

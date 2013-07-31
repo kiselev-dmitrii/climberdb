@@ -18,12 +18,18 @@ SOURCES += main.cpp\
     ProductsView.cpp \
     Database.cpp \
     MainProductList.cpp \
-    ProductsFilter.cpp
+    ProductsFilter.cpp \
+    MainSoldList.cpp \
+    SoldProductsView.cpp \
+    TableView.cpp
 
 HEADERS  += MainWindow.h \
     ProductsView.h \
     Database.h \
     MainProductList.h \
-    ProductsFilter.h
+    ProductsFilter.h \
+    MainSoldList.h \
+    SoldProductsView.h \
+    TableView.h
 
 FORMS    += MainWindow.ui

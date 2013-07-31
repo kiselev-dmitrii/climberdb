@@ -17,6 +17,9 @@ public:
         /// Возвращает текст колонки
         QString columnText(int index);
 
+        /// Очищает колонки
+        void    clearFilter();
+
 public slots:
         /// Устанавливает фокус на поле ввода index
         void    setFocusOnField(int index);

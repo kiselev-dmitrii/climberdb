@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "MainProductList.h"
+#include "MainSoldList.h"
 
 namespace Ui {
         class MainWindow;
@@ -18,6 +19,7 @@ public:
 private:
         Ui::MainWindow*         m_ui;
         MainProductList*        m_mainProductList;
+        MainSoldList*           m_mainSoldList;
 
         Q_OBJECT
 };

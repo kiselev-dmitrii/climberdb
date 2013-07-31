@@ -49,6 +49,13 @@ void ProductsFilter::setShortcuts() {
 
 }
 
+void ProductsFilter::clearFilter() {
+        for (int i=0; i < this->columnCount(); ++i) {
+                QLineEdit* field = (QLineEdit*) (this->cellWidget(0, i));
+                field->clear();
+        }
+}
+
 void ProductsFilter::keyPressEvent(QKeyEvent *event) {
         if (event->key() == Qt::Key_Return) emit enterPressed();
         if (event->key() == Qt::Key_Escape) emit escapePressed();

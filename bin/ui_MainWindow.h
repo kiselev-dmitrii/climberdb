@@ -18,7 +18,6 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTableView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -32,7 +31,6 @@ public:
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *ltMainLayout;
-    QTableView *tvTodaySales;
     QMenuBar *mbMainMenu;
     QMenu *mnDatabase;
     QStatusBar *sbMainStatusBar;
@@ -52,11 +50,6 @@ public:
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         ltMainLayout = new QVBoxLayout();
         ltMainLayout->setObjectName(QStringLiteral("ltMainLayout"));
-        tvTodaySales = new QTableView(centralwidget);
-        tvTodaySales->setObjectName(QStringLiteral("tvTodaySales"));
-
-        ltMainLayout->addWidget(tvTodaySales);
-
 
         verticalLayout_2->addLayout(ltMainLayout);
 
