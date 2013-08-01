@@ -17,6 +17,11 @@ private:
         /// Событие на нажатие правой кнопки мыши
         void            contextMenuEvent(QContextMenuEvent *ev);
 
+private slots:
+        /// Обработка пунктов меню
+        void            processMenuActions(QAction* action);
+        void            processSaleAction(int id);
+
 private:
         QMenu*          m_contextMenu;
         Q_OBJECT

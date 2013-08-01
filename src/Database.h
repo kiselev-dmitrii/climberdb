@@ -2,6 +2,21 @@
 #define DATABASE_H
 
 #include <QSqlQueryModel>
+#include <QStringList>
+#include <QDateTime>
+
+struct Product {
+        int             id;
+        int             consignmentID;
+        QString         size;
+        QString         barcode;
+        bool            isSold;
+        QDateTime       deliveryDate;
+        QDateTime       saleDate;
+        QDateTime       lastReturnDate;
+        int             countReturns;
+        int             clientID;
+};
 
 /** Синглтон, служащий для доступа к базе данных
  */
@@ -17,6 +32,9 @@ public:
 
         /// Возвращает список проданного товара за конкретный день
         void                    getSoldProductsOnDate(QSqlQueryModel* sqlModel, const QDate& soldDate);
+
+        /// Вовзвращает список размеров из данной партии, которые еще не проданы
+        QVector<Product>        getProductListFromConsignment(int consignmentID);
 
 private:
         /// Закрытые конструкторы и оператор присваивания

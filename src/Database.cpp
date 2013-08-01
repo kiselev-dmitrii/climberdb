@@ -107,3 +107,38 @@ void Database::getSoldProductsOnDate(QSqlQueryModel* sqlModel, const QDate& sold
 
         sqlModel->setQuery(query);
 }
+
+QVector<Product> Database::getProductListFromConsignment(int consignmentID) {
+        QString queryString = R"(
+                        SELECT
+                                *
+                        FROM
+                                Product
+                        WHERE
+                                IsSold = 0 AND
+                                ConsignmentID = :consignmentID
+                              )";
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":consignmentID", consignmentID);
+        query.exec();
+
+        QVector<Product> result;
+        while (query.next()) {
+                Product product;
+                product.id = query.value("ID").toInt();
+                product.consignmentID = query.value("ConsignmentID").toInt();
+                product.size = query.value("Size").toString();
+                product.barcode = query.value("Barcode").toString();
+                product.isSold = query.value("IsSold").toBool();
+                product.deliveryDate = query.value("DeliveryDate").toDateTime();
+                product.saleDate = query.value("SaleDate").toDateTime();
+                product.lastReturnDate = query.value("LastReturnDate").toDateTime();
+                product.countReturns = query.value("CountReturns").toInt();
+                product.clientID = query.value("ClientID").toInt();
+
+                result.append(product);
+        }
+
+        return result;
+}

@@ -1,6 +1,9 @@
 #include "ProductsView.h"
 #include <QMenu>
 #include <QContextMenuEvent>
+#include <QDebug>
+#include <QInputDialog>
+#include "Database.h"
 
 ProductsView::ProductsView(QSqlQueryModel *model, QWidget *parent) :
         TableView(model, "ProductView", parent),
@@ -11,13 +14,33 @@ ProductsView::ProductsView(QSqlQueryModel *model, QWidget *parent) :
 
 void ProductsView::createContextMenu() {
         m_contextMenu = new QMenu(this);
-        m_contextMenu->addAction("&Продать");
+        m_contextMenu->addAction("Продать");
         m_contextMenu->addAction("Распечатать ценник");
         m_contextMenu->addSeparator();
-        m_contextMenu->addAction("&Редактировать");
+        m_contextMenu->addAction("Редактировать");
         m_contextMenu->addAction("Удалить");
+
+        connect(m_contextMenu, SIGNAL(triggered(QAction*)), SLOT(processMenuActions(QAction*)));
 }
 
 void ProductsView::contextMenuEvent(QContextMenuEvent *ev) {
         m_contextMenu->exec(ev->globalPos());
+}
+
+void ProductsView::processMenuActions(QAction *action) {
+        // Получаем ID партии
+        int row = this->selectedIndexes()[0].row();
+        QModelIndex index = this->model()->index(row, columnCount()-1);
+        int consignmentID = this->model()->data(index).toInt();
+
+        if (action->text() == "Продать") processSaleAction(consignmentID);
+}
+
+void ProductsView::processSaleAction(int id) {
+        QVector<Product> products = Database::instance()->getProductListFromConsignment(id);
+        QStringList items;
+        for (auto &product: products) items.append(product.size);
+        bool ok;
+        QString selected = QInputDialog::getItem(this, "Продажа", "Выберите размер для продажи", items, 0, false, &ok);
+        if (ok) qDebug() << selected;
 }
