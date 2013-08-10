@@ -23,10 +23,14 @@ bool Database::createConnction() {
         return true;
 }
 
-void Database::getAllProductsModel(QSqlQueryModel* sqlModel, const QString& name, const QString& model, const QString& size,
-                                   const QString& cost, const QString& type, const QString& gender,
-                                   const QString& comment, const QString& color, const QString& country) {
-        QString queryString = R"(
+QSqlQueryModel* Database::mainProductsModel() {
+        return &m_mainProductsModel;
+}
+
+QSqlQueryModel* Database::refreshMainProductsModel(const QString &name, const QString &model, const QString &size,
+                                                   const QString &cost, const QString &type, const QString &gender,
+                                                   const QString &comment, const QString &color, const QString &country) {
+         QString queryString = R"(
                 SELECT
                         C.Name as 'Наименование',
                         C.Model as 'Модель',
@@ -60,6 +64,7 @@ void Database::getAllProductsModel(QSqlQueryModel* sqlModel, const QString& name
                 ORDER BY
                         C.ID
                 )";
+
         QSqlQuery query;
         query.prepare(queryString);
         query.bindValue(":name", name);
@@ -73,10 +78,20 @@ void Database::getAllProductsModel(QSqlQueryModel* sqlModel, const QString& name
         query.bindValue(":country", country);
         query.exec();
 
-        sqlModel->setQuery(query);
+        m_mainProductsModel.setQuery(query);
+        return &m_mainProductsModel;
 }
 
-void Database::getSoldProductsOnDate(QSqlQueryModel* sqlModel, const QDate& soldDate) {
+QSqlQueryModel* Database::refreshMainProductsModel() {
+        m_mainProductsModel.query().exec();
+        return &m_mainProductsModel;
+}
+
+QSqlQueryModel* Database::mainSoldProductsModel() {
+        return &m_mainSoldProductsModel;
+}
+
+QSqlQueryModel* Database::refreshMainSoldProductsModel(const QDate &soldDate) {
         QString queryString = R"(
                         SELECT
                                 C.Name as 'Наименование',
@@ -105,7 +120,8 @@ void Database::getSoldProductsOnDate(QSqlQueryModel* sqlModel, const QDate& sold
         query.bindValue(":soldDate", soldDate);
         query.exec();
 
-        sqlModel->setQuery(query);
+        m_mainSoldProductsModel.setQuery(query);
+        return &m_mainSoldProductsModel;
 }
 
 QVector<Product> Database::getProductListFromConsignment(int consignmentID) {
@@ -141,4 +157,25 @@ QVector<Product> Database::getProductListFromConsignment(int consignmentID) {
         }
 
         return result;
+}
+
+void Database::soldProduct(int productID) {
+        QString queryString = R"(
+                        UPDATE
+                                Product
+                        SET
+                                IsSold = 1,
+                                SaleDate = DATETIME('now', 'localtime')
+                        WHERE
+                                ID = :productID
+                              )";
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":productID", productID);
+        query.exec();
+}
+
+QSqlQueryModel* Database::refreshMainSoldProductsModel() {
+        m_mainSoldProductsModel.query().exec();
+        return &m_mainSoldProductsModel;
 }

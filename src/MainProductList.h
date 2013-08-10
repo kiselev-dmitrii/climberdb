@@ -23,7 +23,6 @@ private slots:
 private:
         ProductsView*   m_productsView;
         ProductsFilter* m_productsFilter;
-        QSqlQueryModel  m_currentModel;
         Q_OBJECT
 };
 

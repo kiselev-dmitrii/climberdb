@@ -32,8 +32,6 @@ private:
         QDateEdit*              m_dateEdit;
         QPushButton*            m_prevBtn;
         QPushButton*            m_nextBtn;
-
-        QSqlQueryModel          m_currentModel;
         Q_OBJECT
 };
 

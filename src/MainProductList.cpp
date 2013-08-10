@@ -13,8 +13,8 @@ MainProductList::MainProductList(QWidget *parent) :
 }
 
 void MainProductList::createWidgets() {
-        Database::instance()->getAllProductsModel(&m_currentModel, "","","","","","","","","");
-        m_productsView = new ProductsView(&m_currentModel);
+        Database::instance()->refreshMainProductsModel("","","","","","","","","");
+        m_productsView = new ProductsView(Database::instance()->mainProductsModel());
         this->addWidget(m_productsView);
 
         m_productsFilter = new ProductsFilter(m_productsView->columnsWidth());
@@ -47,8 +47,7 @@ void MainProductList::applyFilter() {
         QString color = m_productsFilter->columnText(7);
         QString country = m_productsFilter->columnText(8);
 
-        Database::instance()->getAllProductsModel(&m_currentModel, name, model, size, cost, type, gender, comment, color, country);
-        m_productsView->setModel(&m_currentModel);
+        Database::instance()->refreshMainProductsModel(name, model, size, cost, type, gender, comment, color, country);
 
         // Применяем на таблицу фокус
         m_productsView->setFocus();

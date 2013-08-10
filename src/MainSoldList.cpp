@@ -17,8 +17,8 @@ MainSoldList::MainSoldList(QWidget* parent) :
 }
 
 void MainSoldList::createView() {
-        Database::instance()->getSoldProductsOnDate(&m_currentModel, QDate::currentDate());
-        m_soldView = new SoldProductsView(&m_currentModel);
+        Database::instance()->refreshMainSoldProductsModel(QDate::currentDate());
+        m_soldView = new SoldProductsView(Database::instance()->mainSoldProductsModel());
         this->addWidget(m_soldView);
 }
 
@@ -48,8 +48,7 @@ void MainSoldList::connectWidgets() {
 }
 
 void MainSoldList::setTableDate(const QDate &date) {
-        Database::instance()->getSoldProductsOnDate(&m_currentModel, date);
-        m_soldView->setModel(&m_currentModel);
+        Database::instance()->refreshMainSoldProductsModel(date);
 }
 
 void MainSoldList::setPrevDate() {
