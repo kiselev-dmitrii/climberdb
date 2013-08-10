@@ -35,10 +35,10 @@ void MainSoldList::createDatePanel() {
         m_panelLayout->addStretch();
 
         // Кнопки
-        m_prevBtn = new QPushButton("<-");
-        m_nextBtn = new QPushButton("->");
-        m_panelLayout->addWidget(m_prevBtn);
+        m_nextBtn = new QPushButton("<-");
+        m_prevBtn = new QPushButton("->");
         m_panelLayout->addWidget(m_nextBtn);
+        m_panelLayout->addWidget(m_prevBtn);
 }
 
 void MainSoldList::connectWidgets() {

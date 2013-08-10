@@ -38,31 +38,30 @@ void ProductsView::processMenuActions(QAction *action) {
 }
 
 void ProductsView::processSaleAction(int id) {
-        // Переписать!
-        // Стоит перенести все модели в Database. Тогда их можно будет обновлять из любого места
-
-        /*
+        // Формируем список размеров
         QVector<Product> products = Database::instance()->getProductListFromConsignment(id);
         QStringList items;
-        for (auto &product: products) items.append(product.size + " - " + product.barcode);
+        for (auto &product: products) items.append(product.size);
+
+        // Создаем окно
         bool ok;
-        QString selected = QInputDialog::getItem(this, "Продажа", "Выберите размер для продажи", items, 0, false, &ok);
+        QString selectedSize = QInputDialog::getItem(this, "Продажа", "Выберите размер для продажи", items, 0, false, &ok);
+
+
         if (ok) {
-                auto sizeAndBarcode = selected.split(" - ");
-                auto size = sizeAndBarcode[0];
-                auto barcode = sizeAndBarcode[1];
                 for (auto &product: products) {
-                        if (product.size == size && product.barcode == barcode) {
-                                Database::instance()->soldProduct(product.id);
-                                QSqlQueryModel* model = new QSqlQueryModel();
-                                Database::instance()->getAllProductsModel(model, "","","","","","","","","");
+                        if (product.size == selectedSize) {
                                 QModelIndex selectedIndex = this->selectedIndexes()[0];
-                                setModel(model);
+
+                                Database::instance()->soldProduct(product.id);
+                                Database::instance()->refreshMainProductsModel();
+                                Database::instance()->refreshMainSoldProductsModel();
+
                                 this->setCurrentIndex(selectedIndex);
+
                                 break;
                         }
                 }
-        };
-        */
+        }
 
 }

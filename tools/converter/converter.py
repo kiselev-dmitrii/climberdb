@@ -3,6 +3,7 @@
 import sqlite3
 import datetime
 import os, sys
+import math
 
 class Database:
 	def __init__(self, path):
@@ -140,10 +141,13 @@ class Converter:
 			ConsignmentID = db.cursor.lastrowid
 			#print ConsignmentID
 
+			#Генерируем штрихкоды по номеру партии и размерам
+			barcodes = self._generateBarcodes(ConsignmentID, item.sizes)
+
 			for size in item.sizes:
 				#Вставляем размеры в Products
-				query = "INSERT INTO Product (ConsignmentID, Size, IsSold, DeliveryDate) VALUES (?, ?, ?, ?)"
-				db.cursor.execute(query, [ConsignmentID, size, False, item.date])
+				query = "INSERT INTO Product (ConsignmentID, Size, Barcode, IsSold, DeliveryDate) VALUES (?, ?, ?, ?, ?)"
+				db.cursor.execute(query, [ConsignmentID, size, barcodes[size], False, item.date])
 
 	def convertBaseDB(self):
 		items = self._loadItemsFromFile(os.path.join(self.oldDir, "base.dat"))
@@ -176,11 +180,14 @@ class Converter:
 				db.cursor.execute(query, [item.name, item.model, typeID, item.gender, item.comment, item.cost])
 				ConsignmentID = db.cursor.lastrowid
 
+			#Генерируем штрихкоды по номеру партии и размерам
+			barcodes = self._generateBarcodes(ConsignmentID, item.sizes)
+
 			#Вставляем размеры
 			for size in item.sizes:
 				#Вставляем размеры в Products
-				query = "INSERT INTO Product (ConsignmentID, Size, IsSold, DeliveryDate, SaleDate) VALUES (?, ?, ?, ?, ?)"
-				db.cursor.execute(query, [ConsignmentID, size, True, item.date, saleDate])
+				query = "INSERT INTO Product (ConsignmentID, Size, Barcode, IsSold, DeliveryDate, SaleDate) VALUES (?, ?, ?, ?, ?, ?)"
+				db.cursor.execute(query, [ConsignmentID, size, barcodes[size], True, item.date, saleDate])
 
 	def convertSaleDB(self):
 		tree = os.walk(os.path.join(self.oldDir, "sales"))
@@ -196,6 +203,32 @@ class Converter:
 
 		self.db.connection.commit()
 
+	def _generateBarcodes(self, consignmentID, sizes):
+		# size -> barcode
+		barcodes = {}
+
+		i = 0
+		for size in sizes:
+			if not barcodes.has_key(size): 
+				firstPart = '{:0>6}'.format(consignmentID)
+				secondPart = '{:0>6}'.format(i)
+				checkDigit = self._generateCheckDigit(firstPart + secondPart)
+				barcodes[size] = firstPart + secondPart + str(checkDigit)
+				i += 1
+
+		return barcodes
+
+	def _generateCheckDigit(self, barcode12):
+		reverse = barcode12[::-1]
+
+		sumOdd = 0
+		for digit in reverse[0::2]: sumOdd += int(digit)
+		sumEven = 0
+		for digit in reverse[1::2]: sumEven += int(digit)
+
+		result = 3*sumOdd + sumEven;
+		result = int(math.ceil(float(result)/10)*10) - result
+		return result
 
 def main():
 	converter = Converter(sys.argv[1], sys.argv[2])

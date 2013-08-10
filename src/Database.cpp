@@ -84,6 +84,7 @@ QSqlQueryModel* Database::refreshMainProductsModel(const QString &name, const QS
 
 QSqlQueryModel* Database::refreshMainProductsModel() {
         m_mainProductsModel.query().exec();
+        m_mainProductsModel.setQuery(m_mainProductsModel.query());
         return &m_mainProductsModel;
 }
 
@@ -177,5 +178,6 @@ void Database::soldProduct(int productID) {
 
 QSqlQueryModel* Database::refreshMainSoldProductsModel() {
         m_mainSoldProductsModel.query().exec();
+        m_mainSoldProductsModel.setQuery(m_mainSoldProductsModel.query());
         return &m_mainSoldProductsModel;
 }
