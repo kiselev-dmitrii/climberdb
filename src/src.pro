@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     ProductsFilter.cpp \
     MainSoldList.cpp \
     SoldProductsView.cpp \
-    TableView.cpp
+    TableView.cpp \
+    ProductDialog.cpp
 
 HEADERS  += MainWindow.h \
     ProductsView.h \
@@ -30,6 +31,8 @@ HEADERS  += MainWindow.h \
     ProductsFilter.h \
     MainSoldList.h \
     SoldProductsView.h \
-    TableView.h
+    TableView.h \
+    ProductDialog.h
 
-FORMS    += MainWindow.ui
+FORMS    += MainWindow.ui \
+    ProductDialog.ui
