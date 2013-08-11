@@ -16,6 +16,11 @@ private:
         void            createContextMenu();
         /// Событие на нажатие правой кнопки мыши
         void            contextMenuEvent(QContextMenuEvent *ev);
+        /// Событие на нажатие клавиши
+        void            keyPressEvent(QKeyEvent *event);
+
+        /// Возвращает выделенный ConsignmentID
+        int             selectedConsignmentID();
 
 private slots:
         /// Обработка пунктов меню

@@ -28,11 +28,23 @@ void ProductsView::contextMenuEvent(QContextMenuEvent *ev) {
         m_contextMenu->exec(ev->globalPos());
 }
 
-void ProductsView::processMenuActions(QAction *action) {
-        // Получаем ID партии
+void ProductsView::keyPressEvent(QKeyEvent *event) {
+        if (event->key() == Qt::Key_Return) {
+                processEditAction(selectedConsignmentID());
+        }
+        QTableView::keyPressEvent(event);
+
+}
+
+int ProductsView::selectedConsignmentID() {
         int row = this->selectedIndexes()[0].row();
         QModelIndex index = this->model()->index(row, columnCount()-1);
-        int consignmentID = this->model()->data(index).toInt();
+        return this->model()->data(index).toInt();
+}
+
+void ProductsView::processMenuActions(QAction *action) {
+        // Получаем ID партии
+        int consignmentID = selectedConsignmentID();
 
         // Обрабатываем пункты меню
         if (action->text() == "Продать") processSaleAction(consignmentID);
