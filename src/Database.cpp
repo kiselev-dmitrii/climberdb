@@ -2,6 +2,7 @@
 #include <QSqlDatabase>
 #include <QDebug>
 #include <QSqlQuery>
+#include <Utils.h>
 
 Database::Database() {
         m_dbName = "shop.db";
@@ -299,7 +300,40 @@ int Database::addCountry(const QString &country) {
         return query.lastInsertId().toInt();
 }
 
-QSqlQueryModel* Database::getDialogSizesModel(int consignmentID) {
+void Database::addNewSizes(int consignmentID, const QStringList &sizes) {
+        // Для генерирования штрихкода нужен список всех предыдущих штрихкодов в партии
+        auto products = this->getProductListFromConsignment(consignmentID);
+        QMap<QString, QString> barcodes;                                        // size -> barcode
+        for (auto &product: products) barcodes[product.size] = product.barcode;
+        Utils::generateBarcodes(barcodes, consignmentID, sizes);
+
+        QString queryString = R"(
+                                INSERT INTO Product (ConsignmentID, Size, Barcode, DeliveryDate)
+                                VALUES (:consignmentID, :size, :barcode, DATETIME('now', 'localtime'))
+                                )";
+
+        for (auto &size: sizes) {
+                QSqlQuery query;
+                query.prepare(queryString);
+                query.bindValue(":consignmentID", consignmentID);
+                query.bindValue(":size", size);
+                query.bindValue(":barcode", barcodes[size]);
+                query.exec();
+        }
+
+}
+
+QSqlQueryModel* Database::dialogSizesModel() {
+        return &m_dialogSizesModel;
+}
+
+QSqlQueryModel* Database::refreshDialogSizesModel() {
+        m_dialogSizesModel.query().exec();
+        m_dialogSizesModel.setQuery(m_dialogSizesModel.query());
+        return &m_dialogSizesModel;
+}
+
+QSqlQueryModel* Database::refreshDialogSizesModel(int consignmentID) {
          QString queryString = R"(
                         SELECT
                                 Size as 'Размер',

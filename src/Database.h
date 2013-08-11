@@ -47,9 +47,13 @@ public:
         int                     addType(const QString& type);
         int                     addCountry(const QString& country);
 
+        /// Добавляет новые размеры в партию consignmentID
+        void                    addNewSizes(int consignmentID, const QStringList& sizes);
 
-        /// Возвращает размеров непроданных товаров для партии с индексом consignmentID
-        QSqlQueryModel*         getDialogSizesModel(int consignmentID);
+        /// Возвращает модель непроданных товаров для партии с индексом consignmentID
+        QSqlQueryModel*         dialogSizesModel();
+        QSqlQueryModel*         refreshDialogSizesModel();
+        QSqlQueryModel*         refreshDialogSizesModel(int consignmentID);
 
         /// Помещает товар с индексом productID в список проданных
         void                    soldProduct(int productID);

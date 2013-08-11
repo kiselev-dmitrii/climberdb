@@ -9,6 +9,7 @@ INPUT(
 ./release\SoldProductsView.o
 ./release\TableView.o
 ./release\ConsignmentDialog.o
+./release\Utils.o
 ./release\moc_MainWindow.o
 ./release\moc_ProductsView.o
 ./release\moc_MainProductList.o

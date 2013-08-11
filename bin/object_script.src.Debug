@@ -9,6 +9,7 @@ INPUT(
 ./debug\SoldProductsView.o
 ./debug\TableView.o
 ./debug\ConsignmentDialog.o
+./debug\Utils.o
 ./debug\moc_MainWindow.o
 ./debug\moc_ProductsView.o
 ./debug\moc_MainProductList.o

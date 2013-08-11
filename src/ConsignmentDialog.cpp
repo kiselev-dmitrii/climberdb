@@ -20,7 +20,7 @@ ConsignmentDialog::~ConsignmentDialog() {
 
 void ConsignmentDialog::loadData() {
         m_currentConsignment = Database::instance()->getConsignmentByID(m_consignmentID);
-        m_currentProducts = Database::instance()->getDialogSizesModel(m_consignmentID);
+        m_currentProducts = Database::instance()->refreshDialogSizesModel(m_consignmentID);
 
         // Загружаем списки для combobox
         m_ui->cbType->addItems(Database::instance()->getAvailableTypes());
@@ -63,9 +63,21 @@ void ConsignmentDialog::updateConsignment() {
         Database::instance()->updateConsignment(m_consignmentID, m_currentConsignment);
 }
 
+void ConsignmentDialog::addNewSizes() {
+        QStringList sizes = m_ui->edtAddNewSizes->text().split(",");
+        for (QString &size: sizes) size = size.trimmed();
+
+        Database::instance()->addNewSizes(m_consignmentID, sizes);
+        m_ui->edtAddNewSizes->clear();
+        Database::instance()->refreshDialogSizesModel();
+        Database::instance()->refreshMainProductsModel();
+}
+
 void ConsignmentDialog::connectWidgets() {
         connect(m_ui->btnBox, SIGNAL(accepted()), this, SLOT(accept()));
         connect(m_ui->btnBox, SIGNAL(accepted()), this, SLOT(updateConsignment()));
 
         connect(m_ui->btnBox, SIGNAL(rejected()), this, SLOT(reject()));
+
+        connect(m_ui->btnAddNewSizes, SIGNAL(clicked()), this, SLOT(addNewSizes()));
 }

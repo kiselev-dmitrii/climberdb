@@ -22,6 +22,7 @@ private:
 
 private slots:
         void                    updateConsignment();
+        void                    addNewSizes();
 
 private:
         Ui::dlgConsignment*     m_ui;
