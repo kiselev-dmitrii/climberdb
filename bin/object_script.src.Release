@@ -8,10 +8,12 @@ INPUT(
 ./release\MainSoldList.o
 ./release\SoldProductsView.o
 ./release\TableView.o
+./release\ConsignmentDialog.o
 ./release\moc_MainWindow.o
 ./release\moc_ProductsView.o
 ./release\moc_MainProductList.o
 ./release\moc_ProductsFilter.o
 ./release\moc_MainSoldList.o
 ./release\moc_TableView.o
+./release\moc_ConsignmentDialog.o
 );

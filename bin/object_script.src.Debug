@@ -8,10 +8,12 @@ INPUT(
 ./debug\MainSoldList.o
 ./debug\SoldProductsView.o
 ./debug\TableView.o
+./debug\ConsignmentDialog.o
 ./debug\moc_MainWindow.o
 ./debug\moc_ProductsView.o
 ./debug\moc_MainProductList.o
 ./debug\moc_ProductsFilter.o
 ./debug\moc_MainSoldList.o
 ./debug\moc_TableView.o
+./debug\moc_ConsignmentDialog.o
 );
