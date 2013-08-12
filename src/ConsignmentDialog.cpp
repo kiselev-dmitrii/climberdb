@@ -1,17 +1,23 @@
 #include "ConsignmentDialog.h"
 #include "ui_ConsignmentDialog.h"
 #include "Database.h"
+#include <QContextMenuEvent>
+#include <QDebug>
+#include <QInputDialog>
+#include <QMessageBox>
+#include <QDateEdit>
 
 ConsignmentDialog::ConsignmentDialog(int consignmentID, QWidget *parent) :
         QDialog(parent),
         m_ui(new Ui::dlgConsignment),
         m_consignmentID(consignmentID),
-        m_currentProducts(nullptr)
+        m_currentProducts(nullptr),
+        m_contextMenu(nullptr)
 {
         m_ui->setupUi(this);
         connectWidgets();
         loadData();
-
+        createContextMenu();
 }
 
 ConsignmentDialog::~ConsignmentDialog() {
@@ -44,6 +50,7 @@ void ConsignmentDialog::loadData() {
         // Устанавливаем доступные размеры
         m_ui->tvProducts->setModel(m_currentProducts);
         m_ui->tvProducts->resizeColumnsToContents();
+        m_ui->tvProducts->horizontalHeader()->hideSection(0);
 }
 
 void ConsignmentDialog::updateConsignment() {
@@ -64,13 +71,56 @@ void ConsignmentDialog::updateConsignment() {
 }
 
 void ConsignmentDialog::addNewSizes() {
-        QStringList sizes = m_ui->edtAddNewSizes->text().split(",");
-        for (QString &size: sizes) size = size.trimmed();
+        if (m_ui->edtAddNewSizes->text().size() != 0) {
+                QStringList sizes = m_ui->edtAddNewSizes->text().split(",");
+                for (QString &size: sizes) size = size.trimmed();
 
-        Database::instance()->addNewSizes(m_consignmentID, sizes);
-        m_ui->edtAddNewSizes->clear();
-        Database::instance()->refreshDialogSizesModel();
-        Database::instance()->refreshMainProductsModel();
+                Database::instance()->addNewSizes(m_consignmentID, sizes);
+                m_ui->edtAddNewSizes->clear();
+                Database::instance()->refreshDialogSizesModel();
+                Database::instance()->refreshMainProductsModel();
+        }
+}
+
+void ConsignmentDialog::processMenuActions(QAction *action) {
+        // Получаем текущий размер, ID, дату добавления
+        QModelIndex index = m_ui->tvProducts->currentIndex();
+        index = m_ui->tvProducts->model()->index(index.row(), 0);
+        int productID = m_ui->tvProducts->model()->data(index).toInt();
+        index = m_ui->tvProducts->model()->index(index.row(), 1);
+        QString oldSize =  m_ui->tvProducts->model()->data(index).toString();
+        index = m_ui->tvProducts->model()->index(index.row(), 2);
+        QDateTime oldDeliveryDate =  m_ui->tvProducts->model()->data(index).toDateTime();
+
+        if (action->text() == "Редактировать дату добавления") processEditDateAction(productID, oldDeliveryDate);
+        else if (action->text() == "Редактировать размер") processEditSizeAction(productID, oldSize);
+        else if (action->text() == "Удалить") processRemoveSizeAction(productID);
+}
+
+void ConsignmentDialog::processEditSizeAction(int productID, const QString& oldSize) {
+        bool ok;
+        QString newSize = QInputDialog::getText(this, "Редактирование размера", "Введите новый размер", QLineEdit::Normal, oldSize, &ok);
+        if (ok) {
+                Database::instance()->editProductSize(productID, newSize);
+                Database::instance()->refreshDialogSizesModel();
+                Database::instance()->refreshMainProductsModel();
+        }
+}
+
+void ConsignmentDialog::processEditDateAction(int productID, const QDateTime& oldDate) {
+        qDebug() << "TODO THIS";
+}
+
+void ConsignmentDialog::processRemoveSizeAction(int productID) {
+        QMessageBox msgBox;
+        msgBox.setText("Удаление размера");
+        msgBox.setInformativeText("Удалить размер?");
+        msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        if(msgBox.exec() == QMessageBox::Ok) {
+                Database::instance()->removeProduct(productID);
+                Database::instance()->refreshDialogSizesModel();
+                Database::instance()->refreshMainProductsModel();
+        }
 }
 
 void ConsignmentDialog::connectWidgets() {
@@ -80,4 +130,20 @@ void ConsignmentDialog::connectWidgets() {
         connect(m_ui->btnBox, SIGNAL(rejected()), this, SLOT(reject()));
 
         connect(m_ui->btnAddNewSizes, SIGNAL(clicked()), this, SLOT(addNewSizes()));
+}
+
+void ConsignmentDialog::createContextMenu() {
+        m_contextMenu = new QMenu(this);
+        m_contextMenu->addAction("Редактировать дату добавления");
+        m_contextMenu->addAction("Редактировать размер");
+        m_contextMenu->addSeparator();
+        m_contextMenu->addAction("Удалить");
+
+        connect(m_contextMenu, SIGNAL(triggered(QAction*)), SLOT(processMenuActions(QAction*)));
+}
+
+void ConsignmentDialog::contextMenuEvent(QContextMenuEvent *ev) {
+        Q_ASSERT(m_contextMenu != nullptr);
+
+        m_contextMenu->exec(ev->globalPos());
 }

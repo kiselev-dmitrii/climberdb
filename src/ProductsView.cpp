@@ -85,5 +85,6 @@ void ProductsView::processEditAction(int id) {
                 QModelIndex selectedIndex = this->selectedIndexes()[0];
                 Database::instance()->refreshMainProductsModel();
                 this->setCurrentIndex(selectedIndex);
+                Database::instance()->refreshMainSoldProductsModel();
         }
 }

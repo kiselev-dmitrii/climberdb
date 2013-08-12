@@ -336,6 +336,7 @@ QSqlQueryModel* Database::refreshDialogSizesModel() {
 QSqlQueryModel* Database::refreshDialogSizesModel(int consignmentID) {
          QString queryString = R"(
                         SELECT
+                                ID as 'ID',
                                 Size as 'Размер',
                                 DeliveryDate as 'Дата доставки',
                                 CountReturns as 'Количество возвратов',
@@ -364,6 +365,51 @@ void Database::soldProduct(int productID) {
                         SET
                                 IsSold = 1,
                                 SaleDate = DATETIME('now', 'localtime')
+                        WHERE
+                                ID = :productID
+                              )";
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":productID", productID);
+        query.exec();
+}
+
+void Database::editProductSize(int productID, const QString &newSize) {
+         QString queryString = R"(
+                        UPDATE
+                                Product
+                        SET
+                                Size = :newSize
+                        WHERE
+                                ID = :productID
+                              )";
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":newSize", newSize);
+        query.bindValue(":productID", productID);
+        query.exec();
+}
+
+void Database::editProductDeliveryDate(int productID, const QDateTime &newDeliveryDate) {
+         QString queryString = R"(
+                        UPDATE
+                                Product
+                        SET
+                                DeliveryDate = :newDeliveryDate
+                        WHERE
+                                ID = :productID
+                              )";
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":newDeliveryDate", newDeliveryDate);
+        query.bindValue(":productID", productID);
+        query.exec();
+}
+
+void Database::removeProduct(int productID) {
+        QString queryString = R"(
+                        DELETE FROM
+                                Product
                         WHERE
                                 ID = :productID
                               )";

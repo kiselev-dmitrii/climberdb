@@ -58,6 +58,12 @@ public:
         /// Помещает товар с индексом productID в список проданных
         void                    soldProduct(int productID);
 
+        /// Редактирование размера и даты добавления продукта
+        void                    editProductSize(int productID, const QString& newSize);
+        void                    editProductDeliveryDate(int productID, const QDateTime& newDeliveryDate);
+        /// Удалеиние продукта
+        void                    removeProduct(int productID);
+
         /// Обновляет данные, касающиеся партии с consignmentID
         void                    updateConsignment(int consignmentID, const Consignment& consignment);
 
