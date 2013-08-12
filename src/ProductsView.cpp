@@ -82,9 +82,10 @@ void ProductsView::processSaleAction(int id) {
 void ProductsView::processEditAction(int id) {
         ConsignmentDialog* dialog = new ConsignmentDialog(id, this);
         if (dialog->exec() == QDialog::Accepted) {
-                QModelIndex selectedIndex = this->selectedIndexes()[0];
+                // Обновляем модели и восстанавливаем выделение
+                QModelIndexList selectedIndexes = this->selectedIndexes();
                 Database::instance()->refreshMainProductsModel();
-                this->setCurrentIndex(selectedIndex);
+                if (selectedIndexes.size() != 0) this->setCurrentIndex(selectedIndexes[0]);
                 Database::instance()->refreshMainSoldProductsModel();
         }
 }
