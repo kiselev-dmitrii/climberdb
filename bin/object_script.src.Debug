@@ -15,6 +15,7 @@ INPUT(
 ./debug\moc_MainProductList.o
 ./debug\moc_ProductsFilter.o
 ./debug\moc_MainSoldList.o
+./debug\moc_SoldProductsView.o
 ./debug\moc_TableView.o
 ./debug\moc_ConsignmentDialog.o
 );

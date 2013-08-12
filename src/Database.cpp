@@ -96,6 +96,7 @@ QSqlQueryModel* Database::mainSoldProductsModel() {
 QSqlQueryModel* Database::refreshMainSoldProductsModel(const QDate &soldDate) {
         QString queryString = R"(
                         SELECT
+                                P.ID as "ProductID",
                                 C.Name as 'Наименование',
                                 C.Model as 'Модель',
                                 P.Size as 'Размер',
@@ -369,6 +370,51 @@ void Database::soldProduct(int productID) {
                                 ID = :productID
                               )";
         QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":productID", productID);
+        query.exec();
+}
+
+void Database::returnProduct(int productID) {
+        QString queryString;
+        QSqlQuery query;
+
+        // Если указан клиент, то у него нужно увеличить количество возвратов, возможно изменить рейтинг
+        queryString = "SELECT ClientID FROM Product WHERE ID = :productID";
+        query.prepare(queryString);
+        query.bindValue(":productID", productID);
+        query.exec();
+        query.first();
+        if (!query.isNull(0)) {         //клиент указан
+                int clientID = query.value("ClientID").toInt();
+                Q_ASSERT(clientID != 0);
+
+                queryString = R"(
+                                UPDATE
+                                        Client
+                                SET
+                                        CountReturns = CountReturns + 1
+                                WHERE
+                                        ID = :clientID
+                              )";
+                query.prepare(queryString);
+                query.bindValue(":clientID", clientID);
+                query.exec();
+        }
+
+        // Собственно делаем возврат товара
+        queryString = R"(
+                        UPDATE
+                                Product
+                        SET
+                                IsSold = 0,
+                                SaleDate = NULL,
+                                LastReturnDate = DATETIME('now', 'localtime'),
+                                CountReturns = CountReturns + 1,
+                                ClientID = NULL
+                        WHERE
+                                ID = :productID
+                              )";
         query.prepare(queryString);
         query.bindValue(":productID", productID);
         query.exec();
