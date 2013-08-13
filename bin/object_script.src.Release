@@ -17,5 +17,5 @@ INPUT(
 ./release\moc_MainSoldList.o
 ./release\moc_SoldProductsView.o
 ./release\moc_TableView.o
-./release\moc_ConsignmentDialog.o
+./release\moc_EditConsignmentDialog.o
 );

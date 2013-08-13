@@ -4,7 +4,7 @@
 #include <QDebug>
 #include <QInputDialog>
 #include "Database.h"
-#include "ConsignmentDialog.h"
+#include "EditConsignmentDialog.h"
 
 ProductsView::ProductsView(QSqlQueryModel *model, QWidget *parent) :
         TableView(model, "ProductView", parent),
@@ -80,7 +80,7 @@ void ProductsView::processSaleAction(int id) {
 }
 
 void ProductsView::processEditAction(int id) {
-        ConsignmentDialog* dialog = new ConsignmentDialog(id, this);
+        EditConsignmentDialog* dialog = new EditConsignmentDialog(id, this);
         if (dialog->exec() == QDialog::Accepted) {
                 // Обновляем модели и восстанавливаем выделение
                 QModelIndexList selectedIndexes = this->selectedIndexes();

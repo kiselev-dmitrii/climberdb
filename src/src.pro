@@ -33,8 +33,8 @@ HEADERS  += MainWindow.h \
     MainSoldList.h \
     SoldProductsView.h \
     TableView.h \
-    ConsignmentDialog.h \
-    Utils.h
+    Utils.h \
+    EditConsignmentDialog.h
 
 FORMS    += MainWindow.ui \
     ConsignmentDialog.ui
