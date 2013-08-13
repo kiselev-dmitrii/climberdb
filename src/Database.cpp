@@ -442,13 +442,13 @@ void Database::editProductDeliveryDate(int productID, const QDateTime &newDelive
                         UPDATE
                                 Product
                         SET
-                                DeliveryDate = :newDeliveryDate
+                                DeliveryDate = DATETIME(:newDeliveryDate)
                         WHERE
                                 ID = :productID
                               )";
         QSqlQuery query;
         query.prepare(queryString);
-        query.bindValue(":newDeliveryDate", newDeliveryDate);
+        query.bindValue(":newDeliveryDate", newDeliveryDate.toString("yyyy-MM-dd hh:mm:ss"));
         query.bindValue(":productID", productID);
         query.exec();
 }

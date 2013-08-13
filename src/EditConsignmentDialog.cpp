@@ -147,7 +147,22 @@ void EditConsignmentDialog::processEditSizeAction(int productID, const QString& 
 }
 
 void EditConsignmentDialog::processEditDateAction(int productID, const QDateTime& oldDate) {
-        qDebug() << "TODO THIS";
+        QDialog* dateDialog = new QDialog(this);
+        dateDialog->setWindowTitle("Изменение даты добавления");
+
+        QVBoxLayout* dialogLayout = new QVBoxLayout(dateDialog);
+        dateDialog->setLayout(dialogLayout);
+        dialogLayout->addWidget(new QLabel("Установите новую дату добавления товара"));
+
+        QDateTimeEdit* dateEdit = new QDateTimeEdit(oldDate, dateDialog);
+        dateEdit->setCalendarPopup(true);
+        dialogLayout->addWidget(dateEdit);
+
+        dateDialog->exec();
+
+        Database::instance()->editProductDeliveryDate(productID, dateEdit->dateTime());
+        Database::instance()->refreshDialogSizesModel();
+        Database::instance()->refreshMainProductsModel();
 }
 
 void EditConsignmentDialog::processRemoveSizeAction(int productID) {
