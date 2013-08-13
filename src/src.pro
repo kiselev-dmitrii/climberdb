@@ -39,4 +39,5 @@ HEADERS  += MainWindow.h \
     CreateConsignmentDialog.h
 
 FORMS    += MainWindow.ui \
-    ConsignmentDialog.ui
+    EditConsignmentDialog.ui \
+    CreateConsignmentDialog.ui

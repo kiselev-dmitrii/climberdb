@@ -70,6 +70,9 @@ public:
         /// Обновляет данные, касающиеся партии с consignmentID
         void                    updateConsignment(int consignmentID, const Consignment& consignment);
 
+        /// Добавляет новую партию и возвращает его ConsignmentID
+        int                     addNewConsignment(const Consignment& consignment);
+
 private:
         /// Закрытые конструкторы и оператор присваивания
         Database();

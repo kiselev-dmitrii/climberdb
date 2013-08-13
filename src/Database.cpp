@@ -127,6 +127,12 @@ QSqlQueryModel* Database::refreshMainSoldProductsModel(const QDate &soldDate) {
         return &m_mainSoldProductsModel;
 }
 
+QSqlQueryModel* Database::refreshMainSoldProductsModel() {
+        m_mainSoldProductsModel.query().exec();
+        m_mainSoldProductsModel.setQuery(m_mainSoldProductsModel.query());
+        return &m_mainSoldProductsModel;
+}
+
 QVector<Product> Database::getProductListFromConsignment(int consignmentID) {
         QString queryString = R"(
                         SELECT
@@ -508,8 +514,40 @@ void Database::updateConsignment(int consignmentID, const Consignment &consignme
         query.exec();
 }
 
-QSqlQueryModel* Database::refreshMainSoldProductsModel() {
-        m_mainSoldProductsModel.query().exec();
-        m_mainSoldProductsModel.setQuery(m_mainSoldProductsModel.query());
-        return &m_mainSoldProductsModel;
+int Database::addNewConsignment(const Consignment &consignment) {
+        int colorID, typeID, countryID;
+
+        if (consignment.color != "") {
+                colorID = this->getColorID(consignment.color);
+                if (colorID < 0) colorID = this->addColor(consignment.color);
+        }
+
+        if (consignment.type != "") {
+                typeID = this->getTypeID(consignment.type);
+                if (typeID < 0) typeID = this->addType(consignment.type);
+        }
+
+        if (consignment.country != "") {
+                countryID = this->getCountryID(consignment.country);
+                if (countryID < 0) countryID = this->addCountry(consignment.country);
+        }
+
+        QString queryString = R"(
+                                INSERT INTO Consignment (Name, Model, ColorID, TypeID, Gender, Comment, Cost, CountryID)
+                                VALUES (:name, :model, :colorID, :typeID, :gender, :comment, :cost, :countryID)
+                              )";
+
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":name", consignment.name);
+        query.bindValue(":model", consignment.model);
+        query.bindValue(":colorID", colorID);
+        query.bindValue(":typeID", typeID);
+        query.bindValue(":gender", consignment.gender);
+        query.bindValue(":comment", consignment.comment);
+        query.bindValue(":cost", consignment.cost);
+        query.bindValue(":countryID", countryID);
+        query.exec();
+
+        return query.lastInsertId().toInt();
 }

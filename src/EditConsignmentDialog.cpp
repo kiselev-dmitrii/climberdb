@@ -1,5 +1,5 @@
 #include "EditConsignmentDialog.h"
-#include "ui_ConsignmentDialog.h"
+#include "ui_EditConsignmentDialog.h"
 #include "Database.h"
 #include <QContextMenuEvent>
 #include <QDebug>
@@ -9,31 +9,32 @@
 
 EditConsignmentDialog::EditConsignmentDialog(int consignmentID, QWidget *parent) :
         QDialog(parent),
-        m_ui(new Ui::dlgConsignment),
+        m_ui(new Ui::dlgEditConsignment),
         m_consignmentID(consignmentID),
         m_currentProducts(nullptr),
         m_contextMenu(nullptr)
 {
         m_ui->setupUi(this);
-        connectWidgets();
-        loadData();
+        loadItemsForComboboxes();
+        loadConsignmentData();
+        loadProductsData();
         createContextMenu();
+        connectWidgets();
 }
 
 EditConsignmentDialog::~EditConsignmentDialog() {
         delete m_ui;
 }
 
-void EditConsignmentDialog::loadData() {
-        m_currentConsignment = Database::instance()->getConsignmentByID(m_consignmentID);
-        m_currentProducts = Database::instance()->refreshDialogSizesModel(m_consignmentID);
-
-        // Загружаем списки для combobox
+void EditConsignmentDialog::loadItemsForComboboxes() {
         m_ui->cbType->addItems(Database::instance()->getAvailableTypes());
         m_ui->cbColor->addItems(Database::instance()->getAvailableColors());
         m_ui->cbCountry->addItems(Database::instance()->getAvailableCountries());
+}
 
-        // Устанавливаем текущее состояние партии
+void EditConsignmentDialog::loadConsignmentData() {
+        m_currentConsignment = Database::instance()->getConsignmentByID(m_consignmentID);
+
         m_ui->edtName->setText(m_currentConsignment.name);
         m_ui->edtModel->setText(m_currentConsignment.model);
         m_ui->spnCost->setValue(m_currentConsignment.cost);
@@ -46,14 +47,36 @@ void EditConsignmentDialog::loadData() {
 
         m_ui->edtComment->setText(m_currentConsignment.comment);
         m_ui->cbCountry->setCurrentIndex(m_ui->cbCountry->findText(m_currentConsignment.country));
+}
 
-        // Устанавливаем доступные размеры
+void EditConsignmentDialog::loadProductsData() {
+        m_currentProducts = Database::instance()->refreshDialogSizesModel(m_consignmentID);
+
         m_ui->tvProducts->setModel(m_currentProducts);
         m_ui->tvProducts->resizeColumnsToContents();
         m_ui->tvProducts->horizontalHeader()->hideSection(0);
 }
 
-void EditConsignmentDialog::updateConsignment() {
+void EditConsignmentDialog::createContextMenu() {
+        m_contextMenu = new QMenu(this);
+        m_contextMenu->addAction("Редактировать дату добавления");
+        m_contextMenu->addAction("Редактировать размер");
+        m_contextMenu->addSeparator();
+        m_contextMenu->addAction("Удалить");
+}
+
+void EditConsignmentDialog::connectWidgets() {
+        /// Кнопки Ok, Cancel
+        connect(m_ui->btnBox, SIGNAL(accepted()), this, SLOT(accept()));
+        connect(m_ui->btnBox, SIGNAL(accepted()), this, SLOT(saveConsignmentData()));
+        connect(m_ui->btnBox, SIGNAL(rejected()), this, SLOT(reject()));
+
+        // Кнопка добавления и меню
+        connect(m_ui->btnAddNewSizes, SIGNAL(clicked()), this, SLOT(addNewProducts()));
+        connect(m_contextMenu, SIGNAL(triggered(QAction*)), SLOT(processMenuActions(QAction*)));
+}
+
+void EditConsignmentDialog::saveConsignmentData() {
         m_currentConsignment.name = m_ui->edtName->text();
         m_currentConsignment.model = m_ui->edtModel->text();
         m_currentConsignment.color = m_ui->cbColor->currentText();
@@ -70,7 +93,7 @@ void EditConsignmentDialog::updateConsignment() {
         Database::instance()->updateConsignment(m_consignmentID, m_currentConsignment);
 }
 
-void EditConsignmentDialog::addNewSizes() {
+void EditConsignmentDialog::addNewProducts() {
         if (m_ui->edtAddNewSizes->text().size() != 0) {
                 QStringList sizes = m_ui->edtAddNewSizes->text().split(",");
                 for (QString &size: sizes) size = size.trimmed();
@@ -123,27 +146,7 @@ void EditConsignmentDialog::processRemoveSizeAction(int productID) {
         }
 }
 
-void EditConsignmentDialog::connectWidgets() {
-        connect(m_ui->btnBox, SIGNAL(accepted()), this, SLOT(accept()));
-        connect(m_ui->btnBox, SIGNAL(accepted()), this, SLOT(updateConsignment()));
-
-        connect(m_ui->btnBox, SIGNAL(rejected()), this, SLOT(reject()));
-
-        connect(m_ui->btnAddNewSizes, SIGNAL(clicked()), this, SLOT(addNewSizes()));
-}
-
-void EditConsignmentDialog::createContextMenu() {
-        m_contextMenu = new QMenu(this);
-        m_contextMenu->addAction("Редактировать дату добавления");
-        m_contextMenu->addAction("Редактировать размер");
-        m_contextMenu->addSeparator();
-        m_contextMenu->addAction("Удалить");
-
-        connect(m_contextMenu, SIGNAL(triggered(QAction*)), SLOT(processMenuActions(QAction*)));
-}
-
 void EditConsignmentDialog::contextMenuEvent(QContextMenuEvent *ev) {
         Q_ASSERT(m_contextMenu != nullptr);
-
         m_contextMenu->exec(ev->globalPos());
 }

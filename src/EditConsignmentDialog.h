@@ -6,7 +6,7 @@
 #include "Database.h"
 
 namespace Ui {
-        class dlgConsignment;
+        class dlgEditConsignment;
 }
 
 class EditConsignmentDialog : public QDialog {
@@ -17,12 +17,17 @@ public:
                                 ~EditConsignmentDialog();
 
 private:
+        /// Загрузка содержимого комбобоксов
+        void                    loadItemsForComboboxes();
         /// Загрузка данных в виджеты
-        void                    loadData();
-        /// Соединение виджетов
-        void                    connectWidgets();
+        void                    loadConsignmentData();
+        void                    loadProductsData();
         /// Создание контекстного меню
         void                    createContextMenu();
+        /// Соединение виджетов
+        void                    connectWidgets();
+
+private:
         /// Собитие на нажатие правой кнопки мыши
         void                    contextMenuEvent(QContextMenuEvent *ev);
         /// Удаление размера
@@ -33,12 +38,15 @@ private:
         void                    processEditDateAction(int productID, const QDateTime& oldDate);
 
 private slots:
-        void                    updateConsignment();
-        void                    addNewSizes();
+        /// Выполняется при нажатии на Ok
+        void                    saveConsignmentData();
+        /// Обработка нажатия на кнопку btnAddNewSizes
+        void                    addNewProducts();
+        /// Обработка нажатий на пункты в меню
         void                    processMenuActions(QAction* action);
 
 private:
-        Ui::dlgConsignment*     m_ui;
+        Ui::dlgEditConsignment* m_ui;
 
         int                     m_consignmentID;
         Consignment             m_currentConsignment;

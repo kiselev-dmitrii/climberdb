@@ -3,6 +3,7 @@
 #include <QContextMenuEvent>
 #include <QDebug>
 #include <QInputDialog>
+#include <QHeaderView>
 #include "Database.h"
 #include "EditConsignmentDialog.h"
 #include "CreateConsignmentDialog.h"
@@ -97,6 +98,9 @@ void ProductsView::processEditAction(int id) {
 void ProductsView::processAddAction() {
         CreateConsignmentDialog* dialog = new CreateConsignmentDialog(this);
         if (dialog->exec() == QDialog::Accepted) {
-                qDebug() << "All ok";
+                // Возможно это костыль
+                while (model()->canFetchMore(QModelIndex())) model()->fetchMore(QModelIndex());
+                scrollToBottom();
+                selectRow(model()->rowCount()-1);
         }
 }

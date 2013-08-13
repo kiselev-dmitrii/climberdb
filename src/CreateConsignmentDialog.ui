@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>dlgCreateConsignment</class>
+ <widget class="QDialog" name="dlgCreateConsignment">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>461</width>
+    <height>289</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Добавить новый товар</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="6" column="1">
+    <widget class="QComboBox" name="cbType">
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="0">
+    <widget class="QLabel" name="lblCountry">
+     <property name="text">
+      <string>Производитель:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
+    <widget class="QLabel" name="lblComment">
+     <property name="text">
+      <string>Комментарии:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLineEdit" name="edtModel"/>
+   </item>
+   <item row="3" column="1">
+    <widget class="QSpinBox" name="spnCost">
+     <property name="minimum">
+      <number>0</number>
+     </property>
+     <property name="maximum">
+      <number>100000</number>
+     </property>
+     <property name="singleStep">
+      <number>50</number>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="lblColor">
+     <property name="text">
+      <string>Цвет:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QComboBox" name="cbColor">
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QLabel" name="lblGender">
+     <property name="text">
+      <string>Пол:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="lblCost">
+     <property name="text">
+      <string>Цена:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="11" column="0" colspan="2">
+    <widget class="QDialogButtonBox" name="btnBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="1">
+    <widget class="QLineEdit" name="edtComment"/>
+   </item>
+   <item row="7" column="1">
+    <layout class="QHBoxLayout" name="ltGender">
+     <item>
+      <widget class="QRadioButton" name="rbtnUnknown">
+       <property name="text">
+        <string>Неизв.</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="rbtnMale">
+       <property name="text">
+        <string>Муж.</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="rbtnFemale">
+       <property name="text">
+        <string>Жен.</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="lblName">
+     <property name="text">
+      <string>Наименование:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="lblModel">
+     <property name="text">
+      <string>Модель:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="edtName"/>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="lblType">
+     <property name="text">
+      <string>Тип:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="1">
+    <widget class="QComboBox" name="cbCountry">
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="lblAddNewSizes">
+     <property name="text">
+      <string>Размеры:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLineEdit" name="edtAddNewSizes"/>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>edtName</tabstop>
+  <tabstop>edtModel</tabstop>
+  <tabstop>spnCost</tabstop>
+  <tabstop>edtAddNewSizes</tabstop>
+  <tabstop>cbColor</tabstop>
+  <tabstop>cbType</tabstop>
+  <tabstop>rbtnUnknown</tabstop>
+  <tabstop>rbtnMale</tabstop>
+  <tabstop>rbtnFemale</tabstop>
+  <tabstop>edtComment</tabstop>
+  <tabstop>cbCountry</tabstop>
+  <tabstop>btnBox</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

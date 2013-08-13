@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_EditConsignmentDialog_t {
     QByteArrayData data[7];
-    char stringdata[89];
+    char stringdata[94];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,15 +30,15 @@ struct qt_meta_stringdata_EditConsignmentDialog_t {
 static const qt_meta_stringdata_EditConsignmentDialog_t qt_meta_stringdata_EditConsignmentDialog = {
     {
 QT_MOC_LITERAL(0, 0, 21),
-QT_MOC_LITERAL(1, 22, 17),
-QT_MOC_LITERAL(2, 40, 0),
-QT_MOC_LITERAL(3, 41, 11),
-QT_MOC_LITERAL(4, 53, 18),
-QT_MOC_LITERAL(5, 72, 8),
-QT_MOC_LITERAL(6, 81, 6)
+QT_MOC_LITERAL(1, 22, 19),
+QT_MOC_LITERAL(2, 42, 0),
+QT_MOC_LITERAL(3, 43, 14),
+QT_MOC_LITERAL(4, 58, 18),
+QT_MOC_LITERAL(5, 77, 8),
+QT_MOC_LITERAL(6, 86, 6)
     },
-    "EditConsignmentDialog\0updateConsignment\0"
-    "\0addNewSizes\0processMenuActions\0"
+    "EditConsignmentDialog\0saveConsignmentData\0"
+    "\0addNewProducts\0processMenuActions\0"
     "QAction*\0action\0"
 };
 #undef QT_MOC_LITERAL
@@ -74,8 +74,8 @@ void EditConsignmentDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c
     if (_c == QMetaObject::InvokeMetaMethod) {
         EditConsignmentDialog *_t = static_cast<EditConsignmentDialog *>(_o);
         switch (_id) {
-        case 0: _t->updateConsignment(); break;
-        case 1: _t->addNewSizes(); break;
+        case 0: _t->saveConsignmentData(); break;
+        case 1: _t->addNewProducts(); break;
         case 2: _t->processMenuActions((*reinterpret_cast< QAction*(*)>(_a[1]))); break;
         default: ;
         }

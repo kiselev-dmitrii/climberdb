@@ -4,7 +4,7 @@
 #include <QDialog>
 
 namespace Ui {
-        class dlgConsignment;
+        class dlgCreateConsignment;
 }
 
 class CreateConsignmentDialog : public QDialog {
@@ -15,7 +15,19 @@ public:
                         ~CreateConsignmentDialog();
 
 private:
-        Ui::dlgConsignment*     m_ui;
+        /// Загрузка содержимого Combobox
+        void            loadItemsForComboboxes();
+        /// Соединение виджетов
+        void            connectWidgets();
+
+private slots:
+        /// Сохранение данных в БД. Возвращает ConsignmentID добавленной записи
+        int             saveData();
+        int             saveConsignmentData();
+        void            saveProductsData(int consignmentID);
+
+private:
+        Ui::dlgCreateConsignment*     m_ui;
 
         Q_OBJECT
 };
