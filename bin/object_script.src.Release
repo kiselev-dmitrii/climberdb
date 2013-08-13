@@ -11,6 +11,8 @@ INPUT(
 ./release\Utils.o
 ./release\CreateConsignmentDialog.o
 ./release\EditConsignmentDialog.o
+./release\SaleProductDialog.o
+./release\ClientsDialog.o
 ./release\moc_MainWindow.o
 ./release\moc_ProductsView.o
 ./release\moc_MainProductList.o
@@ -20,4 +22,6 @@ INPUT(
 ./release\moc_TableView.o
 ./release\moc_EditConsignmentDialog.o
 ./release\moc_CreateConsignmentDialog.o
+./release\moc_SaleProductDialog.o
+./release\moc_ClientsDialog.o
 );

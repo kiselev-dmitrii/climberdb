@@ -24,7 +24,9 @@ SOURCES += main.cpp\
     TableView.cpp \
     Utils.cpp \
     CreateConsignmentDialog.cpp \
-    EditConsignmentDialog.cpp
+    EditConsignmentDialog.cpp \
+    SaleProductDialog.cpp \
+    ClientsDialog.cpp
 
 HEADERS  += MainWindow.h \
     ProductsView.h \
@@ -36,8 +38,12 @@ HEADERS  += MainWindow.h \
     TableView.h \
     Utils.h \
     EditConsignmentDialog.h \
-    CreateConsignmentDialog.h
+    CreateConsignmentDialog.h \
+    SaleProductDialog.h \
+    ClientsDialog.h
 
 FORMS    += MainWindow.ui \
     EditConsignmentDialog.ui \
-    CreateConsignmentDialog.ui
+    CreateConsignmentDialog.ui \
+    SaleProductDialog.ui \
+    ClientsDialog.ui

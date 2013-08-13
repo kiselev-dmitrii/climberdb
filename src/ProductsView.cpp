@@ -7,6 +7,7 @@
 #include "Database.h"
 #include "EditConsignmentDialog.h"
 #include "CreateConsignmentDialog.h"
+#include "SaleProductDialog.h"
 
 ProductsView::ProductsView(QSqlQueryModel *model, QWidget *parent) :
         TableView(model, "ProductView", parent),
@@ -58,29 +59,9 @@ void ProductsView::processMenuActions(QAction *action) {
 
 void ProductsView::processSaleAction(int id) {
         // Формируем список размеров
-        QVector<Product> products = Database::instance()->getProductListFromConsignment(id);
-        QStringList items;
-        for (auto &product: products) items.append(product.size);
-
-        // Создаем окно
-        bool ok;
-        QString selectedSize = QInputDialog::getItem(this, "Продажа", "Выберите размер для продажи", items, 0, false, &ok);
-
-
-        if (ok) {
-                for (auto &product: products) {
-                        if (product.size == selectedSize) {
-                                QModelIndex selectedIndex = this->selectedIndexes()[0];
-
-                                Database::instance()->soldProduct(product.id);
-                                Database::instance()->refreshMainProductsModel();
-                                Database::instance()->refreshMainSoldProductsModel();
-
-                                this->setCurrentIndex(selectedIndex);
-
-                                break;
-                        }
-                }
+        SaleProductDialog* dialog = new SaleProductDialog(id, this);
+        if (dialog->exec() == QDialog::Accepted) {
+                qDebug() << "Ok";
         }
 }
 
