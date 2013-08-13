@@ -61,7 +61,7 @@ QSqlQueryModel* Database::refreshMainProductsModel(const QString &name, const QS
                         IFNULL(Color.Name, "") LIKE '%'||:color||'%' AND
                         IFNULL(Country.Name, "") LIKE '%'||:country||'%'
                 GROUP BY
-                        C.Name, C.Model, C.Cost, C.TypeID, C.Gender, C.Comment
+                        C.Name, C.Model, C.Cost, C.TypeID, C.Gender, C.Comment, C.ID
                 ORDER BY
                         C.ID DESC
                 )";
