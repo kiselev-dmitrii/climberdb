@@ -45,6 +45,9 @@ private slots:
         /// Обработка нажатий на пункты в меню
         void                    processMenuActions(QAction* action);
 
+        /// Проверка полей на правильность заполнения
+        void                    validateFields();
+
 private:
         Ui::dlgEditConsignment* m_ui;
 

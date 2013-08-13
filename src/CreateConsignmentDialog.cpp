@@ -1,6 +1,7 @@
 #include "CreateConsignmentDialog.h"
 #include "ui_CreateConsignmentDialog.h"
 #include "Database.h"
+#include <QPushButton>
 
 CreateConsignmentDialog::CreateConsignmentDialog(QWidget *parent) :
         QDialog(parent),
@@ -8,6 +9,8 @@ CreateConsignmentDialog::CreateConsignmentDialog(QWidget *parent) :
 
 {
         m_ui->setupUi(this);
+        m_ui->btnBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+
         loadItemsForComboboxes();
         connectWidgets();
 }
@@ -27,6 +30,13 @@ void CreateConsignmentDialog::connectWidgets() {
         connect(m_ui->btnBox, SIGNAL(accepted()), this, SLOT(accept()));
         connect(m_ui->btnBox, SIGNAL(rejected()), this, SLOT(reject()));
         connect(m_ui->btnBox, SIGNAL(accepted()), this, SLOT(saveData()));
+
+        /// Проверка полей при изменении содержимого
+        connect(m_ui->edtName, SIGNAL(textChanged(QString)), SLOT(validateFields()));
+        connect(m_ui->edtModel, SIGNAL(textChanged(QString)), SLOT(validateFields()));
+        connect(m_ui->edtAddNewSizes, SIGNAL(textChanged(QString)), SLOT(validateFields()));
+        connect(m_ui->spnCost, SIGNAL(valueChanged(int)), SLOT(validateFields()));
+
 }
 
 int CreateConsignmentDialog::saveData() {
@@ -61,4 +71,13 @@ void CreateConsignmentDialog::saveProductsData(int consignmentID) {
         for (QString &size: sizes) size = size.trimmed();
 
         Database::instance()->addNewProducts(consignmentID, sizes);
+}
+
+void CreateConsignmentDialog::validateFields() {
+        if (m_ui->edtName->text().size() == 0 ||  m_ui->edtModel->text().size() == 0 ||
+        m_ui->edtAddNewSizes->text().size() == 0 || m_ui->spnCost->value() == 0) {
+                m_ui->btnBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+        } else {
+                m_ui->btnBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+        }
 }

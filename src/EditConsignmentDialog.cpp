@@ -74,6 +74,12 @@ void EditConsignmentDialog::connectWidgets() {
         // Кнопка добавления и меню
         connect(m_ui->btnAddNewSizes, SIGNAL(clicked()), this, SLOT(addNewProducts()));
         connect(m_contextMenu, SIGNAL(triggered(QAction*)), SLOT(processMenuActions(QAction*)));
+
+        /// Проверка полей при изменении содержимого
+        connect(m_ui->edtName, SIGNAL(textChanged(QString)), SLOT(validateFields()));
+        connect(m_ui->edtModel, SIGNAL(textChanged(QString)), SLOT(validateFields()));
+        connect(m_ui->edtAddNewSizes, SIGNAL(textChanged(QString)), SLOT(validateFields()));
+        connect(m_ui->spnCost, SIGNAL(valueChanged(int)), SLOT(validateFields()));
 }
 
 void EditConsignmentDialog::saveConsignmentData() {
@@ -102,6 +108,16 @@ void EditConsignmentDialog::addNewProducts() {
                 m_ui->edtAddNewSizes->clear();
                 Database::instance()->refreshDialogSizesModel();
                 Database::instance()->refreshMainProductsModel();
+        }
+}
+
+void EditConsignmentDialog::validateFields() {
+        if (m_ui->edtName->text().size() == 0 ||
+        m_ui->edtModel->text().size() == 0 ||
+        m_ui->spnCost->value() == 0) {
+                m_ui->btnBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+        } else {
+                m_ui->btnBox->button(QDialogButtonBox::Ok)->setEnabled(true);
         }
 }
 

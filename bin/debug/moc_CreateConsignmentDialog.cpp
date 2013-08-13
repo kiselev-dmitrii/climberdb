@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_CreateConsignmentDialog_t {
-    QByteArrayData data[6];
-    char stringdata[86];
+    QByteArrayData data[7];
+    char stringdata[101];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,11 +34,12 @@ QT_MOC_LITERAL(1, 24, 8),
 QT_MOC_LITERAL(2, 33, 0),
 QT_MOC_LITERAL(3, 34, 19),
 QT_MOC_LITERAL(4, 54, 16),
-QT_MOC_LITERAL(5, 71, 13)
+QT_MOC_LITERAL(5, 71, 13),
+QT_MOC_LITERAL(6, 85, 14)
     },
     "CreateConsignmentDialog\0saveData\0\0"
     "saveConsignmentData\0saveProductsData\0"
-    "consignmentID\0"
+    "consignmentID\0validateFields\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -48,7 +49,7 @@ static const uint qt_meta_data_CreateConsignmentDialog[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -56,14 +57,16 @@ static const uint qt_meta_data_CreateConsignmentDialog[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   29,    2, 0x08,
-       3,    0,   30,    2, 0x08,
-       4,    1,   31,    2, 0x08,
+       1,    0,   34,    2, 0x08,
+       3,    0,   35,    2, 0x08,
+       4,    1,   36,    2, 0x08,
+       6,    0,   39,    2, 0x08,
 
  // slots: parameters
     QMetaType::Int,
     QMetaType::Int,
     QMetaType::Void, QMetaType::Int,    5,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -78,6 +81,7 @@ void CreateConsignmentDialog::qt_static_metacall(QObject *_o, QMetaObject::Call 
         case 1: { int _r = _t->saveConsignmentData();
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = _r; }  break;
         case 2: _t->saveProductsData((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 3: _t->validateFields(); break;
         default: ;
         }
     }
@@ -108,13 +112,13 @@ int CreateConsignmentDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 4)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        _id -= 4;
     }
     return _id;
 }

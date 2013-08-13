@@ -26,6 +26,9 @@ private slots:
         int             saveConsignmentData();
         void            saveProductsData(int consignmentID);
 
+        /// Проверяет поля на правильность запролнения
+        void            validateFields();
+
 private:
         Ui::dlgCreateConsignment*     m_ui;
 
