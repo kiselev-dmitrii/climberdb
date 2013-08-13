@@ -10,6 +10,7 @@ INPUT(
 ./debug\TableView.o
 ./debug\ConsignmentDialog.o
 ./debug\Utils.o
+./debug\CreateConsignmentDialog.o
 ./debug\moc_MainWindow.o
 ./debug\moc_ProductsView.o
 ./debug\moc_MainProductList.o
@@ -18,4 +19,5 @@ INPUT(
 ./debug\moc_SoldProductsView.o
 ./debug\moc_TableView.o
 ./debug\moc_EditConsignmentDialog.o
+./debug\moc_CreateConsignmentDialog.o
 );

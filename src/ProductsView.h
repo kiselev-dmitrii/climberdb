@@ -27,6 +27,7 @@ private slots:
         void            processMenuActions(QAction* action);
         void            processSaleAction(int id);
         void            processEditAction(int id);
+        void            processAddAction();
 
 private:
         QMenu*          m_contextMenu;

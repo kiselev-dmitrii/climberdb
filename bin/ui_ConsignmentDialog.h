@@ -65,7 +65,7 @@ public:
     {
         if (dlgConsignment->objectName().isEmpty())
             dlgConsignment->setObjectName(QStringLiteral("dlgConsignment"));
-        dlgConsignment->resize(604, 461);
+        dlgConsignment->resize(604, 492);
         gridLayout = new QGridLayout(dlgConsignment);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         spnCost = new QSpinBox(dlgConsignment);
@@ -217,7 +217,7 @@ public:
         ltAddNewSizes->addWidget(btnAddNewSizes);
 
 
-        gridLayout->addLayout(ltAddNewSizes, 10, 1, 1, 2);
+        gridLayout->addLayout(ltAddNewSizes, 10, 2, 1, 1);
 
 
         retranslateUi(dlgConsignment);

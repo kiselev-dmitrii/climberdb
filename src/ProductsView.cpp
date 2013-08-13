@@ -5,6 +5,7 @@
 #include <QInputDialog>
 #include "Database.h"
 #include "EditConsignmentDialog.h"
+#include "CreateConsignmentDialog.h"
 
 ProductsView::ProductsView(QSqlQueryModel *model, QWidget *parent) :
         TableView(model, "ProductView", parent),
@@ -15,6 +16,7 @@ ProductsView::ProductsView(QSqlQueryModel *model, QWidget *parent) :
 
 void ProductsView::createContextMenu() {
         m_contextMenu = new QMenu(this);
+        m_contextMenu->addAction("Добавить");
         m_contextMenu->addAction("Продать");
         m_contextMenu->addAction("Распечатать ценник");
         m_contextMenu->addSeparator();
@@ -48,7 +50,9 @@ void ProductsView::processMenuActions(QAction *action) {
 
         // Обрабатываем пункты меню
         if (action->text() == "Продать") processSaleAction(consignmentID);
-        if (action->text() == "Редактировать") processEditAction(consignmentID);
+        else if (action->text() == "Редактировать") processEditAction(consignmentID);
+        else if (action->text() == "Добавить") processAddAction();
+
 }
 
 void ProductsView::processSaleAction(int id) {
@@ -87,5 +91,12 @@ void ProductsView::processEditAction(int id) {
                 Database::instance()->refreshMainProductsModel();
                 if (selectedIndexes.size() != 0) this->setCurrentIndex(selectedIndexes[0]);
                 Database::instance()->refreshMainSoldProductsModel();
+        }
+}
+
+void ProductsView::processAddAction() {
+        CreateConsignmentDialog* dialog = new CreateConsignmentDialog(this);
+        if (dialog->exec() == QDialog::Accepted) {
+                qDebug() << "All ok";
         }
 }
