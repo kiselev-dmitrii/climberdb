@@ -63,7 +63,7 @@ QSqlQueryModel* Database::refreshMainProductsModel(const QString &name, const QS
                 GROUP BY
                         C.Name, C.Model, C.Cost, C.TypeID, C.Gender, C.Comment
                 ORDER BY
-                        C.ID
+                        C.ID DESC
                 )";
 
         QSqlQuery query;

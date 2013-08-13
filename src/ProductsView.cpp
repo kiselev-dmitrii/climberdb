@@ -97,10 +97,5 @@ void ProductsView::processEditAction(int id) {
 
 void ProductsView::processAddAction() {
         CreateConsignmentDialog* dialog = new CreateConsignmentDialog(this);
-        if (dialog->exec() == QDialog::Accepted) {
-                // Возможно это костыль
-                while (model()->canFetchMore(QModelIndex())) model()->fetchMore(QModelIndex());
-                scrollToBottom();
-                selectRow(model()->rowCount()-1);
-        }
+        dialog->exec();
 }
