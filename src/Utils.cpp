@@ -2,12 +2,18 @@
 #include <cmath>
 #include <QStringList>
 #include <QDebug>
+#include "Database.h"
 
 int generateCheckDigit(const QString &significantDigits);
 
 namespace Utils {
 
-void generateBarcodes(QMap<QString, QString> &barcodes, int consignmentID, const QStringList &newSizes) {
+QMap<QString, QString> generateBarcodes(int consignmentID, const QStringList &newSizes) {
+        // Для генерирования штрихкода нужен список всех предыдущих штрихкодов в партии
+        auto products = Database::instance()->getProductListFromConsignment(consignmentID);
+        QMap<QString, QString> barcodes;                                        // size -> barcode
+        for (auto &product: products) barcodes[product.size] = product.barcode;
+
         // Вычисляем наибольший порядковый номер
         int max = 0;
         for (QString &barcode: barcodes.values()) {
@@ -26,6 +32,8 @@ void generateBarcodes(QMap<QString, QString> &barcodes, int consignmentID, const
                         ++i;
                 }
         }
+
+        return barcodes;
 }
 
 } //namepsace Utils

@@ -301,18 +301,13 @@ int Database::addCountry(const QString &country) {
         return query.lastInsertId().toInt();
 }
 
-void Database::addNewSizes(int consignmentID, const QStringList &sizes) {
-        // Для генерирования штрихкода нужен список всех предыдущих штрихкодов в партии
-        auto products = this->getProductListFromConsignment(consignmentID);
-        QMap<QString, QString> barcodes;                                        // size -> barcode
-        for (auto &product: products) barcodes[product.size] = product.barcode;
-        Utils::generateBarcodes(barcodes, consignmentID, sizes);
-
+void Database::addNewProducts(int consignmentID, const QStringList &sizes) {
         QString queryString = R"(
                                 INSERT INTO Product (ConsignmentID, Size, Barcode, DeliveryDate)
                                 VALUES (:consignmentID, :size, :barcode, DATETIME('now', 'localtime'))
                                 )";
 
+        QMap<QString, QString> barcodes = Utils::generateBarcodes(consignmentID, sizes);
         for (auto &size: sizes) {
                 QSqlQuery query;
                 query.prepare(queryString);

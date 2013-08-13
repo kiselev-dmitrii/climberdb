@@ -7,7 +7,7 @@
 namespace Utils {
 
 /// Добавляет в словарь barcodes (size->barcode) новые штрихкоды для новых размеров.
-void    generateBarcodes(QMap<QString, QString>& barcodes, int consignmentID, const QStringList& newSizes);
+QMap<QString, QString>  generateBarcodes(int consignmentID, const QStringList& newSizes);
 
 } //namespace Utils
 

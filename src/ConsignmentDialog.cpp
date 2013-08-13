@@ -75,7 +75,7 @@ void ConsignmentDialog::addNewSizes() {
                 QStringList sizes = m_ui->edtAddNewSizes->text().split(",");
                 for (QString &size: sizes) size = size.trimmed();
 
-                Database::instance()->addNewSizes(m_consignmentID, sizes);
+                Database::instance()->addNewProducts(m_consignmentID, sizes);
                 m_ui->edtAddNewSizes->clear();
                 Database::instance()->refreshDialogSizesModel();
                 Database::instance()->refreshMainProductsModel();
