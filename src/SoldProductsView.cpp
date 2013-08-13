@@ -39,7 +39,7 @@ void SoldProductsView::processAboutClientAction(int productID) {
 
 void SoldProductsView::contextMenuEvent(QContextMenuEvent *ev) {
         Q_ASSERT(m_contextMenu != nullptr);
-        m_contextMenu->exec(ev->globalPos());
+        if (selectedIndexes().size() != 0) m_contextMenu->exec(ev->globalPos());
 }
 
 int SoldProductsView::selectedProductID() {
