@@ -360,6 +360,29 @@ QSqlQueryModel* Database::refreshDialogSizesModel(int consignmentID) {
 
 }
 
+QSqlQueryModel* Database::clientsModel() {
+        return &m_clientsModel;
+}
+
+QSqlQueryModel* Database::refreshClientsModel() {
+        QString queryString = R"(
+                       SELECT
+                                Name as "Имя",
+                                Surname as "Фамилия",
+                                Mobile as "Телефон",
+                                Address as "Адрес",
+                                (Discount * 100) || ' %' as "Скидка"
+                       FROM
+                                Client
+                              )";
+       QSqlQuery query;
+       query.prepare(queryString);
+       query.exec();
+
+       m_clientsModel.setQuery(query);
+       return &m_clientsModel;
+}
+
 void Database::soldProduct(int productID) {
         QString queryString = R"(
                         UPDATE

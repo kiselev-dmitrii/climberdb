@@ -27,6 +27,15 @@ public:
         QSqlQueryModel*         refreshMainSoldProductsModel();
         QSqlQueryModel*         refreshMainSoldProductsModel(const QDate& soldDate);
 
+        /// Возвращает модель непроданных товаров для партии с индексом consignmentID
+        QSqlQueryModel*         dialogSizesModel();
+        QSqlQueryModel*         refreshDialogSizesModel();
+        QSqlQueryModel*         refreshDialogSizesModel(int consignmentID);
+
+        /// Возвращает модель всех клиентов
+        QSqlQueryModel*         clientsModel();
+        QSqlQueryModel*         refreshClientsModel();
+
         /// Вовзвращает список товара из данной партии, которые еще не проданы
         QVector<Product>        getProductListFromConsignment(int consignmentID);
         /// Возвращает информацию о партии с данным ID
@@ -49,11 +58,6 @@ public:
 
         /// Добавляет новые размеры в партию consignmentID
         void                    addNewProducts(int consignmentID, const QStringList& sizes);
-
-        /// Возвращает модель непроданных товаров для партии с индексом consignmentID
-        QSqlQueryModel*         dialogSizesModel();
-        QSqlQueryModel*         refreshDialogSizesModel();
-        QSqlQueryModel*         refreshDialogSizesModel(int consignmentID);
 
         /// Помещает товар с индексом productID в список проданных
         void                    soldProduct(int productID);
@@ -93,6 +97,7 @@ private:
         QSqlQueryModel          m_mainProductsModel;
         QSqlQueryModel          m_mainSoldProductsModel;
         QSqlQueryModel          m_dialogSizesModel;
+        QSqlQueryModel          m_clientsModel;
 };
 
 

@@ -21,6 +21,7 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QVBoxLayout>
 
@@ -31,7 +32,6 @@ class Ui_ClientsDialog
 public:
     QVBoxLayout *verticalLayout;
     QGridLayout *gltAddNew;
-    QLabel *lblDiscount;
     QSpacerItem *spacer2;
     QLineEdit *edtAddress;
     QLineEdit *edtMobile;
@@ -43,8 +43,9 @@ public:
     QLineEdit *edtSurname;
     QLabel *lblAddress;
     QSpacerItem *spacer1;
-    QLineEdit *edtDiscount;
     QPushButton *btnChange;
+    QLabel *lblDiscount;
+    QSpinBox *spnDiscount;
     QTableView *tvClients;
     QDialogButtonBox *btnBox;
 
@@ -57,12 +58,6 @@ public:
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         gltAddNew = new QGridLayout();
         gltAddNew->setObjectName(QStringLiteral("gltAddNew"));
-        lblDiscount = new QLabel(ClientsDialog);
-        lblDiscount->setObjectName(QStringLiteral("lblDiscount"));
-        lblDiscount->setAlignment(Qt::AlignCenter);
-
-        gltAddNew->addWidget(lblDiscount, 1, 6, 1, 1);
-
         spacer2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         gltAddNew->addItem(spacer2, 1, 5, 1, 1);
@@ -122,22 +117,30 @@ public:
 
         gltAddNew->addItem(spacer1, 1, 2, 1, 1);
 
-        edtDiscount = new QLineEdit(ClientsDialog);
-        edtDiscount->setObjectName(QStringLiteral("edtDiscount"));
-        edtDiscount->setMaximumSize(QSize(100, 16777215));
-
-        gltAddNew->addWidget(edtDiscount, 1, 7, 1, 1);
-
         btnChange = new QPushButton(ClientsDialog);
         btnChange->setObjectName(QStringLiteral("btnChange"));
 
         gltAddNew->addWidget(btnChange, 2, 7, 1, 1);
+
+        lblDiscount = new QLabel(ClientsDialog);
+        lblDiscount->setObjectName(QStringLiteral("lblDiscount"));
+        lblDiscount->setAlignment(Qt::AlignCenter);
+
+        gltAddNew->addWidget(lblDiscount, 1, 6, 1, 1);
+
+        spnDiscount = new QSpinBox(ClientsDialog);
+        spnDiscount->setObjectName(QStringLiteral("spnDiscount"));
+        spnDiscount->setMaximum(100);
+
+        gltAddNew->addWidget(spnDiscount, 1, 7, 1, 1);
 
 
         verticalLayout->addLayout(gltAddNew);
 
         tvClients = new QTableView(ClientsDialog);
         tvClients->setObjectName(QStringLiteral("tvClients"));
+        tvClients->horizontalHeader()->setStretchLastSection(true);
+        tvClients->verticalHeader()->setDefaultSectionSize(19);
 
         verticalLayout->addWidget(tvClients);
 
@@ -159,13 +162,14 @@ public:
     void retranslateUi(QDialog *ClientsDialog)
     {
         ClientsDialog->setWindowTitle(QApplication::translate("ClientsDialog", "\320\232\320\273\320\270\320\265\320\275\321\202\321\213", 0));
-        lblDiscount->setText(QApplication::translate("ClientsDialog", "\320\241\320\272\320\270\320\264\320\272\320\260:", 0));
         lblMobile->setText(QApplication::translate("ClientsDialog", "\320\242\320\265\320\273\320\265\321\204\320\276\320\275:", 0));
         btnAdd->setText(QApplication::translate("ClientsDialog", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214", 0));
         lblName->setText(QApplication::translate("ClientsDialog", "\320\230\320\274\321\217:", 0));
         lblSurname->setText(QApplication::translate("ClientsDialog", "\320\244\320\260\320\274\320\270\320\273\320\270\321\217:", 0));
         lblAddress->setText(QApplication::translate("ClientsDialog", "\320\220\320\264\321\200\320\265\321\201:", 0));
         btnChange->setText(QApplication::translate("ClientsDialog", "\320\230\320\267\320\274\320\265\320\275\320\270\321\202\321\214", 0));
+        lblDiscount->setText(QApplication::translate("ClientsDialog", "\320\241\320\272\320\270\320\264\320\272\320\260:", 0));
+        spnDiscount->setSuffix(QApplication::translate("ClientsDialog", " %", 0));
     } // retranslateUi
 
 };

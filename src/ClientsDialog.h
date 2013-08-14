@@ -15,6 +15,22 @@ public:
                         ~ClientsDialog();
         
 private:
+        /// Загружает таблицу данными
+        void            loadClientsData();
+        /// Соединяет сигналы и слоты
+        void            connectWidgets();
+        /// Обновляет верхнюю панель
+        void            refreshAddingPanel(int row);
+
+private slots:
+        /// Добавляет клиента в таблицу
+        void            addNewClient();
+        /// Изменяет данные выбранного клиента
+        void            changeClientData();
+        /// Вызывается при выборе клиента
+        void            onSelectClient(const QModelIndex& index);
+
+private:
         Ui::ClientsDialog*      m_ui;
         Q_OBJECT
 };
