@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ClientsDialog_t {
-    QByteArrayData data[6];
-    char stringdata[67];
+    QByteArrayData data[7];
+    char stringdata[79];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,10 +34,12 @@ QT_MOC_LITERAL(1, 14, 12),
 QT_MOC_LITERAL(2, 27, 0),
 QT_MOC_LITERAL(3, 28, 16),
 QT_MOC_LITERAL(4, 45, 14),
-QT_MOC_LITERAL(5, 60, 5)
+QT_MOC_LITERAL(5, 60, 8),
+QT_MOC_LITERAL(6, 69, 8)
     },
     "ClientsDialog\0addNewClient\0\0"
-    "changeClientData\0onSelectClient\0index\0"
+    "changeClientData\0onSelectClient\0"
+    "newIndex\0oldIndex\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -57,12 +59,12 @@ static const uint qt_meta_data_ClientsDialog[] = {
  // slots: name, argc, parameters, tag, flags
        1,    0,   29,    2, 0x08,
        3,    0,   30,    2, 0x08,
-       4,    1,   31,    2, 0x08,
+       4,    2,   31,    2, 0x08,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QModelIndex,    5,
+    QMetaType::Void, QMetaType::QModelIndex, QMetaType::QModelIndex,    5,    6,
 
        0        // eod
 };
@@ -74,7 +76,7 @@ void ClientsDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         switch (_id) {
         case 0: _t->addNewClient(); break;
         case 1: _t->changeClientData(); break;
-        case 2: _t->onSelectClient((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
+        case 2: _t->onSelectClient((*reinterpret_cast< const QModelIndex(*)>(_a[1])),(*reinterpret_cast< const QModelIndex(*)>(_a[2]))); break;
         default: ;
         }
     }

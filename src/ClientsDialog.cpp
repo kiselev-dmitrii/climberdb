@@ -29,7 +29,8 @@ void ClientsDialog::connectWidgets() {
         connect(m_ui->btnChange, SIGNAL(clicked()), SLOT(changeClientData()));
 
         /// Выбор записи
-        connect(m_ui->tvClients, SIGNAL(clicked(QModelIndex)), SLOT(onSelectClient(QModelIndex)));
+        //connect(m_ui->tvClients, SIGNAL(clicked(QModelIndex)), SLOT(onSelectClient(QModelIndex)));
+        connect(m_ui->tvClients->selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)), SLOT(onSelectClient(QModelIndex,QModelIndex)));
 }
 
 void ClientsDialog::refreshAddingPanel(int row) {
@@ -92,8 +93,8 @@ void ClientsDialog::changeClientData() {
         Database::instance()->refreshClientsModel();
 }
 
-void ClientsDialog::onSelectClient(const QModelIndex& index) {
-        int row = index.row();
+void ClientsDialog::onSelectClient(const QModelIndex& newIndex, const QModelIndex& oldIndex) {
+        int row = newIndex.row();
         qDebug() << row;
         refreshAddingPanel(row);
 }

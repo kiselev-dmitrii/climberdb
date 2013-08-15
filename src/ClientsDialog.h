@@ -31,7 +31,7 @@ private slots:
         /// Изменяет данные выбранного клиента
         void            changeClientData();
         /// Вызывается при выборе клиента
-        void            onSelectClient(const QModelIndex& index);
+        void            onSelectClient(const QModelIndex& newIndex, const QModelIndex& oldIndex);
 
 private:
         Ui::ClientsDialog*      m_ui;
