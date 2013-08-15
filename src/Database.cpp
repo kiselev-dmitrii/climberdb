@@ -426,6 +426,19 @@ void Database::editClientInfo(int clientID, const Client &client) {
         query.exec();
 }
 
+void Database::removeClient(int clientID) {
+        QString queryString = R"(
+                        DELETE FROM
+                                Client
+                        WHERE
+                                ID = :clientID
+                              )";
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":clientID", clientID);
+        query.exec();
+}
+
 void Database::soldProduct(int productID) {
         QString queryString = R"(
                         UPDATE

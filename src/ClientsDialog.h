@@ -2,6 +2,7 @@
 #define CLIENTSDIALOG_H
 
 #include <QDialog>
+#include <QMenu>
 
 namespace Ui {
         class ClientsDialog;
@@ -17,6 +18,8 @@ public:
 private:
         /// Загружает таблицу данными
         void            loadClientsData();
+        /// Создает контекстное меню
+        void            createContextMenu();
         /// Соединяет сигналы и слоты
         void            connectWidgets();
         /// Обновляет верхнюю панель
@@ -24,6 +27,12 @@ private:
 
         /// Возвращает выделенный ClientID
         int             selectedClientID();
+        /// Удаляет клиента по ClientID
+        void            removeSelectedClient();
+
+private:
+        /// Событие, на нажатие правой кнопки мыши
+        void            contextMenuEvent(QContextMenuEvent *event);
 
 private slots:
         /// Добавляет клиента в таблицу
@@ -32,9 +41,12 @@ private slots:
         void            changeClientData();
         /// Вызывается при выборе клиента
         void            onSelectClient(const QModelIndex& newIndex, const QModelIndex& oldIndex);
+        /// Обработка нажатий на пункты меню
+        void            processMenuActions(QAction* action);
 
 private:
         Ui::ClientsDialog*      m_ui;
+        QMenu*                  m_contextMenu;
         Q_OBJECT
 };
 

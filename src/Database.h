@@ -42,6 +42,8 @@ public:
         int                     addNewClient(const Client& client);
         /// Обновляет запись о клиенте (Name, Surname, Mobile, Address, Discount)
         void                    editClientInfo(int clientID, const Client& client);
+        /// Удаляет запись о клиенте
+        void                    removeClient(int clientID);
 
         /// Вовзвращает список товара из данной партии, которые еще не проданы
         QVector<Product>        getProductListFromConsignment(int consignmentID);

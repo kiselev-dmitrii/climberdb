@@ -3,13 +3,16 @@
 #include "Database.h"
 #include <QModelIndex>
 #include <QDebug>
+#include <QContextMenuEvent>
 
 ClientsDialog::ClientsDialog(QWidget *parent) :
         QDialog(parent),
-        m_ui(new Ui::ClientsDialog)
+        m_ui(new Ui::ClientsDialog),
+        m_contextMenu(nullptr)
 {
         m_ui->setupUi(this);
         loadClientsData();
+        createContextMenu();
         connectWidgets();
 }
 
@@ -23,14 +26,21 @@ void ClientsDialog::loadClientsData() {
         m_ui->tvClients->horizontalHeader()->hideSection(0);
 }
 
+void ClientsDialog::createContextMenu() {
+        m_contextMenu = new QMenu(this);
+        m_contextMenu->addAction("Удалить");
+}
+
 void ClientsDialog::connectWidgets() {
-        /// Кнопки Добавить и Изменить
+        // Кнопки Добавить и Изменить
         connect(m_ui->btnAdd, SIGNAL(clicked()), SLOT(addNewClient()));
         connect(m_ui->btnChange, SIGNAL(clicked()), SLOT(changeClientData()));
 
-        /// Выбор записи
-        //connect(m_ui->tvClients, SIGNAL(clicked(QModelIndex)), SLOT(onSelectClient(QModelIndex)));
+        // Выбор записи
         connect(m_ui->tvClients->selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)), SLOT(onSelectClient(QModelIndex,QModelIndex)));
+
+        // Обработка пунктов меню
+        connect(m_contextMenu, SIGNAL(triggered(QAction*)), SLOT(processMenuActions(QAction*)));
 }
 
 void ClientsDialog::refreshAddingPanel(int row) {
@@ -67,6 +77,17 @@ int ClientsDialog::selectedClientID() {
         return table->model()->data(index).toInt();
 }
 
+void ClientsDialog::removeSelectedClient() {
+        int clientID = selectedClientID();
+        Database::instance()->removeClient(clientID);
+        Database::instance()->refreshClientsModel();
+}
+
+void ClientsDialog::contextMenuEvent(QContextMenuEvent *event) {
+        Q_ASSERT(m_contextMenu != nullptr);
+        m_contextMenu->exec(event->globalPos());
+}
+
 void ClientsDialog::addNewClient() {
         Client client;
         client.name = m_ui->edtName->text();
@@ -94,7 +115,13 @@ void ClientsDialog::changeClientData() {
 }
 
 void ClientsDialog::onSelectClient(const QModelIndex& newIndex, const QModelIndex& oldIndex) {
+        Q_UNUSED(oldIndex);
+
         int row = newIndex.row();
         qDebug() << row;
         refreshAddingPanel(row);
+}
+
+void ClientsDialog::processMenuActions(QAction *action) {
+        if (action->text() == "Удалить") removeSelectedClient();
 }
