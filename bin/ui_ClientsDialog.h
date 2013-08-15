@@ -139,6 +139,8 @@ public:
 
         tvClients = new QTableView(ClientsDialog);
         tvClients->setObjectName(QStringLiteral("tvClients"));
+        tvClients->setSelectionMode(QAbstractItemView::SingleSelection);
+        tvClients->setSelectionBehavior(QAbstractItemView::SelectRows);
         tvClients->horizontalHeader()->setStretchLastSection(true);
         tvClients->verticalHeader()->setDefaultSectionSize(19);
 

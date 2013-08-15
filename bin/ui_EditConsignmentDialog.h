@@ -96,6 +96,8 @@ public:
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         tvProducts = new QTableView(gbProducts);
         tvProducts->setObjectName(QStringLiteral("tvProducts"));
+        tvProducts->setSelectionMode(QAbstractItemView::SingleSelection);
+        tvProducts->setSelectionBehavior(QAbstractItemView::SelectRows);
         tvProducts->horizontalHeader()->setStretchLastSection(true);
         tvProducts->verticalHeader()->setDefaultSectionSize(19);
 
