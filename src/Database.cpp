@@ -367,6 +367,7 @@ QSqlQueryModel* Database::clientsModel() {
 QSqlQueryModel* Database::refreshClientsModel() {
         QString queryString = R"(
                        SELECT
+                                ID as "ID",
                                 Name as "Имя",
                                 Surname as "Фамилия",
                                 Mobile as "Телефон",
@@ -381,6 +382,48 @@ QSqlQueryModel* Database::refreshClientsModel() {
 
        m_clientsModel.setQuery(query);
        return &m_clientsModel;
+}
+
+int Database::addNewClient(const Client &client) {
+        QString queryString = R"(
+                        INSERT INTO Client (Name, Surname, Mobile, Address, Discount)
+                        VALUES (:name, :surname, :mobile, :address, :discount)
+                              )";
+
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":name", client.name);
+        query.bindValue(":surname", client.surname);
+        query.bindValue(":mobile", client.mobile);
+        query.bindValue(":address", client.address);
+        query.bindValue(":discount", client.discount);
+        query.exec();
+
+        return query.lastInsertId().toInt();
+}
+
+void Database::editClientInfo(int clientID, const Client &client) {
+        QString queryString = R"(
+                        UPDATE
+                                Client
+                        SET
+                                Name = :name,
+                                Surname = :surname,
+                                Mobile = :mobile,
+                                Address = :address,
+                                Discount = :discount
+                        WHERE
+                                ID = :clientID
+                              )";
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":name", client.name);
+        query.bindValue(":surname", client.surname);
+        query.bindValue(":mobile", client.mobile);
+        query.bindValue(":address", client.address);
+        query.bindValue(":discount", client.discount);
+        query.bindValue(":clientID", clientID);
+        query.exec();
 }
 
 void Database::soldProduct(int productID) {

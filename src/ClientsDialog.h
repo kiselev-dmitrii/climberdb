@@ -22,6 +22,9 @@ private:
         /// Обновляет верхнюю панель
         void            refreshAddingPanel(int row);
 
+        /// Возвращает выделенный ClientID
+        int             selectedClientID();
+
 private slots:
         /// Добавляет клиента в таблицу
         void            addNewClient();

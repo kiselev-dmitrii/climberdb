@@ -7,6 +7,7 @@
 
 struct Product;
 struct Consignment;
+struct Client;
 
 /** Синглтон, служащий для доступа к базе данных
  */
@@ -35,6 +36,12 @@ public:
         /// Возвращает модель всех клиентов
         QSqlQueryModel*         clientsModel();
         QSqlQueryModel*         refreshClientsModel();
+
+        /// Добавляет новую запись в таблицу клиентов (Name, Surname, Mobile, Address, Discount).
+        /// Возвращает ClientID
+        int                     addNewClient(const Client& client);
+        /// Обновляет запись о клиенте (Name, Surname, Mobile, Address, Discount)
+        void                    editClientInfo(int clientID, const Client& client);
 
         /// Вовзвращает список товара из данной партии, которые еще не проданы
         QVector<Product>        getProductListFromConsignment(int consignmentID);
@@ -100,6 +107,20 @@ private:
         QSqlQueryModel          m_clientsModel;
 };
 
+
+/** Структура клиента
+ */
+struct Client {
+        int             id;
+        QString         name;
+        QString         surname;
+        QString         mobile;
+        QString         address;
+        float           discount;
+        int             countBuy;
+        int             countReturns;
+        float           rating;
+};
 
 /** Структура партии
  */
