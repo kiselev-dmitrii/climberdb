@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ProductsView_t {
-    QByteArrayData data[9];
-    char stringdata[106];
+    QByteArrayData data[10];
+    char stringdata[120];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,13 +35,15 @@ QT_MOC_LITERAL(2, 32, 0),
 QT_MOC_LITERAL(3, 33, 8),
 QT_MOC_LITERAL(4, 42, 6),
 QT_MOC_LITERAL(5, 49, 17),
-QT_MOC_LITERAL(6, 67, 2),
-QT_MOC_LITERAL(7, 70, 17),
-QT_MOC_LITERAL(8, 88, 16)
+QT_MOC_LITERAL(6, 67, 13),
+QT_MOC_LITERAL(7, 81, 17),
+QT_MOC_LITERAL(8, 99, 2),
+QT_MOC_LITERAL(9, 102, 16)
     },
     "ProductsView\0processMenuActions\0\0"
-    "QAction*\0action\0processSaleAction\0id\0"
-    "processEditAction\0processAddAction\0"
+    "QAction*\0action\0processSaleAction\0"
+    "consignmentID\0processEditAction\0id\0"
+    "processAddAction\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -62,12 +64,12 @@ static const uint qt_meta_data_ProductsView[] = {
        1,    1,   34,    2, 0x08,
        5,    1,   37,    2, 0x08,
        7,    1,   40,    2, 0x08,
-       8,    0,   43,    2, 0x08,
+       9,    0,   43,    2, 0x08,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
     QMetaType::Void, QMetaType::Int,    6,
-    QMetaType::Void, QMetaType::Int,    6,
+    QMetaType::Void, QMetaType::Int,    8,
     QMetaType::Void,
 
        0        // eod

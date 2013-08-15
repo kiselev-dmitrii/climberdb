@@ -19,6 +19,7 @@ CREATE TABLE Product (
 	"DeliveryDate"		DateTime,
 	"SaleDate"			DateTime		DEFAULT(NULL),
 	"LastReturnDate"	DateTime		DEFAULT(NULL),
+	"CountBuy"			Integer			DEFAULT(0),
 	"CountReturns"		Integer			DEFAULT(0),
 	"ClientID"			Integer			DEFAULT(NULL),
 

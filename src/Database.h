@@ -68,8 +68,8 @@ public:
         /// Добавляет новые размеры в партию consignmentID
         void                    addNewProducts(int consignmentID, const QStringList& sizes);
 
-        /// Помещает товар с индексом productID в список проданных
-        void                    soldProduct(int productID);
+        /// Помещает товар с индексом productID в список проданных. clientID указывается в качестве покупателя
+        void                    soldProduct(int productID, int clientID);
 
         /// Делает возврат товара
         void                    returnProduct(int productID);

@@ -372,7 +372,8 @@ QSqlQueryModel* Database::refreshClientsModel() {
                                 Surname as "Фамилия",
                                 Mobile as "Телефон",
                                 Address as "Адрес",
-                                (Discount * 100) || ' %' as "Скидка"
+                                (Discount * 100) || ' %' as "Скидка",
+                                Name || ' ' || Surname || ' (' || Mobile || ') ' as "HiddenField"
                        FROM
                                 Client
                               )";
@@ -439,20 +440,41 @@ void Database::removeClient(int clientID) {
         query.exec();
 }
 
-void Database::soldProduct(int productID) {
+void Database::soldProduct(int productID, int clientID) {
+        // Указываем что товар продан
         QString queryString = R"(
                         UPDATE
                                 Product
                         SET
                                 IsSold = 1,
-                                SaleDate = DATETIME('now', 'localtime')
+                                SaleDate = DATETIME('now', 'localtime'),
+                                CountBuy = CountBuy + 1,
+                                ClientID = :clientID
                         WHERE
                                 ID = :productID
                               )";
         QSqlQuery query;
         query.prepare(queryString);
+        query.bindValue(":clientID", clientID);
         query.bindValue(":productID", productID);
         query.exec();
+
+
+        // Если клиент указан
+        if (clientID != 0) {
+                queryString = R"(
+                                UPDATE
+                                        Client
+                                SET
+                                        CountBuy = CountBuy + 1,
+                                        Rating = Rating + 1
+                                WHERE
+                                        ID = :clientID
+                                      )";
+                query.prepare(queryString);
+                query.bindValue(":clientID", clientID);
+                query.exec();
+        }
 }
 
 void Database::returnProduct(int productID) {

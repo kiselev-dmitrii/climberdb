@@ -23,7 +23,8 @@ ClientsDialog::~ClientsDialog() {
 void ClientsDialog::loadClientsData() {
         Database::instance()->refreshClientsModel();
         m_ui->tvClients->setModel(Database::instance()->clientsModel());
-        m_ui->tvClients->horizontalHeader()->hideSection(0);
+        m_ui->tvClients->horizontalHeader()->hideSection(0);                    //clientID
+        m_ui->tvClients->horizontalHeader()->hideSection(6);                    //HiddenField
 }
 
 void ClientsDialog::createContextMenu() {

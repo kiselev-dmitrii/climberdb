@@ -57,11 +57,16 @@ void ProductsView::processMenuActions(QAction *action) {
 
 }
 
-void ProductsView::processSaleAction(int id) {
+void ProductsView::processSaleAction(int consignmentID) {
         // Формируем список размеров
-        SaleProductDialog* dialog = new SaleProductDialog(id, this);
+        SaleProductDialog* dialog = new SaleProductDialog(consignmentID, this);
         if (dialog->exec() == QDialog::Accepted) {
-                qDebug() << "Ok";
+                int productID = dialog->selectedProductID();
+                int clientID = dialog->selectedClientID();
+                Database::instance()->soldProduct(productID, clientID);
+
+                Database::instance()->refreshMainProductsModel();
+                Database::instance()->refreshMainSoldProductsModel();
         }
 }
 

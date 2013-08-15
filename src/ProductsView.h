@@ -25,7 +25,7 @@ private:
 private slots:
         /// Обработка пунктов меню
         void            processMenuActions(QAction* action);
-        void            processSaleAction(int id);
+        void            processSaleAction(int consignmentID);
         void            processEditAction(int id);
         void            processAddAction();
 
