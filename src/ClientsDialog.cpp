@@ -118,7 +118,6 @@ void ClientsDialog::onSelectClient(const QModelIndex& newIndex, const QModelInde
         Q_UNUSED(oldIndex);
 
         int row = newIndex.row();
-        qDebug() << row;
         refreshAddingPanel(row);
 }
 
