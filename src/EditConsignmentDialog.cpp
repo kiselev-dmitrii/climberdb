@@ -1,6 +1,7 @@
 #include "EditConsignmentDialog.h"
 #include "ui_EditConsignmentDialog.h"
 #include "Database.h"
+#include "PricetagGenerator.h"
 #include <QContextMenuEvent>
 #include <QDebug>
 #include <QInputDialog>
@@ -61,6 +62,7 @@ void EditConsignmentDialog::createContextMenu() {
         m_contextMenu = new QMenu(this);
         m_contextMenu->addAction("Редактировать дату добавления");
         m_contextMenu->addAction("Редактировать размер");
+        m_contextMenu->addAction("Генерировать ценник");
         m_contextMenu->addSeparator();
         m_contextMenu->addAction("Удалить");
 }
@@ -133,6 +135,7 @@ void EditConsignmentDialog::processMenuActions(QAction *action) {
 
         if (action->text() == "Редактировать дату добавления") processEditDateAction(productID, oldDeliveryDate);
         else if (action->text() == "Редактировать размер") processEditSizeAction(productID, oldSize);
+        else if (action->text() == "Генерировать ценник") processAddPricetagAction(productID);
         else if (action->text() == "Удалить") processRemoveSizeAction(productID);
 }
 
@@ -163,6 +166,20 @@ void EditConsignmentDialog::processEditDateAction(int productID, const QDateTime
         Database::instance()->editProductDeliveryDate(productID, dateEdit->dateTime());
         Database::instance()->refreshDialogSizesModel();
         Database::instance()->refreshMainProductsModel();
+}
+
+void EditConsignmentDialog::processAddPricetagAction(int productID) {
+        PricetagGenerator::instance()->addNewProduct(productID);
+        int countOfTags = PricetagGenerator::instance()->countOfTags();
+        int restOfTags = PricetagGenerator::instance()->restOfTags();
+
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Ценники добавлены");
+        QString msg = "Партия добавлена в очередь на распечатку.\n " \
+                      "Всего к распечатке " + QString::number(countOfTags) + ".\n" \
+                      "До заполнения страницы осталось добавить " + QString::number(restOfTags) + " ценников";
+        msgBox.setText(msg);
+        msgBox.exec();
 }
 
 void EditConsignmentDialog::processRemoveSizeAction(int productID) {

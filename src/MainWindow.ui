@@ -40,7 +40,7 @@
     <property name="title">
      <string>Ценники</string>
     </property>
-    <addaction name="actPrintPricetags"/>
+    <addaction name="actGeneratePricetags"/>
     <addaction name="actClearPricetags"/>
    </widget>
    <addaction name="mnDatabase"/>
@@ -57,14 +57,14 @@
     <string>Клиенты</string>
    </property>
   </action>
-  <action name="actPrintPricetags">
+  <action name="actGeneratePricetags">
    <property name="text">
-    <string>Печать добавленных ценников</string>
+    <string>Генерирование ценников</string>
    </property>
   </action>
   <action name="actClearPricetags">
    <property name="text">
-    <string>Очистить </string>
+    <string>Очистить добавленные</string>
    </property>
   </action>
  </widget>

@@ -28,7 +28,7 @@ class Ui_MainWindow
 public:
     QAction *actSales;
     QAction *actClients;
-    QAction *actPrintPricetags;
+    QAction *actGeneratePricetags;
     QAction *actClearPricetags;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_2;
@@ -47,8 +47,8 @@ public:
         actSales->setObjectName(QStringLiteral("actSales"));
         actClients = new QAction(MainWindow);
         actClients->setObjectName(QStringLiteral("actClients"));
-        actPrintPricetags = new QAction(MainWindow);
-        actPrintPricetags->setObjectName(QStringLiteral("actPrintPricetags"));
+        actGeneratePricetags = new QAction(MainWindow);
+        actGeneratePricetags->setObjectName(QStringLiteral("actGeneratePricetags"));
         actClearPricetags = new QAction(MainWindow);
         actClearPricetags->setObjectName(QStringLiteral("actClearPricetags"));
         centralwidget = new QWidget(MainWindow);
@@ -77,7 +77,7 @@ public:
         mbMainMenu->addAction(mnPricetags->menuAction());
         mnDatabase->addAction(actSales);
         mnDatabase->addAction(actClients);
-        mnPricetags->addAction(actPrintPricetags);
+        mnPricetags->addAction(actGeneratePricetags);
         mnPricetags->addAction(actClearPricetags);
 
         retranslateUi(MainWindow);
@@ -90,8 +90,8 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Climber Shop Database", 0));
         actSales->setText(QApplication::translate("MainWindow", "\320\237\321\200\320\276\320\264\320\260\320\266\320\270", 0));
         actClients->setText(QApplication::translate("MainWindow", "\320\232\320\273\320\270\320\265\320\275\321\202\321\213", 0));
-        actPrintPricetags->setText(QApplication::translate("MainWindow", "\320\237\320\265\321\207\320\260\321\202\321\214 \320\264\320\276\320\261\320\260\320\262\320\273\320\265\320\275\320\275\321\213\321\205 \321\206\320\265\320\275\320\275\320\270\320\272\320\276\320\262", 0));
-        actClearPricetags->setText(QApplication::translate("MainWindow", "\320\236\321\207\320\270\321\201\321\202\320\270\321\202\321\214 ", 0));
+        actGeneratePricetags->setText(QApplication::translate("MainWindow", "\320\223\320\265\320\275\320\265\321\200\320\270\321\200\320\276\320\262\320\260\320\275\320\270\320\265 \321\206\320\265\320\275\320\275\320\270\320\272\320\276\320\262", 0));
+        actClearPricetags->setText(QApplication::translate("MainWindow", "\320\236\321\207\320\270\321\201\321\202\320\270\321\202\321\214 \320\264\320\276\320\261\320\260\320\262\320\273\320\265\320\275\320\275\321\213\320\265", 0));
         mnDatabase->setTitle(QApplication::translate("MainWindow", "\320\221\320\260\320\267\320\260 \320\264\320\260\320\275\320\275\321\213\321\205", 0));
         mnPricetags->setTitle(QApplication::translate("MainWindow", "\320\246\320\265\320\275\320\275\320\270\320\272\320\270", 0));
     } // retranslateUi

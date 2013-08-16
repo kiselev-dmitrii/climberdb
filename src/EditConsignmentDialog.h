@@ -36,6 +36,8 @@ private:
         void                    processEditSizeAction(int productID, const QString& oldSize);
         /// Редактирование даты
         void                    processEditDateAction(int productID, const QDateTime& oldDate);
+        /// Добавление товара на распечатку ценника
+        void                    processAddPricetagAction(int productID);
 
 private slots:
         /// Выполняется при нажатии на Ok

@@ -76,6 +76,18 @@ void PricetagGenerator::clearTags() {
         m_tags.clear();
 }
 
+const QVector<TagInfo>& PricetagGenerator::tags() {
+        return m_tags;
+}
+
+void PricetagGenerator::removeTag(int i) {
+        m_tags.remove(i);
+}
+
+QString PricetagGenerator::pathToTags() {
+        return QDir(m_generatedDirectory).filePath(m_tagsFilename);
+}
+
 bool PricetagGenerator::generateTags() {
         // Если директории с шаблоном нет, то ругаемся
         if (!QFile::exists(m_templateDirectory)) {

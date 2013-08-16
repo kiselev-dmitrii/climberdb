@@ -15,29 +15,38 @@ public:
         static PricetagGenerator*       instance();
 
         /// Возвращает количество ценников на страницу
-        int             tagsPerPage();
+        int                     tagsPerPage();
 
         /// Добавляет новый продукт к распечатке ценника
-        void            addNewProduct(int productID);
+        void                    addNewProduct(int productID);
 
         /// Добавляет новую партию к распечатке ценника
-        void            addNewConsignment(int consignmentID);
+        void                    addNewConsignment(int consignmentID);
 
         /// Возвращает текущее количество ценников к распечатке
-        int             countOfTags();
+        int                     countOfTags();
 
         /// Возвращает требуемое количество листов для распечатки
-        int             countOfPages();
+        int                     countOfPages();
 
         /// Возврашает количество ценников, которое необходимо добавить
         /// для полного заполнения страницы
-        int             restOfTags();
+        int                     restOfTags();
 
         /// Генерирует ценник в m_generatedDirectory. При успешном исполнении возвращает true
-        bool            generateTags();
+        bool                    generateTags();
 
         /// Удаляет все ценники
-        void            clearTags();
+        void                    clearTags();
+
+        /// Возвращает вектор добавленных на генерирование ценников
+        const QVector<TagInfo>& tags();
+
+        /// Удаляет i-тый ценник
+        void                    removeTag(int i);
+
+        /// Возвращает путь к сгенерированным ценникам
+        QString                 pathToTags();
 
 private:
         /// Генерирует Html код ценника

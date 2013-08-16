@@ -24,7 +24,7 @@ private:
 
 private slots:
         /// Обработка пунктов о ценниках
-        void            processPrintPricetagsAction();
+        void            processGeneratePricetagsAction();
         void            processClearPricetagsAction();
 
 private:

@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 #include "PricetagGenerator.h"
 #include "ui_MainWindow.h"
+#include "PricetagDialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
@@ -25,12 +26,13 @@ void MainWindow::createMainViews() {
 
 void MainWindow::connectWidgets() {
         // Основное меню
-        connect(m_ui->actPrintPricetags, SIGNAL(triggered()), SLOT(processPrintPricetagsAction()));
+        connect(m_ui->actGeneratePricetags, SIGNAL(triggered()), SLOT(processGeneratePricetagsAction()));
         connect(m_ui->actClearPricetags, SIGNAL(triggered()), SLOT(processClearPricetagsAction()));
 }
 
-void MainWindow::processPrintPricetagsAction() {
-        qDebug() << PricetagGenerator::instance()->generateTags();
+void MainWindow::processGeneratePricetagsAction() {
+        PricetagDialog* dialog = new PricetagDialog(this);
+        dialog->exec();
 }
 
 void MainWindow::processClearPricetagsAction() {
