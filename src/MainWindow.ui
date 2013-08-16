@@ -36,15 +36,15 @@
     <addaction name="actSales"/>
     <addaction name="actClients"/>
    </widget>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="mnPricetags">
     <property name="title">
      <string>Ценники</string>
     </property>
-    <addaction name="action"/>
-    <addaction name="action_2"/>
+    <addaction name="actPrintPricetags"/>
+    <addaction name="actClearPricetags"/>
    </widget>
    <addaction name="mnDatabase"/>
-   <addaction name="menu"/>
+   <addaction name="mnPricetags"/>
   </widget>
   <widget class="QStatusBar" name="sbMainStatusBar"/>
   <action name="actSales">
@@ -57,12 +57,12 @@
     <string>Клиенты</string>
    </property>
   </action>
-  <action name="action">
+  <action name="actPrintPricetags">
    <property name="text">
     <string>Печать добавленных ценников</string>
    </property>
   </action>
-  <action name="action_2">
+  <action name="actClearPricetags">
    <property name="text">
     <string>Очистить </string>
    </property>

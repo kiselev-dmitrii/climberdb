@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QVector>
+#include <QStringList>
 
 struct TagInfo;
 
@@ -32,6 +33,13 @@ public:
         /// для полного заполнения страницы
         int             restOfTags();
 
+        /// Генерирует ценник в m_generatedDirectory. При успешном исполнении возвращает true
+        bool            generateTags();
+
+private:
+        /// Генерирует Html код ценника
+        QString         generateHtml(const QString& header, const QString& tagTemplate);
+
 private:
         /// Закрытые конструкторы и оператор присваивания
         PricetagGenerator();
@@ -40,8 +48,16 @@ private:
 
 private:
         const int               m_tagsPerPage;
+        const int               m_countCols;
+
         QVector<TagInfo>        m_tags;
 
+        const QString           m_templateDirectory;
+        const QString           m_generatedDirectory;
+        const QString           m_logoFilename;
+        const QString           m_templateFilename;
+        const QString           m_headerFlename;
+        const QString           m_tagsFilename;
 };
 
 /** Информация, используемая при печати ценников
@@ -50,7 +66,7 @@ struct TagInfo {
         QString                 name;
         QString                 model;
         QString                 size;
-        QVector<QString>        sizes;
+        QStringList             sizes;
         int                     cost;
         QString                 barcode;
 };

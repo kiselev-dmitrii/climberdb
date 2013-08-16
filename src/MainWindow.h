@@ -17,6 +17,16 @@ public:
                         ~MainWindow();
 
 private:
+        /// Создает основные таблицы
+        void            createMainViews();
+        /// Соединяет виджеты
+        void            connectWidgets();
+
+private slots:
+        /// Обработка пункта меню Печать ценников
+        void            processPrintPricetagsAction();
+
+private:
         Ui::MainWindow*         m_ui;
         MainProductList*        m_mainProductList;
         MainSoldList*           m_mainSoldList;

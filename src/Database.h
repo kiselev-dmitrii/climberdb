@@ -48,7 +48,7 @@ public:
         /// Вовзвращает список товара из данной партии, которые еще не проданы
         QVector<Product>        getProductListFromConsignment(int consignmentID);
         /// Возвращает список размеров из данной партии
-        QVector<QString>        getSizeListFromConsignment(int consignmentID);
+        QStringList             getSizeListFromConsignment(int consignmentID);
         /// Возвращает информацию о партии с данным ID
         Consignment             getConsignmentByID(int consignmentID);
         /// Возвращает информацию о товаре по productID

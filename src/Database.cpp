@@ -168,7 +168,7 @@ QVector<Product> Database::getProductListFromConsignment(int consignmentID) {
         return result;
 }
 
-QVector<QString> Database::getSizeListFromConsignment(int consignmentID) {
+QStringList Database::getSizeListFromConsignment(int consignmentID) {
         QString queryString = R"(
                         SELECT
                                 Size
@@ -183,7 +183,7 @@ QVector<QString> Database::getSizeListFromConsignment(int consignmentID) {
         query.bindValue(":consignmentID", consignmentID);
         query.exec();
 
-        QVector<QString> sizeList;
+        QStringList sizeList;
         while (query.next()) sizeList.append(query.value("Size").toString());
 
         return sizeList;
