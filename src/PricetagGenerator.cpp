@@ -79,9 +79,10 @@ bool PricetagGenerator::generateTags() {
                 return false;
         }
 
-        // Создаем директорию в которой будет ценник и копируем туда лого
+        // Создаем директорию в которой будет ценник
         if (!QFile::exists(m_generatedDirectory)) QDir(".").mkdir(m_generatedDirectory);
-        QFile::copy(QDir(m_generatedDirectory).filePath(m_logoFilename), QDir(m_templateDirectory).filePath(m_logoFilename));
+        // Копируем лого
+        QFile::copy(QDir(m_templateDirectory).filePath(m_logoFilename), QDir(m_generatedDirectory).filePath(m_logoFilename));
 
         // Открываем header
         QString header;
@@ -127,12 +128,12 @@ QString PricetagGenerator::generateHtml(const QString& header, const QString& ta
         html += "<tr>";
         for (int i = 0; i < m_tags.size(); ++i) {
                 QString curTemplate = tagTemplate;
-                curTemplate.replace("$name", m_tags[i].name);
-                curTemplate.replace("$model", m_tags[i].model);
-                curTemplate.replace("$size", m_tags[i].size);
-                curTemplate.replace("$sizes", m_tags[i].sizes.join(", "));
-                curTemplate.replace("$cost", QString::number(m_tags[i].cost));
-                curTemplate.replace("$barcode", m_tags[i].barcode);
+                curTemplate.replace("$name$", m_tags[i].name);
+                curTemplate.replace("$model$", m_tags[i].model);
+                curTemplate.replace("$size$", m_tags[i].size);
+                curTemplate.replace("$sizes$", m_tags[i].sizes.join(", "));
+                curTemplate.replace("$cost$", QString::number(m_tags[i].cost));
+                curTemplate.replace("$barcode$", m_tags[i].barcode);
 
                 html += "<td>\n" + curTemplate + "</td>\n";
                 if ((i+1) % m_countCols == 0) html += "<tr></tr>";
