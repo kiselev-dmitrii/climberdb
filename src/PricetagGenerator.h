@@ -36,6 +36,9 @@ public:
         /// Генерирует ценник в m_generatedDirectory. При успешном исполнении возвращает true
         bool            generateTags();
 
+        /// Удаляет все ценники
+        void            clearTags();
+
 private:
         /// Генерирует Html код ценника
         QString         generateHtml(const QString& header, const QString& tagTemplate);

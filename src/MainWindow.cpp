@@ -26,8 +26,13 @@ void MainWindow::createMainViews() {
 void MainWindow::connectWidgets() {
         // Основное меню
         connect(m_ui->actPrintPricetags, SIGNAL(triggered()), SLOT(processPrintPricetagsAction()));
+        connect(m_ui->actClearPricetags, SIGNAL(triggered()), SLOT(processClearPricetagsAction()));
 }
 
 void MainWindow::processPrintPricetagsAction() {
         qDebug() << PricetagGenerator::instance()->generateTags();
+}
+
+void MainWindow::processClearPricetagsAction() {
+        PricetagGenerator::instance()->clearTags();
 }

@@ -72,6 +72,10 @@ int PricetagGenerator::restOfTags() {
         return countOfPages()*16 - countOfTags();
 }
 
+void PricetagGenerator::clearTags() {
+        m_tags.clear();
+}
+
 bool PricetagGenerator::generateTags() {
         // Если директории с шаблоном нет, то ругаемся
         if (!QFile::exists(m_templateDirectory)) {

@@ -23,8 +23,9 @@ private:
         void            connectWidgets();
 
 private slots:
-        /// Обработка пункта меню Печать ценников
+        /// Обработка пунктов о ценниках
         void            processPrintPricetagsAction();
+        void            processClearPricetagsAction();
 
 private:
         Ui::MainWindow*         m_ui;
