@@ -168,6 +168,28 @@ QVector<Product> Database::getProductListFromConsignment(int consignmentID) {
         return result;
 }
 
+QVector<QString> Database::getSizeListFromConsignment(int consignmentID) {
+        QString queryString = R"(
+                        SELECT
+                                Size
+                        FROM
+                                Product
+                        WHERE
+                                IsSold = 0 AND
+                                ConsignmentID = :consignmentID
+                              )";
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":consignmentID", consignmentID);
+        query.exec();
+
+        QVector<QString> sizeList;
+        while (query.next()) sizeList.append(query.value("Size").toString());
+
+        return sizeList;
+
+}
+
 Consignment Database::getConsignmentByID(int consignmentID) {
         QString queryString = R"(
                         SELECT
@@ -206,6 +228,36 @@ Consignment Database::getConsignmentByID(int consignmentID) {
         consignment.country = query.value("Country").toString();
 
         return consignment;
+}
+
+Product Database::getProductByID(int productID) {
+        QString queryString = R"(
+                        SELECT
+                                *
+                        FROM
+                                Product
+                        WHERE
+                                ID = :productID
+                              )";
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":productID", productID);
+        query.exec();
+        query.first();
+
+        Product product;
+        product.id = query.value("ID").toInt();
+        product.consignmentID = query.value("ConsignmentID").toInt();
+        product.size = query.value("Size").toInt();
+        product.barcode = query.value("Barcode").toString();
+        product.isSold = query.value("IsSold").toBool();
+        product.deliveryDate = query.value("DeliveryDate").toDateTime();
+        product.saleDate = query.value("SaleDate").toDateTime();
+        product.lastReturnDate = query.value("LastReturnDate").toDateTime();
+        product.countBuy = query.value("CountBuy").toInt();
+        product.countReturns = query.value("CountReturns").toInt();
+        product.clientID = query.value("ClientID").toInt();
+        return product;
 }
 
 QStringList Database::getAvailableTypes() {

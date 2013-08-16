@@ -13,6 +13,7 @@ INPUT(
 ./debug\EditConsignmentDialog.o
 ./debug\SaleProductDialog.o
 ./debug\ClientsDialog.o
+./debug\PricetagGenerator.o
 ./debug\moc_MainWindow.o
 ./debug\moc_ProductsView.o
 ./debug\moc_MainProductList.o
