@@ -28,6 +28,7 @@ private slots:
         void            processSaleAction(int consignmentID);
         void            processEditAction(int id);
         void            processAddAction();
+        void            processGeneratePricetags(int consignmentID);
 
 private:
         QMenu*          m_contextMenu;

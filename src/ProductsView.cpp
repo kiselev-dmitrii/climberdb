@@ -4,10 +4,12 @@
 #include <QDebug>
 #include <QInputDialog>
 #include <QHeaderView>
+#include <QMessageBox>
 #include "Database.h"
 #include "EditConsignmentDialog.h"
 #include "CreateConsignmentDialog.h"
 #include "SaleProductDialog.h"
+#include "PricetagGenerator.h"
 
 ProductsView::ProductsView(QSqlQueryModel *model, QWidget *parent) :
         TableView(model, "ProductView", parent),
@@ -20,7 +22,7 @@ void ProductsView::createContextMenu() {
         m_contextMenu = new QMenu(this);
         m_contextMenu->addAction("Добавить");
         m_contextMenu->addAction("Продать");
-        m_contextMenu->addAction("Распечатать ценник");
+        m_contextMenu->addAction("Генерировать ценники");
         m_contextMenu->addSeparator();
         m_contextMenu->addAction("Редактировать");
         m_contextMenu->addAction("Удалить");
@@ -54,6 +56,7 @@ void ProductsView::processMenuActions(QAction *action) {
         if (action->text() == "Продать") processSaleAction(consignmentID);
         else if (action->text() == "Редактировать") processEditAction(consignmentID);
         else if (action->text() == "Добавить") processAddAction();
+        else if (action->text() == "Генерировать ценники") processGeneratePricetags(consignmentID);
 
 }
 
@@ -84,4 +87,18 @@ void ProductsView::processEditAction(int id) {
 void ProductsView::processAddAction() {
         CreateConsignmentDialog* dialog = new CreateConsignmentDialog(this);
         dialog->exec();
+}
+
+void ProductsView::processGeneratePricetags(int consignmentID) {
+        PricetagGenerator::instance()->addNewConsignment(consignmentID);
+        int countOfTags = PricetagGenerator::instance()->countOfTags();
+        int restOfTags = PricetagGenerator::instance()->restOfTags();
+
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Ценники добавлены");
+        QString msg = "Партия добавлена в очередь на распечатку.\n " \
+                      "Всего к распечатке " + QString::number(countOfTags) + ".\n" \
+                      "До заполнения страницы осталось добавить " + QString::number(restOfTags) + " ценников";
+        msgBox.setText(msg);
+        msgBox.exec();
 }

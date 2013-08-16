@@ -59,5 +59,5 @@ int PricetagGenerator::countOfPages() {
 }
 
 int PricetagGenerator::restOfTags() {
-        countOfPages()*16 - countOfTags();
+        return countOfPages()*16 - countOfTags();
 }
