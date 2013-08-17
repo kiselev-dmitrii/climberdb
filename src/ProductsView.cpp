@@ -20,12 +20,11 @@ ProductsView::ProductsView(QSqlQueryModel *model, QWidget *parent) :
 
 void ProductsView::createContextMenu() {
         m_contextMenu = new QMenu(this);
-        m_contextMenu->addAction("Добавить");
         m_contextMenu->addAction("Продать");
-        m_contextMenu->addAction("Генерировать ценники");
         m_contextMenu->addSeparator();
+        m_contextMenu->addAction("Добавить");
         m_contextMenu->addAction("Редактировать");
-        m_contextMenu->addAction("Удалить");
+        m_contextMenu->addAction("Генерировать ценники");
 
         connect(m_contextMenu, SIGNAL(triggered(QAction*)), SLOT(processMenuActions(QAction*)));
 }
