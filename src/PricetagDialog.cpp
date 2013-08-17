@@ -11,6 +11,7 @@ PricetagDialog::PricetagDialog(QWidget *parent) :
         m_ui->setupUi(this);
         loadPricetagsTable();
         updateCountOfPages();
+        onRemoveTag();
         connectWidgets();
 }
 
@@ -48,6 +49,8 @@ void PricetagDialog::clearTags() {
         m_ui->twTags->setRowCount(0);
         PricetagGenerator::instance()->clearTags();
         m_ui->lblCountOfPages->setText("0");
+
+        onRemoveTag();
 }
 
 void PricetagDialog::updateCountOfPages() {
@@ -60,6 +63,8 @@ void PricetagDialog::deleteSelectedTag() {
                 PricetagGenerator::instance()->removeTag(selected);
                 m_ui->twTags->removeRow(selected);
                 updateCountOfPages();
+
+                onRemoveTag();
         }
 }
 
@@ -67,4 +72,9 @@ void PricetagDialog::generateTags() {
         PricetagGenerator::instance()->generateTags();
         QString path = PricetagGenerator::instance()->pathToTags();
         QDesktopServices::openUrl(QUrl(path));
+}
+
+void PricetagDialog::onRemoveTag() {
+        if (m_ui->twTags->rowCount() > 0) m_ui->btnBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+        else m_ui->btnBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 }

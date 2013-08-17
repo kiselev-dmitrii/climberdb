@@ -30,6 +30,8 @@ private slots:
         void            deleteSelectedTag();
         /// Генерирует ценники и открывает браузер
         void            generateTags();
+        /// Выполняется при удалении записей из twTags
+        void            onRemoveTag();
 
 private:
         Ui::PricetagDialog *m_ui;
