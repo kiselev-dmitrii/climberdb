@@ -26,7 +26,7 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-    QAction *actSales;
+    QAction *actSearchOnSales;
     QAction *actClients;
     QAction *actGeneratePricetags;
     QAction *actClearPricetags;
@@ -43,8 +43,8 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(900, 600);
-        actSales = new QAction(MainWindow);
-        actSales->setObjectName(QStringLiteral("actSales"));
+        actSearchOnSales = new QAction(MainWindow);
+        actSearchOnSales->setObjectName(QStringLiteral("actSearchOnSales"));
         actClients = new QAction(MainWindow);
         actClients->setObjectName(QStringLiteral("actClients"));
         actGeneratePricetags = new QAction(MainWindow);
@@ -75,7 +75,8 @@ public:
 
         mbMainMenu->addAction(mnDatabase->menuAction());
         mbMainMenu->addAction(mnPricetags->menuAction());
-        mnDatabase->addAction(actSales);
+        mnDatabase->addAction(actSearchOnSales);
+        mnDatabase->addSeparator();
         mnDatabase->addAction(actClients);
         mnPricetags->addAction(actGeneratePricetags);
         mnPricetags->addAction(actClearPricetags);
@@ -88,7 +89,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Climber Shop Database", 0));
-        actSales->setText(QApplication::translate("MainWindow", "\320\237\321\200\320\276\320\264\320\260\320\266\320\270", 0));
+        actSearchOnSales->setText(QApplication::translate("MainWindow", "\320\237\320\276\320\270\321\201\320\272 \320\277\320\276 \320\277\321\200\320\276\320\264\320\260\320\266\320\260\320\274", 0));
         actClients->setText(QApplication::translate("MainWindow", "\320\232\320\273\320\270\320\265\320\275\321\202\321\213", 0));
         actGeneratePricetags->setText(QApplication::translate("MainWindow", "\320\223\320\265\320\275\320\265\321\200\320\270\321\200\320\276\320\262\320\260\320\275\320\270\320\265 \321\206\320\265\320\275\320\275\320\270\320\272\320\276\320\262", 0));
         actClearPricetags->setText(QApplication::translate("MainWindow", "\320\236\321\207\320\270\321\201\321\202\320\270\321\202\321\214 \320\264\320\276\320\261\320\260\320\262\320\273\320\265\320\275\320\275\321\213\320\265", 0));

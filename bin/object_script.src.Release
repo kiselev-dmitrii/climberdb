@@ -15,6 +15,7 @@ INPUT(
 ./release\ClientsDialog.o
 ./release\PricetagGenerator.o
 ./release\PricetagDialog.o
+./release\SearchSoldDialog.o
 ./release\moc_MainWindow.o
 ./release\moc_ProductsView.o
 ./release\moc_MainProductList.o
@@ -27,4 +28,5 @@ INPUT(
 ./release\moc_SaleProductDialog.o
 ./release\moc_ClientsDialog.o
 ./release\moc_PricetagDialog.o
+./release\moc_SearchSoldDialog.o
 );

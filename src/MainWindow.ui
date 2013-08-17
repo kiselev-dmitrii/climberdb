@@ -33,7 +33,8 @@
     <property name="title">
      <string>База данных</string>
     </property>
-    <addaction name="actSales"/>
+    <addaction name="actSearchOnSales"/>
+    <addaction name="separator"/>
     <addaction name="actClients"/>
    </widget>
    <widget class="QMenu" name="mnPricetags">
@@ -47,9 +48,9 @@
    <addaction name="mnPricetags"/>
   </widget>
   <widget class="QStatusBar" name="sbMainStatusBar"/>
-  <action name="actSales">
+  <action name="actSearchOnSales">
    <property name="text">
-    <string>Продажи</string>
+    <string>Поиск по продажам</string>
    </property>
   </action>
   <action name="actClients">

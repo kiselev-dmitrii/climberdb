@@ -2,6 +2,8 @@
 #include "PricetagGenerator.h"
 #include "ui_MainWindow.h"
 #include "PricetagDialog.h"
+#include "ClientsDialog.h"
+#include "SearchSoldDialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
@@ -25,9 +27,23 @@ void MainWindow::createMainViews() {
 }
 
 void MainWindow::connectWidgets() {
-        // Основное меню
+        // Меню: БД
+        connect(m_ui->actClients, SIGNAL(triggered()), SLOT(processClientsAction()));
+        connect(m_ui->actSearchOnSales, SIGNAL(triggered()), SLOT(processSearchSoldAction()));
+
+        // Меню: ценники
         connect(m_ui->actGeneratePricetags, SIGNAL(triggered()), SLOT(processGeneratePricetagsAction()));
         connect(m_ui->actClearPricetags, SIGNAL(triggered()), SLOT(processClearPricetagsAction()));
+}
+
+void MainWindow::processClientsAction() {
+        ClientsDialog* dialog = new ClientsDialog(this);
+        dialog->exec();
+}
+
+void MainWindow::processSearchSoldAction() {
+        SearchSoldDialog* dialog = new SearchSoldDialog(this);
+        dialog->exec();
 }
 
 void MainWindow::processGeneratePricetagsAction() {

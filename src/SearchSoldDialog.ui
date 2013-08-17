@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SearchSoldDialog</class>
+ <widget class="QDialog" name="SearchSoldDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>696</width>
+    <height>368</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Поиск по проданному товару</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QGridLayout" name="gltFields">
+     <item row="1" column="2">
+      <widget class="QLabel" name="lblType">
+       <property name="text">
+        <string>Тип:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="lblModel">
+       <property name="text">
+        <string>Модель:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="lblName">
+       <property name="text">
+        <string>Наименование:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="edtName"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="edtModel"/>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="lblSize">
+       <property name="text">
+        <string>Размер:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QLineEdit" name="edtSize"/>
+     </item>
+     <item row="1" column="3">
+      <widget class="QLineEdit" name="edtType"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTableView" name="tableView">
+     <property name="selectionMode">
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>true</bool>
+     </attribute>
+     <attribute name="verticalHeaderDefaultSectionSize">
+      <number>19</number>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="ltPeriod">
+     <item>
+      <widget class="QLabel" name="lblFrom">
+       <property name="text">
+        <string>Искать с </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateEdit" name="deFrom"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="lblTo">
+       <property name="text">
+        <string> по </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateEdit" name="deTo">
+       <property name="calendarPopup">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="spacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnFind">
+       <property name="text">
+        <string>Поиск</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

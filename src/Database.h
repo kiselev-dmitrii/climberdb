@@ -37,6 +37,12 @@ public:
         QSqlQueryModel*         clientsModel();
         QSqlQueryModel*         refreshClientsModel();
 
+        /// Возвращает модель проданных товаров (специально для соответствующего диалога)
+        QSqlQueryModel*         productsSoldModel();
+        QSqlQueryModel*         refreshProductsSoldModel();
+        QSqlQueryModel*         refreshProductsSoldModel(const QString& name, const QString& model, const QString& size,
+                                                         const QString& type, const QDate& from, const QDate& to);
+
         /// Добавляет новую запись в таблицу клиентов (Name, Surname, Mobile, Address, Discount).
         /// Возвращает ClientID
         int                     addNewClient(const Client& client);
@@ -111,6 +117,7 @@ private:
         QSqlQueryModel          m_mainSoldProductsModel;
         QSqlQueryModel          m_dialogSizesModel;
         QSqlQueryModel          m_clientsModel;
+        QSqlQueryModel          m_productsSoldModel;
 };
 
 

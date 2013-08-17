@@ -23,6 +23,10 @@ private:
         void            connectWidgets();
 
 private slots:
+        /// Обработка пунктов "База данных"
+        void            processClientsAction();
+        void            processSearchSoldAction();
+
         /// Обработка пунктов о ценниках
         void            processGeneratePricetagsAction();
         void            processClearPricetagsAction();

@@ -439,6 +439,60 @@ QSqlQueryModel* Database::refreshClientsModel() {
        return &m_clientsModel;
 }
 
+QSqlQueryModel* Database::productsSoldModel() {
+        return &m_productsSoldModel;
+}
+
+QSqlQueryModel* Database::refreshProductsSoldModel() {
+        m_productsSoldModel.query().exec();
+        m_productsSoldModel.setQuery(m_productsSoldModel.query());
+        return &m_productsSoldModel;
+}
+
+QSqlQueryModel* Database::refreshProductsSoldModel(const QString &name, const QString &model, const QString &size,
+                                                   const QString &type, const QDate &from, const QDate &to)  {
+        QString queryString = R"(
+                SELECT
+                        P.ID as "ProductID",
+                        C.Name as 'Наименование',
+                        C.Model as 'Модель',
+                        P.Size as 'Размер',
+                        P.SellingCost as "Цена продажи",
+                        IFNULL(Type.Name, "")  || " " || LOWER(IFNULL(C.Gender, "")) || " " || LOWER(IFNULL(C.Comment, "")) || LOWER(IFNULL(Color.Name, "")) as 'Тип',
+                        (P.SaleDate) as 'Время продажи',
+                        IFNULL(Client.Name, "") || " " || IFNULL(Client.Surname, "") as 'Покупатель'
+                FROM
+                        Consignment as C
+                        JOIN 		Product as P 	        ON     C.ID = P.ConsignmentID
+                        LEFT JOIN 	Type      		ON     C.TypeID = Type.ID
+                        LEFT JOIN 	Color 			ON     C.ColorID = Color.ID
+                        LEFT JOIN 	Country 		ON     C.CountryID = Country.ID
+                        LEFT JOIN       Client                  ON     P.ClientID = Client.ID
+                WHERE
+                        P.IsSold = 1 AND
+                        IFNULL(C.Name, "") LIKE '%'||:name||'%' AND
+                        IFNULL(C.Model, "") LIKE '%'||:model||'%' AND
+                        IFNULL(P.Size, "") LIKE :size||'%' AND
+                        IFNULL(Тип, "") LIKE '%'||:type||'%' AND
+                        P.SaleDate BETWEEN :from AND :to
+                ORDER BY
+                        P.SaleDate
+               )";
+
+       QSqlQuery query;
+       query.prepare(queryString);
+       query.bindValue(":name", name);
+       query.bindValue(":model", model);
+       query.bindValue(":size", size);
+       query.bindValue(":type", type);
+       query.bindValue(":from", from.toString("yyyy-MM-dd"));
+       query.bindValue(":to", to.toString("yyyy-MM-dd"));
+       query.exec();
+
+       m_productsSoldModel.setQuery(query);
+       return &m_productsSoldModel;
+}
+
 int Database::addNewClient(const Client &client) {
         QString queryString = R"(
                         INSERT INTO Client (Name, Surname, Mobile, Address, Discount)
