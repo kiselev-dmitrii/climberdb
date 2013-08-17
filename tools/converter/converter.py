@@ -186,8 +186,8 @@ class Converter:
 			#Вставляем размеры
 			for size in item.sizes:
 				#Вставляем размеры в Products
-				query = "INSERT INTO Product (ConsignmentID, Size, Barcode, IsSold, DeliveryDate, SaleDate) VALUES (?, ?, ?, ?, ?, ?)"
-				db.cursor.execute(query, [ConsignmentID, size, barcodes[size], True, item.date, saleDate])
+				query = "INSERT INTO Product (ConsignmentID, Size, Barcode, IsSold, SellingCost, DeliveryDate, SaleDate) VALUES (?, ?, ?, ?, ?, ?, ?)"
+				db.cursor.execute(query, [ConsignmentID, size, barcodes[size], True, item.cost, item.date, saleDate])
 
 	def convertSaleDB(self):
 		tree = os.walk(os.path.join(self.oldDir, "sales"))

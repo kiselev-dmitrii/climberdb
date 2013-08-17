@@ -16,6 +16,7 @@ CREATE TABLE Product (
 	"Size"				Varchar(10),
 	"Barcode"			Varchar(20)		DEFAULT(NULL),
 	"IsSold"			Boolean			DEFAULT(0),
+	"SellingCost"		Integer,
 	"DeliveryDate"		DateTime,
 	"SaleDate"			DateTime		DEFAULT(NULL),
 	"LastReturnDate"	DateTime		DEFAULT(NULL),
