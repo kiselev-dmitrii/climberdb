@@ -153,6 +153,14 @@ public:
 
         verticalLayout->addWidget(btnBox);
 
+        QWidget::setTabOrder(edtName, edtSurname);
+        QWidget::setTabOrder(edtSurname, edtAddress);
+        QWidget::setTabOrder(edtAddress, edtMobile);
+        QWidget::setTabOrder(edtMobile, spnDiscount);
+        QWidget::setTabOrder(spnDiscount, btnAdd);
+        QWidget::setTabOrder(btnAdd, btnChange);
+        QWidget::setTabOrder(btnChange, tvClients);
+        QWidget::setTabOrder(tvClients, btnBox);
 
         retranslateUi(ClientsDialog);
         QObject::connect(btnBox, SIGNAL(accepted()), ClientsDialog, SLOT(accept()));

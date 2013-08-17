@@ -186,6 +186,17 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>edtName</tabstop>
+  <tabstop>edtSurname</tabstop>
+  <tabstop>edtAddress</tabstop>
+  <tabstop>edtMobile</tabstop>
+  <tabstop>spnDiscount</tabstop>
+  <tabstop>btnAdd</tabstop>
+  <tabstop>btnChange</tabstop>
+  <tabstop>tvClients</tabstop>
+  <tabstop>btnBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
