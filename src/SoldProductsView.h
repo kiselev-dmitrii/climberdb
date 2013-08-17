@@ -15,7 +15,8 @@ private slots:
         /// Обработка пунктов меню
         void            processMenuActions(QAction* action);
         void            processReturnProductAction(int productID);
-        void            processAboutClientAction(int productID);
+        void            processAboutClientAction(int clientID);
+        void            processOtherSize(int consignmentID);
 
 private:
         /// Создает контекстное меню

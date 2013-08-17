@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QContextMenuEvent>
 
-ClientsDialog::ClientsDialog(QWidget *parent) :
+ClientsDialog::ClientsDialog(QWidget *parent, int clientID) :
         QDialog(parent),
         m_ui(new Ui::ClientsDialog),
         m_contextMenu(nullptr)
@@ -14,6 +14,7 @@ ClientsDialog::ClientsDialog(QWidget *parent) :
         loadClientsData();
         createContextMenu();
         connectWidgets();
+        setCurrentClient(clientID);
 }
 
 ClientsDialog::~ClientsDialog() {
@@ -42,6 +43,14 @@ void ClientsDialog::connectWidgets() {
 
         // Обработка пунктов меню
         connect(m_contextMenu, SIGNAL(triggered(QAction*)), SLOT(processMenuActions(QAction*)));
+}
+
+void ClientsDialog::setCurrentClient(int clientID) {
+        if (clientID <= 0) return;
+
+        QTableView* table = m_ui->tvClients;
+        QModelIndexList indices = table->model()->match(table->model()->index(0, 0), Qt::DisplayRole, clientID, 1, Qt::MatchExactly);
+        if (indices.size() != 0) table->selectRow(indices[0].row());
 }
 
 void ClientsDialog::refreshAddingPanel(int row) {

@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_SoldProductsView_t {
-    QByteArrayData data[8];
-    char stringdata[116];
+    QByteArrayData data[11];
+    char stringdata[156];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,11 +36,15 @@ QT_MOC_LITERAL(3, 37, 8),
 QT_MOC_LITERAL(4, 46, 6),
 QT_MOC_LITERAL(5, 53, 26),
 QT_MOC_LITERAL(6, 80, 9),
-QT_MOC_LITERAL(7, 90, 24)
+QT_MOC_LITERAL(7, 90, 24),
+QT_MOC_LITERAL(8, 115, 8),
+QT_MOC_LITERAL(9, 124, 16),
+QT_MOC_LITERAL(10, 141, 13)
     },
     "SoldProductsView\0processMenuActions\0"
     "\0QAction*\0action\0processReturnProductAction\0"
     "productID\0processAboutClientAction\0"
+    "clientID\0processOtherSize\0consignmentID\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -50,7 +54,7 @@ static const uint qt_meta_data_SoldProductsView[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -58,14 +62,16 @@ static const uint qt_meta_data_SoldProductsView[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   29,    2, 0x08,
-       5,    1,   32,    2, 0x08,
-       7,    1,   35,    2, 0x08,
+       1,    1,   34,    2, 0x08,
+       5,    1,   37,    2, 0x08,
+       7,    1,   40,    2, 0x08,
+       9,    1,   43,    2, 0x08,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
     QMetaType::Void, QMetaType::Int,    6,
-    QMetaType::Void, QMetaType::Int,    6,
+    QMetaType::Void, QMetaType::Int,    8,
+    QMetaType::Void, QMetaType::Int,   10,
 
        0        // eod
 };
@@ -78,6 +84,7 @@ void SoldProductsView::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         case 0: _t->processMenuActions((*reinterpret_cast< QAction*(*)>(_a[1]))); break;
         case 1: _t->processReturnProductAction((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 2: _t->processAboutClientAction((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 3: _t->processOtherSize((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -119,13 +126,13 @@ int SoldProductsView::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 4;
     }
     return _id;
 }

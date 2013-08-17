@@ -2,6 +2,8 @@
 #include <QContextMenuEvent>
 #include <QDebug>
 #include <QHeaderView>
+#include "ClientsDialog.h"
+#include "EditConsignmentDialog.h"
 #include "Database.h"
 
 SoldProductsView::SoldProductsView(QSqlQueryModel *model, QWidget *parent) :
@@ -15,6 +17,8 @@ SoldProductsView::SoldProductsView(QSqlQueryModel *model, QWidget *parent) :
 void SoldProductsView::createContextMenu() {
         m_contextMenu = new QMenu(this);
         m_contextMenu->addAction("Возвратить товар");
+        m_contextMenu->addSeparator();
+        m_contextMenu->addAction("Размеры в наличии");
         m_contextMenu->addAction("Подробнее о клиенте");
 
         connect(m_contextMenu, SIGNAL(triggered(QAction*)), this, SLOT(processMenuActions(QAction*)));
@@ -22,9 +26,11 @@ void SoldProductsView::createContextMenu() {
 
 void SoldProductsView::processMenuActions(QAction *action) {
         int productID = selectedProductID();
+        Product product = Database::instance()->getProductByID(productID);
 
         if (action->text() == "Возвратить товар") processReturnProductAction(productID);
-        else if (action->text() == "Подробнее о клиенте") processAboutClientAction(productID);
+        else if (action->text() == "Подробнее о клиенте") processAboutClientAction(product.clientID);
+        else if (action->text() == "Размеры в наличии") processOtherSize(product.consignmentID);
 }
 
 void SoldProductsView::processReturnProductAction(int productID) {
@@ -33,8 +39,14 @@ void SoldProductsView::processReturnProductAction(int productID) {
         Database::instance()->refreshMainProductsModel();
 }
 
-void SoldProductsView::processAboutClientAction(int productID) {
-        qDebug() << "About client " << productID;
+void SoldProductsView::processAboutClientAction(int clientID) {
+        ClientsDialog* dialog = new ClientsDialog(this, clientID);
+        dialog->exec();
+}
+
+void SoldProductsView::processOtherSize(int consignmentID) {
+        EditConsignmentDialog* dialog = new EditConsignmentDialog(consignmentID, this);
+        dialog->exec();
 }
 
 void SoldProductsView::contextMenuEvent(QContextMenuEvent *ev) {

@@ -10,8 +10,8 @@ namespace Ui {
 
 class ClientsDialog : public QDialog {
 public:
-        /// Конструктор
-        explicit        ClientsDialog(QWidget *parent = nullptr);
+        /// Конструктор. Если clientID > 0, то запись с таким ID становится текущей при открытии
+        explicit        ClientsDialog(QWidget *parent = nullptr, int clientID = -1);
         /// Виртуальный дестуктор
                         ~ClientsDialog();
         
@@ -22,6 +22,8 @@ private:
         void            createContextMenu();
         /// Соединяет сигналы и слоты
         void            connectWidgets();
+        /// Выделяет заданного клиента по его ID
+        void            setCurrentClient(int clientID);
         /// Обновляет верхнюю панель
         void            refreshAddingPanel(int row);
 
