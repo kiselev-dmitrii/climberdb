@@ -494,13 +494,14 @@ void Database::removeClient(int clientID) {
         query.exec();
 }
 
-void Database::soldProduct(int productID, int clientID) {
+void Database::soldProduct(int productID, int clientID, int sellingCost) {
         // Указываем что товар продан
         QString queryString = R"(
                         UPDATE
                                 Product
                         SET
                                 IsSold = 1,
+                                SellingCost = :sellingCost,
                                 SaleDate = DATETIME('now', 'localtime'),
                                 ClientID = :clientID
                         WHERE
@@ -508,6 +509,7 @@ void Database::soldProduct(int productID, int clientID) {
                               )";
         QSqlQuery query;
         query.prepare(queryString);
+        query.bindValue(":sellingCost", sellingCost);
         query.bindValue(":clientID", clientID);
         query.bindValue(":productID", productID);
         query.exec();
@@ -540,8 +542,8 @@ void Database::returnProduct(int productID) {
         query.bindValue(":productID", productID);
         query.exec();
         query.first();
-        if (!query.isNull(0)) {         //клиент указан
-                int clientID = query.value("ClientID").toInt();
+        int clientID = query.value("ClientID").toInt();
+        if (clientID > 0) {         //клиент указан
                 Q_ASSERT(clientID != 0);
 
                 queryString = R"(
@@ -563,6 +565,7 @@ void Database::returnProduct(int productID) {
                                 Product
                         SET
                                 IsSold = 0,
+                                SellingCost = NULL,
                                 SaleDate = NULL,
                                 LastReturnDate = DATETIME('now', 'localtime'),
                                 CountReturns = CountReturns + 1,

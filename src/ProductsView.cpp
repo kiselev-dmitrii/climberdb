@@ -66,7 +66,8 @@ void ProductsView::processSaleAction(int consignmentID) {
         if (dialog->exec() == QDialog::Accepted) {
                 int productID = dialog->selectedProductID();
                 int clientID = dialog->selectedClientID();
-                Database::instance()->soldProduct(productID, clientID);
+                int sellingCost = dialog->selectedSellingCost();
+                Database::instance()->soldProduct(productID, clientID, sellingCost);
 
                 Database::instance()->refreshMainProductsModel();
                 Database::instance()->refreshMainSoldProductsModel();

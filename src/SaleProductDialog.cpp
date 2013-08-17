@@ -31,6 +31,10 @@ int SaleProductDialog::selectedProductID() {
         return m_selectedProductID;
 }
 
+int SaleProductDialog::selectedSellingCost() {
+        return m_ui->spnCost->value();
+}
+
 void SaleProductDialog::loadAvailableSize() {
         Database::instance()->refreshDialogSizesModel(m_consignmentID);
         m_ui->cbSize->setModel(Database::instance()->dialogSizesModel());

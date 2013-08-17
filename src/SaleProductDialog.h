@@ -21,6 +21,8 @@ public:
         int             selectedClientID();
         /// Возвращаеn текущий выранный размер
         int             selectedProductID();
+        /// Возвращает выбранную итоговую цену
+        int             selectedSellingCost();
 
 private:
         /// Загружает доступные размеры в cbSizes

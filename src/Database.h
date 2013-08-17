@@ -73,7 +73,7 @@ public:
         void                    addNewProducts(int consignmentID, const QStringList& sizes);
 
         /// Помещает товар с индексом productID в список проданных. clientID указывается в качестве покупателя
-        void                    soldProduct(int productID, int clientID);
+        void                    soldProduct(int productID, int clientID, int sellingCost);
 
         /// Делает возврат товара
         void                    returnProduct(int productID);
