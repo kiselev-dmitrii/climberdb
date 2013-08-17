@@ -161,7 +161,6 @@ QVector<Product> Database::getProductListFromConsignment(int consignmentID) {
                 product.deliveryDate = query.value("DeliveryDate").toDateTime();
                 product.saleDate = query.value("SaleDate").toDateTime();
                 product.lastReturnDate = query.value("LastReturnDate").toDateTime();
-                product.countBuy = query.value("CountBuy").toInt();
                 product.countReturns = query.value("CountReturns").toInt();
                 product.clientID = query.value("ClientID").toInt();
 
@@ -258,7 +257,6 @@ Product Database::getProductByID(int productID) {
         product.deliveryDate = query.value("DeliveryDate").toDateTime();
         product.saleDate = query.value("SaleDate").toDateTime();
         product.lastReturnDate = query.value("LastReturnDate").toDateTime();
-        product.countBuy = query.value("CountBuy").toInt();
         product.countReturns = query.value("CountReturns").toInt();
         product.clientID = query.value("ClientID").toInt();
         return product;
@@ -504,7 +502,6 @@ void Database::soldProduct(int productID, int clientID) {
                         SET
                                 IsSold = 1,
                                 SaleDate = DATETIME('now', 'localtime'),
-                                CountBuy = CountBuy + 1,
                                 ClientID = :clientID
                         WHERE
                                 ID = :productID

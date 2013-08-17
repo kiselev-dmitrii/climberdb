@@ -154,7 +154,6 @@ struct Product {
         QDateTime       deliveryDate;
         QDateTime       saleDate;
         QDateTime       lastReturnDate;
-        int             countBuy;
         int             countReturns;
         int             clientID;
 };
