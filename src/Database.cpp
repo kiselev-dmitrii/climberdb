@@ -100,11 +100,12 @@ QSqlQueryModel* Database::refreshMainSoldProductsModel(const QDate &soldDate) {
                                 C.Name as 'Наименование',
                                 C.Model as 'Модель',
                                 P.Size as 'Размер',
-                                C.Cost as 'Цена',
+                                P.SellingCost as "Цена продажи",
                                 IFNULL(Type.Name, "")  || " " || LOWER(IFNULL(C.Gender, "")) || " " || LOWER(IFNULL(C.Comment, "")) || LOWER(IFNULL(Color.Name, "")) as 'Тип',
                                 Country.Name as 'Производитель',
                                 (P.SaleDate) as 'Время продажи',
-                                IFNULL(Client.Name, "") || " " || IFNULL(Client.Surname, "") as 'Покупатель'
+                                IFNULL(Client.Name, "") || " " || IFNULL(Client.Surname, "") as 'Покупатель',
+                                C.Cost - P.SellingCost as "Скидка"
                         FROM
                                 Consignment as C
                                 JOIN 		Product as P 	        ON     C.ID = P.ConsignmentID
@@ -156,9 +157,11 @@ QVector<Product> Database::getProductListFromConsignment(int consignmentID) {
                 product.size = query.value("Size").toString();
                 product.barcode = query.value("Barcode").toString();
                 product.isSold = query.value("IsSold").toBool();
+                product.sellingCost = query.value("SellingCost").toInt();
                 product.deliveryDate = query.value("DeliveryDate").toDateTime();
                 product.saleDate = query.value("SaleDate").toDateTime();
                 product.lastReturnDate = query.value("LastReturnDate").toDateTime();
+                product.countBuy = query.value("CountBuy").toInt();
                 product.countReturns = query.value("CountReturns").toInt();
                 product.clientID = query.value("ClientID").toInt();
 
@@ -251,6 +254,7 @@ Product Database::getProductByID(int productID) {
         product.size = query.value("Size").toInt();
         product.barcode = query.value("Barcode").toString();
         product.isSold = query.value("IsSold").toBool();
+        product.sellingCost = query.value("SellingCost").toInt();
         product.deliveryDate = query.value("DeliveryDate").toDateTime();
         product.saleDate = query.value("SaleDate").toDateTime();
         product.lastReturnDate = query.value("LastReturnDate").toDateTime();

@@ -150,6 +150,7 @@ struct Product {
         QString         size;
         QString         barcode;
         bool            isSold;
+        int             sellingCost;
         QDateTime       deliveryDate;
         QDateTime       saleDate;
         QDateTime       lastReturnDate;
