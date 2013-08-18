@@ -221,6 +221,19 @@ public:
 
         gridLayout->addLayout(ltAddNewSizes, 10, 2, 1, 1);
 
+        QWidget::setTabOrder(edtName, edtModel);
+        QWidget::setTabOrder(edtModel, spnCost);
+        QWidget::setTabOrder(spnCost, cbColor);
+        QWidget::setTabOrder(cbColor, cbType);
+        QWidget::setTabOrder(cbType, rbtnUnknown);
+        QWidget::setTabOrder(rbtnUnknown, rbtnMale);
+        QWidget::setTabOrder(rbtnMale, rbtnFemale);
+        QWidget::setTabOrder(rbtnFemale, edtComment);
+        QWidget::setTabOrder(edtComment, cbCountry);
+        QWidget::setTabOrder(cbCountry, tvProducts);
+        QWidget::setTabOrder(tvProducts, edtAddNewSizes);
+        QWidget::setTabOrder(edtAddNewSizes, btnAddNewSizes);
+        QWidget::setTabOrder(btnAddNewSizes, btnBox);
 
         retranslateUi(dlgEditConsignment);
 

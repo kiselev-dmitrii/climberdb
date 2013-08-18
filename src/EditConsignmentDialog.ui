@@ -217,6 +217,22 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>edtName</tabstop>
+  <tabstop>edtModel</tabstop>
+  <tabstop>spnCost</tabstop>
+  <tabstop>cbColor</tabstop>
+  <tabstop>cbType</tabstop>
+  <tabstop>rbtnUnknown</tabstop>
+  <tabstop>rbtnMale</tabstop>
+  <tabstop>rbtnFemale</tabstop>
+  <tabstop>edtComment</tabstop>
+  <tabstop>cbCountry</tabstop>
+  <tabstop>tvProducts</tabstop>
+  <tabstop>edtAddNewSizes</tabstop>
+  <tabstop>btnAddNewSizes</tabstop>
+  <tabstop>btnBox</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
