@@ -51,6 +51,8 @@ public:
 private:
         /// Генерирует Html код ценника
         QString         generateHtml(const QString& header, const QString& tagTemplate);
+        /// Генерирует символный код для Code Ean шрифта
+        QString         generateSymbolCode(const QString& digits);
 
 private:
         /// Закрытые конструкторы и оператор присваивания
@@ -70,6 +72,7 @@ private:
         const QString           m_templateFilename;
         const QString           m_headerFlename;
         const QString           m_tagsFilename;
+        const QString           m_fontName;
 };
 
 /** Информация, используемая при печати ценников

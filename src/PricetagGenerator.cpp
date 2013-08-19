@@ -13,7 +13,8 @@ PricetagGenerator::PricetagGenerator() :
         m_logoFilename("logo.jpg"),
         m_templateFilename("template.html"),
         m_headerFlename("header.html"),
-        m_tagsFilename("tags.html")
+        m_tagsFilename("tags.html"),
+        m_fontName("font")
 {
 }
 
@@ -97,8 +98,12 @@ bool PricetagGenerator::generateTags() {
 
         // Создаем директорию в которой будет ценник
         if (!QFile::exists(m_generatedDirectory)) QDir(".").mkdir(m_generatedDirectory);
-        // Копируем лого
+        // Копируем лого и шрифты
         QFile::copy(QDir(m_templateDirectory).filePath(m_logoFilename), QDir(m_generatedDirectory).filePath(m_logoFilename));
+        QFile::copy(QDir(m_templateDirectory).filePath(m_fontName+".eot"), QDir(m_generatedDirectory).filePath(m_fontName+".eot"));
+        QFile::copy(QDir(m_templateDirectory).filePath(m_fontName+".svg"), QDir(m_generatedDirectory).filePath(m_fontName+".svg"));
+        QFile::copy(QDir(m_templateDirectory).filePath(m_fontName+".ttf"), QDir(m_generatedDirectory).filePath(m_fontName+".ttf"));
+        QFile::copy(QDir(m_templateDirectory).filePath(m_fontName+".woff"), QDir(m_generatedDirectory).filePath(m_fontName+".woff"));
 
         // Открываем header
         QString header;
@@ -149,7 +154,7 @@ QString PricetagGenerator::generateHtml(const QString& header, const QString& ta
                 curTemplate.replace("$size$", m_tags[i].size);
                 curTemplate.replace("$sizes$", m_tags[i].sizes.join(", "));
                 curTemplate.replace("$cost$", QString::number(m_tags[i].cost));
-                curTemplate.replace("$barcode$", m_tags[i].barcode);
+                curTemplate.replace("$barcode$", generateSymbolCode(m_tags[i].barcode));
 
                 html += "<td>\n" + curTemplate + "</td>\n";
                 if ((i+1) % m_countCols == 0) html += "<tr></tr>";
@@ -159,4 +164,48 @@ QString PricetagGenerator::generateHtml(const QString& header, const QString& ta
         html += "</body>";
 
         return html;
+}
+
+QString PricetagGenerator::generateSymbolCode(const QString &digits) {
+        char codes[][10] = {
+                  {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'},
+                  {'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T'},
+                  {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'}
+        };
+        char usingTable[][6] = {
+                  {0, 0, 0, 0, 0, 0}, //0
+                  {0, 0, 1, 0, 1, 1}, //1
+                  {0, 0, 1, 1, 0, 1}, //2
+                  {0, 0, 1, 1, 1, 0}, //3
+                  {0, 1, 0, 0, 1, 1}, //4
+                  {0, 1, 1, 0, 0, 1}, //5
+                  {0, 1, 1, 1, 0, 0}, //6
+                  {0, 1, 0, 1, 0, 1}, //7
+                  {0, 1, 0, 1, 1, 0}, //8
+                  {0, 1, 1, 0, 1, 0}  //9
+        };
+
+        QString result;
+        // Нулевой символ неизменный
+        result += digits[0];
+
+        // Символы с 1-6 берутся из codes[0] или codes[1], в зависимости от unsingTable[firstNumber][digits[i]]
+        int firstNumber = QString(digits[0]).toInt();
+        for (int i = 1; i <= 6; ++i) {
+                int number = QString(digits[i]).toInt();
+                int table = usingTable[firstNumber][i-1];
+                result += codes[table][number];
+        }
+
+        result += "*";  //серединный символ
+
+        // Символы 7-12 берутся из codes[2]
+        for (int i = 7; i <= 12; ++i) {
+                int number = QString(digits[i]).toInt();
+                result += codes[2][number];
+        }
+
+        result += "+";  //конечный символ
+
+        return result;
 }
