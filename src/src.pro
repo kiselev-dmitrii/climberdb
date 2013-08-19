@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     ClientsDialog.cpp \
     PricetagGenerator.cpp \
     PricetagDialog.cpp \
-    SearchSoldDialog.cpp
+    SearchSoldDialog.cpp \
+    SearchBarcodeDialog.cpp
 
 HEADERS  += MainWindow.h \
     ProductsView.h \
@@ -46,7 +47,8 @@ HEADERS  += MainWindow.h \
     ClientsDialog.h \
     PricetagGenerator.h \
     PricetagDialog.h \
-    SearchSoldDialog.h
+    SearchSoldDialog.h \
+    SearchBarcodeDialog.h
 
 FORMS    += MainWindow.ui \
     EditConsignmentDialog.ui \
@@ -54,4 +56,5 @@ FORMS    += MainWindow.ui \
     SaleProductDialog.ui \
     ClientsDialog.ui \
     PricetagDialog.ui \
-    SearchSoldDialog.ui
+    SearchSoldDialog.ui \
+    SearchBarcodeDialog.ui

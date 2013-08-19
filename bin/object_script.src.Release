@@ -16,6 +16,7 @@ INPUT(
 ./release\PricetagGenerator.o
 ./release\PricetagDialog.o
 ./release\SearchSoldDialog.o
+./release\SearchBarcodeDialog.o
 ./release\moc_MainWindow.o
 ./release\moc_ProductsView.o
 ./release\moc_MainProductList.o
@@ -29,4 +30,5 @@ INPUT(
 ./release\moc_ClientsDialog.o
 ./release\moc_PricetagDialog.o
 ./release\moc_SearchSoldDialog.o
+./release\moc_SearchBarcodeDialog.o
 );
