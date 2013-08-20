@@ -35,6 +35,11 @@ int SaleProductDialog::selectedSellingCost() {
         return m_ui->spnCost->value();
 }
 
+void SaleProductDialog::setCurrentSize(const QString &size) {
+        int index = m_ui->cbSize->findText(size);
+        m_ui->cbSize->setCurrentIndex(index);
+}
+
 void SaleProductDialog::loadAvailableSize() {
         Database::instance()->refreshDialogSizesModel(m_consignmentID);
         m_ui->cbSize->setModel(Database::instance()->dialogSizesModel());

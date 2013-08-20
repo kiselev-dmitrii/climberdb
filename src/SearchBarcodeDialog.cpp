@@ -62,8 +62,19 @@ void SearchBarcodeDialog::onEdtBarcodeChange() {
 void SearchBarcodeDialog::sellProduct() {
         int consignmentID = m_ui->tvProduct->model()->data(m_ui->tvProduct->model()->index(0,0)).toInt();
         QString size = m_ui->tvProduct->model()->data(m_ui->tvProduct->model()->index(0,4)).toString();
+
         SaleProductDialog* dialog = new SaleProductDialog(consignmentID, this);
-        dialog->exec();
+        dialog->setCurrentSize(size);
+        if (dialog->exec() == QDialog::Accepted) {
+                int productID = dialog->selectedProductID();
+                int clientID = dialog->selectedClientID();
+                int sellingCost = dialog->selectedSellingCost();
+                Database::instance()->soldProduct(productID, clientID, sellingCost);
+
+                Database::instance()->refreshMainProductsModel();
+                Database::instance()->refreshMainSoldProductsModel();
+                close();
+        }
 }
 
 void SearchBarcodeDialog::openConsignmentDialog() {

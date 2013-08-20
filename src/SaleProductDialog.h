@@ -19,10 +19,13 @@ public:
 
         /// Возвращает текущий выбранный clientID
         int             selectedClientID();
-        /// Возвращаеn текущий выранный размер
+        /// Возвращаеn текущий выранный ProductID
         int             selectedProductID();
         /// Возвращает выбранную итоговую цену
         int             selectedSellingCost();
+
+        /// Устанавливает текущий размер
+        void            setCurrentSize(const QString& size);
 
 private:
         /// Загружает доступные размеры в cbSizes
