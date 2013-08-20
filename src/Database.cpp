@@ -439,6 +439,38 @@ QSqlQueryModel* Database::refreshClientsModel() {
        return &m_clientsModel;
 }
 
+QSqlQueryModel* Database::barcodeProductModel() {
+        return &m_barcodeProductModel;
+}
+
+QSqlQueryModel* Database::refreshBarcodeProductModel(const QString &barcode) {
+        QString queryString = R"(
+                        SELECT
+                                C.ID as "ConsignmentID",
+                                P.IsSold as "Продано ли?",
+                                C.Name as "Наименование",
+                                C.Model as "Модель",
+                                P.Size as "Размер",
+                                IFNULL(Type.Name, "")  || " " || LOWER(IFNULL(C.Gender, "")) || " " || LOWER(IFNULL(C.Comment, "")) || LOWER(IFNULL(Color.Name, "")) as "Тип",
+                                Country.Name as "Производитель"
+                        FROM
+                                Product as P
+                                JOIN            Consignment as C ON P.ConsignmentID = C.ID
+                                LEFT JOIN       Color            ON C.ColorID = Color.ID
+                                LEFT JOIN       Type             ON C.TypeID = Type.ID
+                                LEFT JOIN       Country          ON C.CountryID = Country.ID
+                        WHERE
+                                P.Barcode = :barcode
+                              )";
+       QSqlQuery query;
+       query.prepare(queryString);
+       query.bindValue(":barcode", barcode);
+       query.exec();
+
+       m_barcodeProductModel.setQuery(query);
+       return &m_barcodeProductModel;
+}
+
 QSqlQueryModel* Database::productsSoldModel() {
         return &m_productsSoldModel;
 }

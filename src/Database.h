@@ -37,6 +37,11 @@ public:
         QSqlQueryModel*         clientsModel();
         QSqlQueryModel*         refreshClientsModel();
 
+        /// Возвращает модель, которая содержит лишь одну запись (используется для диалога поиска по штрихкоду)
+        QSqlQueryModel*         barcodeProductModel();
+        QSqlQueryModel*         refreshBarcodeProductModel(const QString& barcode);
+
+
         /// Возвращает модель проданных товаров (специально для соответствующего диалога)
         QSqlQueryModel*         productsSoldModel();
         QSqlQueryModel*         refreshProductsSoldModel();
@@ -118,6 +123,7 @@ private:
         QSqlQueryModel          m_dialogSizesModel;
         QSqlQueryModel          m_clientsModel;
         QSqlQueryModel          m_productsSoldModel;
+        QSqlQueryModel          m_barcodeProductModel;
 };
 
 

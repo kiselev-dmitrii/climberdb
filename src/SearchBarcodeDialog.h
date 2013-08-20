@@ -15,6 +15,23 @@ public:
                         ~SearchBarcodeDialog();
         
 private:
+        /// Устанавливает модель для tvProduct
+        void            loadTable();
+        /// Соединяет виджеты
+        void            connectWidgets();
+
+        /// Выполняет поиск по штрихкоду
+        void            findProductByBarcode(const QString& barcode);
+
+private slots:
+        /// Выполняется при изменении edtBarcode
+        void            onEdtBarcodeChange();
+        /// Выполняет продажу товара
+        void            sellProduct();
+        /// Открывает партию товара
+        void            openConsignmentDialog();
+
+private:
         Ui::SearchBarcodeDialog*        m_ui;
         Q_OBJECT
 };

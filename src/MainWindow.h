@@ -19,6 +19,8 @@ public:
 private:
         /// Создает основные таблицы
         void            createMainViews();
+        /// Устанавливает горячие клавиши
+        void            createShortcuts();
         /// Соединяет виджеты
         void            connectWidgets();
 
@@ -30,6 +32,9 @@ private slots:
         /// Обработка пунктов о ценниках
         void            processGeneratePricetagsAction();
         void            processClearPricetagsAction();
+
+        /// Открывает диалог SearchBarcodeDialog
+        void            openSearchBarcodeDialog();
 
 private:
         Ui::MainWindow*         m_ui;

@@ -21,7 +21,7 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QTableWidget>
+#include <QtWidgets/QTableView>
 #include <QtWidgets/QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
@@ -33,7 +33,7 @@ public:
     QHBoxLayout *ltBarcode;
     QLabel *lblBarcode;
     QLineEdit *edtBarcode;
-    QTableWidget *twProduct;
+    QTableView *tvProduct;
     QSpacerItem *spacer;
     QHBoxLayout *ltButtons;
     QPushButton *btnSellProduct;
@@ -44,7 +44,7 @@ public:
     {
         if (SearchBarcodeDialog->objectName().isEmpty())
             SearchBarcodeDialog->setObjectName(QStringLiteral("SearchBarcodeDialog"));
-        SearchBarcodeDialog->resize(561, 138);
+        SearchBarcodeDialog->resize(561, 154);
         verticalLayout = new QVBoxLayout(SearchBarcodeDialog);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         ltBarcode = new QHBoxLayout();
@@ -56,24 +56,25 @@ public:
 
         edtBarcode = new QLineEdit(SearchBarcodeDialog);
         edtBarcode->setObjectName(QStringLiteral("edtBarcode"));
+        edtBarcode->setMaxLength(13);
 
         ltBarcode->addWidget(edtBarcode);
 
 
         verticalLayout->addLayout(ltBarcode);
 
-        twProduct = new QTableWidget(SearchBarcodeDialog);
-        twProduct->setObjectName(QStringLiteral("twProduct"));
-        QFont font;
-        font.setPointSize(12);
-        twProduct->setFont(font);
-        twProduct->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        twProduct->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        twProduct->setAutoScroll(false);
-        twProduct->setSelectionMode(QAbstractItemView::SingleSelection);
-        twProduct->horizontalHeader()->setStretchLastSection(true);
+        tvProduct = new QTableView(SearchBarcodeDialog);
+        tvProduct->setObjectName(QStringLiteral("tvProduct"));
+        tvProduct->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        tvProduct->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        tvProduct->setSelectionMode(QAbstractItemView::NoSelection);
+        tvProduct->setSelectionBehavior(QAbstractItemView::SelectRows);
+        tvProduct->horizontalHeader()->setHighlightSections(false);
+        tvProduct->horizontalHeader()->setStretchLastSection(true);
+        tvProduct->verticalHeader()->setVisible(false);
+        tvProduct->verticalHeader()->setMinimumSectionSize(30);
 
-        verticalLayout->addWidget(twProduct);
+        verticalLayout->addWidget(tvProduct);
 
         spacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
@@ -83,11 +84,13 @@ public:
         ltButtons->setObjectName(QStringLiteral("ltButtons"));
         btnSellProduct = new QPushButton(SearchBarcodeDialog);
         btnSellProduct->setObjectName(QStringLiteral("btnSellProduct"));
+        btnSellProduct->setEnabled(false);
 
         ltButtons->addWidget(btnSellProduct);
 
         btnOpenConsignment = new QPushButton(SearchBarcodeDialog);
         btnOpenConsignment->setObjectName(QStringLiteral("btnOpenConsignment"));
+        btnOpenConsignment->setEnabled(false);
 
         ltButtons->addWidget(btnOpenConsignment);
 
@@ -113,6 +116,7 @@ public:
     {
         SearchBarcodeDialog->setWindowTitle(QApplication::translate("SearchBarcodeDialog", "\320\237\320\276\320\270\321\201\320\272 \321\202\320\276\320\262\320\260\321\200\320\260 \320\277\320\276 \321\210\321\202\321\200\320\270\321\205\320\272\320\276\320\264\321\203", 0));
         lblBarcode->setText(QApplication::translate("SearchBarcodeDialog", "\320\250\321\202\321\200\320\270\321\205\320\272\320\276\320\264:", 0));
+        edtBarcode->setInputMask(QApplication::translate("SearchBarcodeDialog", "9999999999999; ", 0));
         btnSellProduct->setText(QApplication::translate("SearchBarcodeDialog", "\320\237\321\200\320\276\320\264\320\260\321\202\321\214", 0));
         btnOpenConsignment->setText(QApplication::translate("SearchBarcodeDialog", "\320\222\321\201\320\265 \321\202\320\276\320\262\320\260\321\200\321\213 \320\270\320\267 \320\277\320\260\321\200\321\202\320\270\320\270", 0));
     } // retranslateUi

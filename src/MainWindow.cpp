@@ -1,16 +1,21 @@
 #include "MainWindow.h"
-#include "PricetagGenerator.h"
 #include "ui_MainWindow.h"
 #include "PricetagDialog.h"
+#include "PricetagGenerator.h"
 #include "ClientsDialog.h"
 #include "SearchSoldDialog.h"
+#include "SearchBarcodeDialog.h"
+#include <QShortcut>
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
-        m_ui(new Ui::MainWindow)
+        m_ui(new Ui::MainWindow),
+        m_mainProductList(nullptr),
+        m_mainSoldList(nullptr)
 {
         m_ui->setupUi(this);
         createMainViews();
+        createShortcuts();
         connectWidgets();
 }
 
@@ -24,6 +29,14 @@ void MainWindow::createMainViews() {
 
         m_mainSoldList = new MainSoldList();
         m_ui->ltMainLayout->addLayout(m_mainSoldList);
+}
+
+void MainWindow::createShortcuts() {
+        QShortcut* shortcut;
+        // F12 - поиск товара по штрихкоду
+        shortcut = new QShortcut(Qt::Key_F12, this);
+        shortcut->setContext(Qt::ApplicationShortcut);
+        connect(shortcut, SIGNAL(activated()), SLOT(openSearchBarcodeDialog()));
 }
 
 void MainWindow::connectWidgets() {
@@ -53,4 +66,9 @@ void MainWindow::processGeneratePricetagsAction() {
 
 void MainWindow::processClearPricetagsAction() {
         PricetagGenerator::instance()->clearTags();
+}
+
+void MainWindow::openSearchBarcodeDialog() {
+        SearchBarcodeDialog* dialog = new SearchBarcodeDialog(this);
+        dialog->exec();
 }
