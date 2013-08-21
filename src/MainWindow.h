@@ -33,6 +33,9 @@ private slots:
         void            processGeneratePricetagsAction();
         void            processClearPricetagsAction();
 
+        /// Обработка пунктов "Анализ"
+        void            processGeneralStatisticsAction();
+
         /// Открывает диалог SearchBarcodeDialog
         void            openSearchBarcodeDialog();
 

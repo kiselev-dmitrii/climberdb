@@ -17,6 +17,7 @@ INPUT(
 ./debug\PricetagDialog.o
 ./debug\SearchSoldDialog.o
 ./debug\SearchBarcodeDialog.o
+./debug\GeneralStatisticsDialog.o
 ./debug\moc_MainWindow.o
 ./debug\moc_ProductsView.o
 ./debug\moc_MainProductList.o
@@ -31,4 +32,5 @@ INPUT(
 ./debug\moc_PricetagDialog.o
 ./debug\moc_SearchSoldDialog.o
 ./debug\moc_SearchBarcodeDialog.o
+./debug\moc_GeneralStatisticsDialog.o
 );

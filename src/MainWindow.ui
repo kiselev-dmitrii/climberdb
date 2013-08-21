@@ -44,8 +44,16 @@
     <addaction name="actGeneratePricetags"/>
     <addaction name="actClearPricetags"/>
    </widget>
+   <widget class="QMenu" name="mnAnalysis">
+    <property name="title">
+     <string>Анализ</string>
+    </property>
+    <addaction name="actGeneralStatistics"/>
+    <addaction name="actSalesChart"/>
+   </widget>
    <addaction name="mnDatabase"/>
    <addaction name="mnPricetags"/>
+   <addaction name="mnAnalysis"/>
   </widget>
   <widget class="QStatusBar" name="sbMainStatusBar"/>
   <action name="actSearchOnSales">
@@ -66,6 +74,16 @@
   <action name="actClearPricetags">
    <property name="text">
     <string>Очистить добавленные</string>
+   </property>
+  </action>
+  <action name="actSalesChart">
+   <property name="text">
+    <string>График продаж</string>
+   </property>
+  </action>
+  <action name="actGeneralStatistics">
+   <property name="text">
+    <string>Общая статистика</string>
    </property>
   </action>
  </widget>
