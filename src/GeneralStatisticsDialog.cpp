@@ -7,11 +7,17 @@ GeneralStatisticsDialog::GeneralStatisticsDialog(QWidget *parent) :
         m_ui(new Ui::GeneralStatisticsDialog)
 {
         m_ui->setupUi(this);
+        initDates();
         connectWidgets();
 }
 
 GeneralStatisticsDialog::~GeneralStatisticsDialog() {
         delete m_ui;
+}
+
+void GeneralStatisticsDialog::initDates() {
+        m_ui->deTo->setDate(QDate::currentDate());
+        m_ui->deFrom->setDate(QDate::currentDate().addMonths(-1));
 }
 
 void GeneralStatisticsDialog::connectWidgets() {

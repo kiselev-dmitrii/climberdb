@@ -17,6 +17,8 @@ public:
                         ~GeneralStatisticsDialog();
 
 private:
+        /// Устанавливает начальную дату
+        void            initDates();
         /// Соединяет виджеты
         void            connectWidgets();
 
