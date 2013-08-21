@@ -262,6 +262,71 @@ Product Database::getProductByID(int productID) {
         return product;
 }
 
+tuple<int, int> Database::getCountAndSumOfSoldProducts(const QDate &from, const QDate &to, const ProductFilter &filter) {
+        QString queryString = R"(
+                        SELECT
+                                Count(*) as "Сnt",
+                                SUM(SellingCost) as "Sum"
+                        FROM
+                                Product as P
+                                JOIN            Consignment as C        ON P.ConsignmentID = C.ID
+                                LEFT JOIN       Type                    ON C.TypeID = Type.ID
+                        WHERE
+                                P.IsSold = 1 AND
+                                IFNULL(C.Name, "") LIKE '%'||:name||'%' AND
+                                IFNULL(C.Model, "") LIKE '%'||:model||'%' AND
+                                IFNULL(P.Size, "") LIKE :size||'%' AND
+                                IFNULL(Type.Name, "")  || " " || LOWER(IFNULL(C.Gender, "")) LIKE '%'||:type||'%' AND
+                                P.SaleDate BETWEEN :from AND :to
+                              )";
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":name", filter.name);
+        query.bindValue(":model", filter.model);
+        query.bindValue(":size", filter.size);
+        query.bindValue(":type", filter.type);
+        query.bindValue(":from", from.toString("yyyy-MM-dd"));
+        query.bindValue(":to", to.toString("yyyy-MM-dd"));
+        query.exec();
+        query.first();
+
+        int count = query.value(0).toInt();
+        int sum = query.value(1).toInt();
+        return std::make_tuple(count, sum);
+}
+
+tuple<int, int> Database::getCountAndSumOfPurchasedProducts(const QDate &from, const QDate &to, const ProductFilter &filter) {
+        QString queryString = R"(
+                        SELECT
+                                Count(*) as "Сnt",
+                                SUM(C.Cost) as "Sum"
+                        FROM
+                                Product as P
+                                JOIN            Consignment as C        ON P.ConsignmentID = C.ID
+                                LEFT JOIN       Type                    ON C.TypeID = Type.ID
+                        WHERE
+                                IFNULL(C.Name, "") LIKE '%'||:name||'%' AND
+                                IFNULL(C.Model, "") LIKE '%'||:model||'%' AND
+                                IFNULL(P.Size, "") LIKE :size||'%' AND
+                                IFNULL(Type.Name, "")  || " " || LOWER(IFNULL(C.Gender, "")) LIKE '%'||:type||'%' AND
+                                P.DeliveryDate BETWEEN :from AND :to
+                              )";
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":name", filter.name);
+        query.bindValue(":model", filter.model);
+        query.bindValue(":size", filter.size);
+        query.bindValue(":type", filter.type);
+        query.bindValue(":from", from.toString("yyyy-MM-dd"));
+        query.bindValue(":to", to.toString("yyyy-MM-dd"));
+        query.exec();
+        query.first();
+
+        int count = query.value(0).toInt();
+        int sum = query.value(1).toInt();
+        return std::make_tuple(count, sum);
+}
+
 QStringList Database::getAvailableTypes() {
         QString queryString = "SELECT Name FROM Type";
         QSqlQuery query(queryString);

@@ -6,20 +6,64 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>452</width>
-    <height>168</height>
+    <width>490</width>
+    <height>241</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Общая статистика</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="lblInfo">
      <property name="text">
-      <string>Введите промежуток времени по которому производится сбор статистики:</string>
+      <string>Введите фильтр и промежуток времени, по которому будет производится сбор статистики:</string>
      </property>
     </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gltFilter">
+     <item row="1" column="2">
+      <widget class="QLabel" name="lblType">
+       <property name="text">
+        <string>Тип:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="lblSize">
+       <property name="text">
+        <string>Размер:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="edtName"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="edtModel"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="lblName">
+       <property name="text">
+        <string>Наименование:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="lblModel">
+       <property name="text">
+        <string>Модель:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QLineEdit" name="edtSize"/>
+     </item>
+     <item row="1" column="3">
+      <widget class="QLineEdit" name="edtType"/>
+     </item>
+    </layout>
    </item>
    <item>
     <layout class="QHBoxLayout" name="ltDates">
@@ -72,6 +116,19 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
    <item>
     <layout class="QGridLayout" name="gltStatistics">

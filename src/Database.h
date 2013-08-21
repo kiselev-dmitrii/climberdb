@@ -4,10 +4,14 @@
 #include <QSqlQueryModel>
 #include <QStringList>
 #include <QDateTime>
+#include <tuple>
+
+using std::tuple;
 
 struct Product;
 struct Consignment;
 struct Client;
+struct ProductFilter;
 
 /** Синглтон, служащий для доступа к базе данных
  */
@@ -64,6 +68,11 @@ public:
         Consignment             getConsignmentByID(int consignmentID);
         /// Возвращает информацию о товаре по productID
         Product                 getProductByID(int productID);
+
+        /// Возвращает количество и сумму проданного товара по маске за заданную дату
+        tuple<int, int>         getCountAndSumOfSoldProducts(const QDate& from, const QDate& to, const ProductFilter& filter);
+        /// Возвращает количество и сумму купленного товара по маске за заданную дату
+        tuple<int, int>         getCountAndSumOfPurchasedProducts(const QDate& from, const QDate& to, const ProductFilter& filter);
 
         /// Возвращает список возможных цветов, типов, производителей
         QStringList             getAvailableColors();
@@ -169,6 +178,21 @@ struct Product {
         QDateTime       lastReturnDate;
         int             countReturns;
         int             clientID;
+};
+
+/** Структура, которая используется для передачи в функции поиска по фильтру
+ */
+struct ProductFilter {
+        QString         name;
+        QString         model;
+        QString         size;
+        QString         type;
+
+        QString         cost;
+        QString         gender;
+        QString         comment;
+        QString         color;
+        QString         country;
 };
 
 #endif // DATABASE_H

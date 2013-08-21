@@ -15,6 +15,14 @@ public:
         explicit        GeneralStatisticsDialog(QWidget *parent = nullptr);
         /// Виртуальный деструктор
                         ~GeneralStatisticsDialog();
+
+private:
+        /// Соединяет виджеты
+        void            connectWidgets();
+
+private slots:
+        /// Получение статистики по заданному фильтру и промежутку
+        void            onGetStatisticsButton();
         
 private:
         Ui::GeneralStatisticsDialog*    m_ui;

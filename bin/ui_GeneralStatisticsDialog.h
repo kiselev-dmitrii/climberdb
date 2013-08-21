@@ -31,6 +31,15 @@ class Ui_GeneralStatisticsDialog
 public:
     QVBoxLayout *verticalLayout;
     QLabel *lblInfo;
+    QGridLayout *gltFilter;
+    QLabel *lblType;
+    QLabel *lblSize;
+    QLineEdit *edtName;
+    QLineEdit *edtModel;
+    QLabel *lblName;
+    QLabel *lblModel;
+    QLineEdit *edtSize;
+    QLineEdit *edtType;
     QHBoxLayout *ltDates;
     QLabel *lblFrom;
     QDateEdit *deFrom;
@@ -38,6 +47,7 @@ public:
     QDateEdit *deTo;
     QSpacerItem *spacer1;
     QPushButton *btnGetStatistics;
+    QSpacerItem *verticalSpacer;
     QGridLayout *gltStatistics;
     QLabel *lblSalesCount;
     QLabel *lblDeliverySum;
@@ -52,13 +62,58 @@ public:
     {
         if (GeneralStatisticsDialog->objectName().isEmpty())
             GeneralStatisticsDialog->setObjectName(QStringLiteral("GeneralStatisticsDialog"));
-        GeneralStatisticsDialog->resize(452, 168);
+        GeneralStatisticsDialog->resize(490, 241);
         verticalLayout = new QVBoxLayout(GeneralStatisticsDialog);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         lblInfo = new QLabel(GeneralStatisticsDialog);
         lblInfo->setObjectName(QStringLiteral("lblInfo"));
 
         verticalLayout->addWidget(lblInfo);
+
+        gltFilter = new QGridLayout();
+        gltFilter->setObjectName(QStringLiteral("gltFilter"));
+        lblType = new QLabel(GeneralStatisticsDialog);
+        lblType->setObjectName(QStringLiteral("lblType"));
+
+        gltFilter->addWidget(lblType, 1, 2, 1, 1);
+
+        lblSize = new QLabel(GeneralStatisticsDialog);
+        lblSize->setObjectName(QStringLiteral("lblSize"));
+
+        gltFilter->addWidget(lblSize, 0, 2, 1, 1);
+
+        edtName = new QLineEdit(GeneralStatisticsDialog);
+        edtName->setObjectName(QStringLiteral("edtName"));
+
+        gltFilter->addWidget(edtName, 0, 1, 1, 1);
+
+        edtModel = new QLineEdit(GeneralStatisticsDialog);
+        edtModel->setObjectName(QStringLiteral("edtModel"));
+
+        gltFilter->addWidget(edtModel, 1, 1, 1, 1);
+
+        lblName = new QLabel(GeneralStatisticsDialog);
+        lblName->setObjectName(QStringLiteral("lblName"));
+
+        gltFilter->addWidget(lblName, 0, 0, 1, 1);
+
+        lblModel = new QLabel(GeneralStatisticsDialog);
+        lblModel->setObjectName(QStringLiteral("lblModel"));
+
+        gltFilter->addWidget(lblModel, 1, 0, 1, 1);
+
+        edtSize = new QLineEdit(GeneralStatisticsDialog);
+        edtSize->setObjectName(QStringLiteral("edtSize"));
+
+        gltFilter->addWidget(edtSize, 0, 3, 1, 1);
+
+        edtType = new QLineEdit(GeneralStatisticsDialog);
+        edtType->setObjectName(QStringLiteral("edtType"));
+
+        gltFilter->addWidget(edtType, 1, 3, 1, 1);
+
+
+        verticalLayout->addLayout(gltFilter);
 
         ltDates = new QHBoxLayout();
         ltDates->setObjectName(QStringLiteral("ltDates"));
@@ -95,6 +150,10 @@ public:
 
 
         verticalLayout->addLayout(ltDates);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer);
 
         gltStatistics = new QGridLayout();
         gltStatistics->setObjectName(QStringLiteral("gltStatistics"));
@@ -153,8 +212,12 @@ public:
 
     void retranslateUi(QDialog *GeneralStatisticsDialog)
     {
-        GeneralStatisticsDialog->setWindowTitle(QApplication::translate("GeneralStatisticsDialog", "Dialog", 0));
-        lblInfo->setText(QApplication::translate("GeneralStatisticsDialog", "\320\222\320\262\320\265\320\264\320\270\321\202\320\265 \320\277\321\200\320\276\320\274\320\265\320\266\321\203\321\202\320\276\320\272 \320\262\321\200\320\265\320\274\320\265\320\275\320\270 \320\277\320\276 \320\272\320\276\321\202\320\276\321\200\320\276\320\274\321\203 \320\277\321\200\320\276\320\270\320\267\320\262\320\276\320\264\320\270\321\202\321\201\321\217 \321\201\320\261\320\276\321\200 \321\201\321\202\320\260\321\202\320\270\321\201\321\202\320\270\320\272\320\270:", 0));
+        GeneralStatisticsDialog->setWindowTitle(QApplication::translate("GeneralStatisticsDialog", "\320\236\320\261\321\211\320\260\321\217 \321\201\321\202\320\260\321\202\320\270\321\201\321\202\320\270\320\272\320\260", 0));
+        lblInfo->setText(QApplication::translate("GeneralStatisticsDialog", "\320\222\320\262\320\265\320\264\320\270\321\202\320\265 \321\204\320\270\320\273\321\214\321\202\321\200 \320\270 \320\277\321\200\320\276\320\274\320\265\320\266\321\203\321\202\320\276\320\272 \320\262\321\200\320\265\320\274\320\265\320\275\320\270, \320\277\320\276 \320\272\320\276\321\202\320\276\321\200\320\276\320\274\321\203 \320\261\321\203\320\264\320\265\321\202 \320\277\321\200\320\276\320\270\320\267\320\262\320\276\320\264\320\270\321\202\321\201\321\217 \321\201\320\261\320\276\321\200 \321\201\321\202\320\260\321\202\320\270\321\201\321\202\320\270\320\272\320\270:", 0));
+        lblType->setText(QApplication::translate("GeneralStatisticsDialog", "\320\242\320\270\320\277:", 0));
+        lblSize->setText(QApplication::translate("GeneralStatisticsDialog", "\320\240\320\260\320\267\320\274\320\265\321\200:", 0));
+        lblName->setText(QApplication::translate("GeneralStatisticsDialog", "\320\235\320\260\320\270\320\274\320\265\320\275\320\276\320\262\320\260\320\275\320\270\320\265:", 0));
+        lblModel->setText(QApplication::translate("GeneralStatisticsDialog", "\320\234\320\276\320\264\320\265\320\273\321\214:", 0));
         lblFrom->setText(QApplication::translate("GeneralStatisticsDialog", "\321\201 ", 0));
         lblTo->setText(QApplication::translate("GeneralStatisticsDialog", " \320\277\320\276 ", 0));
         btnGetStatistics->setText(QApplication::translate("GeneralStatisticsDialog", "\320\237\320\276\320\273\321\203\321\207\320\270\321\202\321\214 \321\201\321\202\320\260\321\202\320\270\321\201\321\202\320\270\320\272\321\203", 0));
