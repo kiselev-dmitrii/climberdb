@@ -906,17 +906,17 @@ void Database::updateConsignment(int consignmentID, const Consignment &consignme
 
         if (consignment.color != "") {
                 colorID = this->getColorID(consignment.color);
-                if (colorID < 0) colorID = this->addColor(consignment.color);
+                if (colorID <= 0) colorID = this->addColor(consignment.color);
         }
 
         if (consignment.type != "") {
                 typeID = this->getTypeID(consignment.type);
-                if (typeID < 0) typeID = this->addType(consignment.type);
+                if (typeID <= 0) typeID = this->addType(consignment.type);
         }
 
         if (consignment.country != "") {
                 countryID = this->getCountryID(consignment.country);
-                if (countryID < 0) countryID = this->addCountry(consignment.country);
+                if (countryID <= 0) countryID = this->addCountry(consignment.country);
         }
 
         QString queryString = R"(
