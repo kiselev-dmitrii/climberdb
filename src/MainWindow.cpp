@@ -6,6 +6,7 @@
 #include "SearchSoldDialog.h"
 #include "SearchBarcodeDialog.h"
 #include "GeneralStatisticsDialog.h"
+#include "SalesPlotDialog.h"
 #include <QShortcut>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -51,6 +52,7 @@ void MainWindow::connectWidgets() {
 
         // Меню: Анализ
         connect(m_ui->actGeneralStatistics, SIGNAL(triggered()), SLOT(processGeneralStatisticsAction()));
+        connect(m_ui->actSalesPlot, SIGNAL(triggered()), SLOT(processSalesPlotAction()));
 }
 
 void MainWindow::processClientsAction() {
@@ -74,6 +76,11 @@ void MainWindow::processClearPricetagsAction() {
 
 void MainWindow::processGeneralStatisticsAction() {
         GeneralStatisticsDialog* dialog = new GeneralStatisticsDialog(this);
+        dialog->exec();
+}
+
+void MainWindow::processSalesPlotAction() {
+        SalesPlotDialog* dialog = new SalesPlotDialog(this);
         dialog->exec();
 }
 

@@ -49,7 +49,7 @@
      <string>Анализ</string>
     </property>
     <addaction name="actGeneralStatistics"/>
-    <addaction name="actSalesChart"/>
+    <addaction name="actSalesPlot"/>
    </widget>
    <addaction name="mnDatabase"/>
    <addaction name="mnPricetags"/>
@@ -76,7 +76,7 @@
     <string>Очистить добавленные</string>
    </property>
   </action>
-  <action name="actSalesChart">
+  <action name="actSalesPlot">
    <property name="text">
     <string>График продаж</string>
    </property>

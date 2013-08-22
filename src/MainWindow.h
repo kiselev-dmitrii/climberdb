@@ -35,6 +35,7 @@ private slots:
 
         /// Обработка пунктов "Анализ"
         void            processGeneralStatisticsAction();
+        void            processSalesPlotAction();
 
         /// Открывает диалог SearchBarcodeDialog
         void            openSearchBarcodeDialog();

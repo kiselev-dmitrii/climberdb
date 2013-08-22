@@ -30,7 +30,7 @@ public:
     QAction *actClients;
     QAction *actGeneratePricetags;
     QAction *actClearPricetags;
-    QAction *actSalesChart;
+    QAction *actSalesPlot;
     QAction *actGeneralStatistics;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_2;
@@ -54,8 +54,8 @@ public:
         actGeneratePricetags->setObjectName(QStringLiteral("actGeneratePricetags"));
         actClearPricetags = new QAction(MainWindow);
         actClearPricetags->setObjectName(QStringLiteral("actClearPricetags"));
-        actSalesChart = new QAction(MainWindow);
-        actSalesChart->setObjectName(QStringLiteral("actSalesChart"));
+        actSalesPlot = new QAction(MainWindow);
+        actSalesPlot->setObjectName(QStringLiteral("actSalesPlot"));
         actGeneralStatistics = new QAction(MainWindow);
         actGeneralStatistics->setObjectName(QStringLiteral("actGeneralStatistics"));
         centralwidget = new QWidget(MainWindow);
@@ -91,7 +91,7 @@ public:
         mnPricetags->addAction(actGeneratePricetags);
         mnPricetags->addAction(actClearPricetags);
         mnAnalysis->addAction(actGeneralStatistics);
-        mnAnalysis->addAction(actSalesChart);
+        mnAnalysis->addAction(actSalesPlot);
 
         retranslateUi(MainWindow);
 
@@ -105,7 +105,7 @@ public:
         actClients->setText(QApplication::translate("MainWindow", "\320\232\320\273\320\270\320\265\320\275\321\202\321\213", 0));
         actGeneratePricetags->setText(QApplication::translate("MainWindow", "\320\223\320\265\320\275\320\265\321\200\320\270\321\200\320\276\320\262\320\260\320\275\320\270\320\265 \321\206\320\265\320\275\320\275\320\270\320\272\320\276\320\262", 0));
         actClearPricetags->setText(QApplication::translate("MainWindow", "\320\236\321\207\320\270\321\201\321\202\320\270\321\202\321\214 \320\264\320\276\320\261\320\260\320\262\320\273\320\265\320\275\320\275\321\213\320\265", 0));
-        actSalesChart->setText(QApplication::translate("MainWindow", "\320\223\321\200\320\260\321\204\320\270\320\272 \320\277\321\200\320\276\320\264\320\260\320\266", 0));
+        actSalesPlot->setText(QApplication::translate("MainWindow", "\320\223\321\200\320\260\321\204\320\270\320\272 \320\277\321\200\320\276\320\264\320\260\320\266", 0));
         actGeneralStatistics->setText(QApplication::translate("MainWindow", "\320\236\320\261\321\211\320\260\321\217 \321\201\321\202\320\260\321\202\320\270\321\201\321\202\320\270\320\272\320\260", 0));
         mnDatabase->setTitle(QApplication::translate("MainWindow", "\320\221\320\260\320\267\320\260 \320\264\320\260\320\275\320\275\321\213\321\205", 0));
         mnPricetags->setTitle(QApplication::translate("MainWindow", "\320\246\320\265\320\275\320\275\320\270\320\272\320\270", 0));
