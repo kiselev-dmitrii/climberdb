@@ -12,6 +12,7 @@ struct Product;
 struct Consignment;
 struct Client;
 struct ProductFilter;
+struct PointInfo;
 
 /** Синглтон, служащий для доступа к базе данных
  */
@@ -73,6 +74,15 @@ public:
         tuple<int, int>         getCountAndSumOfSoldProducts(const QDate& from, const QDate& to, const ProductFilter& filter);
         /// Возвращает количество и сумму купленного товара по маске за заданную дату
         tuple<int, int>         getCountAndSumOfPurchasedProducts(const QDate& from, const QDate& to, const ProductFilter& filter);
+
+        /// Возвращает динамику продаж за срок
+        QVector<PointInfo>      getCountsOfSales(const QDate& from, const QDate& to);
+        QVector<PointInfo>      getSumsOfSales(const QDate& from, const QDate& to);
+
+        /// Возвращает динамику поставок за срок
+        QVector<PointInfo>      getCountsOfDeliveries(const QDate& from, const QDate& to);
+        QVector<PointInfo>      getSumsOfDeliveries(const QDate& from, const QDate& to);
+
 
         /// Возвращает список возможных цветов, типов, производителей
         QStringList             getAvailableColors();
@@ -193,6 +203,14 @@ struct ProductFilter {
         QString         comment;
         QString         color;
         QString         country;
+};
+
+/** Структура, которая используется для возврата значений динамики чего-либо
+ */
+struct PointInfo {
+        int     relativeIndex;
+        QDate   date;
+        int     value;
 };
 
 #endif // DATABASE_H

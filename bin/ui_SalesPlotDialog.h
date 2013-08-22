@@ -16,7 +16,6 @@
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QDateEdit>
 #include <QtWidgets/QDialog>
-#include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -39,13 +38,12 @@ public:
     QDateEdit *deTo;
     QSpacerItem *spacer1;
     QPushButton *btnPlot;
-    QGraphicsView *graphicsView;
+    QGraphicsView *gvPlot;
     QHBoxLayout *horizontalLayout;
     QCheckBox *chbDeliveries;
     QCheckBox *chbSales;
     QPushButton *btnShowSums;
     QSpacerItem *horizontalSpacer;
-    QDialogButtonBox *btnBox;
 
     void setupUi(QDialog *SalesPlotDialog)
     {
@@ -95,10 +93,11 @@ public:
 
         verticalLayout->addLayout(ltDates);
 
-        graphicsView = new QGraphicsView(SalesPlotDialog);
-        graphicsView->setObjectName(QStringLiteral("graphicsView"));
+        gvPlot = new QGraphicsView(SalesPlotDialog);
+        gvPlot->setObjectName(QStringLiteral("gvPlot"));
+        gvPlot->setRenderHints(QPainter::Antialiasing|QPainter::HighQualityAntialiasing|QPainter::SmoothPixmapTransform|QPainter::TextAntialiasing);
 
-        verticalLayout->addWidget(graphicsView);
+        verticalLayout->addWidget(gvPlot);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
@@ -109,6 +108,7 @@ public:
 
         chbSales = new QCheckBox(SalesPlotDialog);
         chbSales->setObjectName(QStringLiteral("chbSales"));
+        chbSales->setChecked(true);
 
         horizontalLayout->addWidget(chbSales);
 
@@ -126,23 +126,15 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        btnBox = new QDialogButtonBox(SalesPlotDialog);
-        btnBox->setObjectName(QStringLiteral("btnBox"));
-        btnBox->setOrientation(Qt::Horizontal);
-        btnBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
-
-        verticalLayout->addWidget(btnBox);
-
 
         retranslateUi(SalesPlotDialog);
-        QObject::connect(btnBox, SIGNAL(accepted()), SalesPlotDialog, SLOT(accept()));
-        QObject::connect(btnBox, SIGNAL(rejected()), SalesPlotDialog, SLOT(reject()));
 
         QMetaObject::connectSlotsByName(SalesPlotDialog);
     } // setupUi
 
     void retranslateUi(QDialog *SalesPlotDialog)
     {
+        SalesPlotDialog->setWindowTitle(QApplication::translate("SalesPlotDialog", "\320\223\321\200\320\260\321\204\320\270\320\272 \320\277\321\200\320\276\320\264\320\260\320\266", 0));
         lblInfo->setText(QApplication::translate("SalesPlotDialog", "\320\243\320\272\320\260\320\266\320\270\321\202\320\265 \320\277\321\200\320\276\320\274\320\265\320\266\321\203\321\202\320\276\320\272 \320\262\321\200\320\265\320\274\320\265\320\275\320\270 \320\277\320\276 \320\272\320\276\321\202\320\276\321\200\320\276\320\274\321\203 \320\261\321\203\320\264\320\265\321\202 \320\276\321\202\321\200\320\270\321\201\320\276\320\262\321\213\320\262\320\260\321\202\321\214\321\201\321\217 \320\263\321\200\320\260\321\204\320\270\320\272 \320\277\321\200\320\276\320\264\320\260\320\266.", 0));
         lblFrom->setText(QApplication::translate("SalesPlotDialog", "\321\201 ", 0));
         lblTo->setText(QApplication::translate("SalesPlotDialog", " \320\277\320\276 ", 0));
@@ -150,7 +142,6 @@ public:
         chbDeliveries->setText(QApplication::translate("SalesPlotDialog", "\320\237\320\276\321\201\321\202\320\260\320\262\320\272\320\270", 0));
         chbSales->setText(QApplication::translate("SalesPlotDialog", "\320\237\321\200\320\276\320\264\320\260\320\266\320\270", 0));
         btnShowSums->setText(QApplication::translate("SalesPlotDialog", "\320\236\321\202\320\276\320\261\321\200\320\260\320\266\320\260\321\202\321\214 \321\201\321\203\320\274\320\274\321\213", 0));
-        Q_UNUSED(SalesPlotDialog);
     } // retranslateUi
 
 };

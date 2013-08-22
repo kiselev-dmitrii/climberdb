@@ -327,6 +327,133 @@ tuple<int, int> Database::getCountAndSumOfPurchasedProducts(const QDate &from, c
         return std::make_tuple(count, sum);
 }
 
+QVector<PointInfo> Database::getCountsOfSales(const QDate &from, const QDate &to) {
+        QString queryString = R"(
+                              SELECT
+                                      round(julianday(strftime("%Y-%m-%d", SaleDate))) as "RelativeIndex",
+                                      strftime("%Y-%m-%d", SaleDate) as "Date",
+                                      COUNT(*) as "Cnt"
+                              FROM
+                                      Product
+                              WHERE
+                                      IsSold = 1 AND
+                                      SaleDate BETWEEN :from AND :to
+                              GROUP BY "Date"
+                              ORDER BY SaleDate
+                              )";
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":from", from.toString("yyyy-MM-dd"));
+        query.bindValue(":to", to.toString("yyyy-MM-dd"));
+        query.exec();
+
+        QVector<PointInfo> result;
+        while (query.next()) {
+                PointInfo point;
+                point.relativeIndex = query.value(0).toInt();
+                point.date = query.value(1).toDate();
+                point.value = query.value(2).toInt();
+                result.append(point);
+        }
+
+        return result;
+}
+
+QVector<PointInfo> Database::getSumsOfSales(const QDate &from, const QDate &to) {
+        QString queryString = R"(
+                              SELECT
+                                      round(julianday(strftime("%Y-%m-%d", SaleDate))) as "RelativeIndex",
+                                      strftime("%Y-%m-%d", SaleDate) as "Date",
+                                      SUM(SellingCost) as "Sum"
+                              FROM
+                                      Product
+                              WHERE
+                                      IsSold = 1 AND
+                                      SaleDate BETWEEN :from AND :to
+                              GROUP BY "Date"
+                              ORDER BY SaleDate
+                              )";
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":from", from.toString("yyyy-MM-dd"));
+        query.bindValue(":to", to.toString("yyyy-MM-dd"));
+        query.exec();
+
+        QVector<PointInfo> result;
+        while (query.next()) {
+                PointInfo point;
+                point.relativeIndex = query.value(0).toInt();
+                point.date = query.value(1).toDate();
+                point.value = query.value(2).toInt();
+                result.append(point);
+        }
+
+        return result;
+}
+
+QVector<PointInfo> Database::getCountsOfDeliveries(const QDate &from, const QDate &to) {
+        QString queryString = R"(
+                              SELECT
+                                      round(julianday(strftime("%Y-%m-%d", DeliveryDate))) as "RelativeIndex",
+                                      strftime("%Y-%m-%d", DeliveryDate) as "Date",
+                                      Count(*) as "Cnt"
+                              FROM
+                                      Product as P
+                              WHERE
+                                      DeliveryDate BETWEEN :from AND :to
+                              GROUP BY "Date"
+                              ORDER BY DeliveryDate
+                              )";
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":from", from.toString("yyyy-MM-dd"));
+        query.bindValue(":to", to.toString("yyyy-MM-dd"));
+        query.exec();
+
+        QVector<PointInfo> result;
+        while (query.next()) {
+                PointInfo point;
+                point.relativeIndex = query.value(0).toInt();
+                point.date = query.value(1).toDate();
+                point.value = query.value(2).toInt();
+                result.append(point);
+        }
+
+        return result;
+}
+
+QVector<PointInfo> Database::getSumsOfDeliveries(const QDate &from, const QDate &to) {
+        QString queryString = R"(
+                              SELECT
+                                      round(julianday(strftime("%Y-%m-%d", DeliveryDate))) as "RelativeIndex",
+                                      strftime("%Y-%m-%d", DeliveryDate) as "Date",
+                                      SUM(C.Cost) as "Sum"
+                              FROM
+                                      Product as P
+                                      JOIN Consignment as C ON P.ConsignmentID = C.ID
+                              WHERE
+                                      DeliveryDate BETWEEN :from AND :to
+                              GROUP BY "Date"
+                              ORDER BY DeliveryDate
+                              )";
+        QSqlQuery query;
+        query.prepare(queryString);
+        query.bindValue(":from", from.toString("yyyy-MM-dd"));
+        query.bindValue(":to", to.toString("yyyy-MM-dd"));
+        query.exec();
+
+        QVector<PointInfo> result;
+        while (query.next()) {
+                PointInfo point;
+                point.relativeIndex = query.value(0).toInt();
+                point.date = query.value(1).toDate();
+                point.value = query.value(2).toInt();
+                result.append(point);
+        }
+
+        return result;
+}
+
 QStringList Database::getAvailableTypes() {
         QString queryString = "SELECT Name FROM Type";
         QSqlQuery query(queryString);
