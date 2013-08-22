@@ -494,9 +494,10 @@ int Database::getColorID(const QString &color) {
         query.prepare(queryString);
         query.bindValue(":color", color);
         query.exec();
+
+        if (query.size() <= 0) return -1;
         query.first();
-        if (query.size() == 0) return -1;
-        else return query.value("ID").toInt();
+        return query.value("ID").toInt();
 }
 
 int Database::getTypeID(const QString &type) {
@@ -506,9 +507,10 @@ int Database::getTypeID(const QString &type) {
         query.prepare(queryString);
         query.bindValue(":type", type);
         query.exec();
+
+        if (query.size() <= 0) return -1;
         query.first();
-        if (query.size() == 0) return -1;
-        else return query.value("ID").toInt();
+        return query.value("ID").toInt();
 }
 
 int Database::getCountryID(const QString &country) {
@@ -518,9 +520,10 @@ int Database::getCountryID(const QString &country) {
         query.prepare(queryString);
         query.bindValue(":country", country);
         query.exec();
+
+        if (query.size() <= 0) return -1;
         query.first();
-        if (query.size() == 0) return -1;
-        else return query.value("ID").toInt();
+        return query.value("ID").toInt();
 }
 
 int Database::addColor(const QString &color) {
