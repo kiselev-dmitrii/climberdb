@@ -905,7 +905,9 @@ void Database::removeProduct(int productID) {
 }
 
 void Database::updateConsignment(int consignmentID, const Consignment &consignment) {
-        int colorID, typeID, countryID;
+        int colorID = 0;
+        int typeID = 0;
+        int countryID = 0;
 
         if (consignment.color != "") {
                 colorID = this->getColorID(consignment.color);
@@ -953,7 +955,9 @@ void Database::updateConsignment(int consignmentID, const Consignment &consignme
 }
 
 int Database::addNewConsignment(const Consignment &consignment) {
-        int colorID, typeID, countryID;
+        int colorID = 0;
+        int typeID = 0;
+        int countryID = 0;
 
         if (consignment.color != "") {
                 colorID = this->getColorID(consignment.color);
