@@ -17,7 +17,6 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -39,7 +38,6 @@ public:
     QMenu *mnDatabase;
     QMenu *mnPricetags;
     QMenu *mnAnalysis;
-    QStatusBar *sbMainStatusBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -78,9 +76,6 @@ public:
         mnAnalysis = new QMenu(mbMainMenu);
         mnAnalysis->setObjectName(QStringLiteral("mnAnalysis"));
         MainWindow->setMenuBar(mbMainMenu);
-        sbMainStatusBar = new QStatusBar(MainWindow);
-        sbMainStatusBar->setObjectName(QStringLiteral("sbMainStatusBar"));
-        MainWindow->setStatusBar(sbMainStatusBar);
 
         mbMainMenu->addAction(mnDatabase->menuAction());
         mbMainMenu->addAction(mnPricetags->menuAction());

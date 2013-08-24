@@ -41,7 +41,6 @@ void ProductsFilter::setShortcuts() {
         QString mod = "Alt";
         for (int i = 0; i < columnCount(); ++i) {
                 QShortcut* shortcut = new QShortcut(QKeySequence(mod+"+"+QString::number(i+1)), this);
-                qDebug() << shortcut->key().toString();
                 auto slot = std::bind(&ProductsFilter::setFocusOnField, this, i);
                 connect(shortcut, &QShortcut::activated , slot);
 

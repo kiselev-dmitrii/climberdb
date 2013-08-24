@@ -55,7 +55,6 @@
    <addaction name="mnPricetags"/>
    <addaction name="mnAnalysis"/>
   </widget>
-  <widget class="QStatusBar" name="sbMainStatusBar"/>
   <action name="actSearchOnSales">
    <property name="text">
     <string>Поиск по продажам</string>
