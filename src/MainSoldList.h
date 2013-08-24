@@ -17,18 +17,35 @@ public:
         MainSoldList(QWidget* parent = nullptr);
 
 private:
-        void            createDatePanel();
+        /// Создание таблицы
         void            createView();
+        /// Создание информационной панели с отображением сумм проданных и выделенных товаров
+        void            createInfoPanel();
+        /// Создание панели с виджетами изменения даты
+        void            createDatePanel();
+        /// Обновляет сумму проданных товаров
+        void            updateSumSoldProducts();
+        /// Соединения виджетов
         void            connectWidgets();
 
 private slots:
+        /// Устанавливает текущую дату в date
         void            setTableDate(const QDate& date);
+        /// Устанавливает предыдущую дату
         void            setNextDate();
+        /// Устанавливает следующую дату
         void            setPrevDate();
+        /// Устанавилвает сумму выделенных товаров
+        void            setSumSelected();
 
 private:
         SoldProductsView*       m_soldView;
-        QHBoxLayout*            m_panelLayout;
+        QHBoxLayout*            m_ltInfoPanel;
+        QHBoxLayout*            m_ltDatePanel;
+
+        QLineEdit*              m_edtSumSelected;
+        QLineEdit*              m_edtSumSoldProducts;
+
         QDateEdit*              m_dateEdit;
         QPushButton*            m_prevBtn;
         QPushButton*            m_nextBtn;
